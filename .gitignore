@@ -348,3 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/3DClient/Client/Resource
+/3DClient/MapTool/Resource
