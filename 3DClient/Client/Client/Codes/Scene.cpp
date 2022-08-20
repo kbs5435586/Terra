@@ -34,6 +34,7 @@ _int CScene::LastUpdate_Scene(const _float & fTimeDelta)
 
 void CScene::Render_Scene()
 {
+	
 }
 
 void CScene::Remove_End(_tchar* pFileName)

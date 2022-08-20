@@ -154,8 +154,8 @@ _int CShiraken::LastUpdate_GameObject(const _float& fTimeDelta)
 		return -1;
 	if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_BLUR, this)))
 		return -1;
-	if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_EFFECT, this)))
-		return -1;
+	//if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_EFFECT, this)))
+	//	return -1;
 	return _int();
 }
 

@@ -27,6 +27,8 @@ private:
 	void							Render_Blur();
 	void							Render_Effect();
 public:
+	CTarget_Manager*				Get_TargetManager(){if(m_pTarget_Manager)return m_pTarget_Manager; }
+public:
 	static CRenderer*				Create(LPDIRECT3DDEVICE9 pGraphic_Device); 
 	virtual CComponent*				Clone_Component(void* pArg);
 	virtual void					Free();

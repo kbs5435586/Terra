@@ -67,9 +67,15 @@ HRESULT CRenderer::Ready_Renderer()
 	if (FAILED(m_pTarget_Manager->Ready_Debug_Buffer(L"Target_Blur", 400.f, 200.f, 200.f, 200.f)))
 		return E_FAIL;
 	// For.Target_Effect_Hatch
-	if (FAILED(m_pTarget_Manager->Add_Target(m_pGraphic_Device, L"Target_Effect_Hatch", ViewPort.Width, ViewPort.Height, D3DFMT_A32B32G32R32F, D3DXCOLOR(0.f, 0.f, 0.f, 1.f))))
+	if (FAILED(m_pTarget_Manager->Add_Target(m_pGraphic_Device, L"Target_Effect_Trail", ViewPort.Width, ViewPort.Height, D3DFMT_A32B32G32R32F, D3DXCOLOR(0.f, 0.f, 0.f, 0.f))))
 		return E_FAIL;
-	if (FAILED(m_pTarget_Manager->Ready_Debug_Buffer(L"Target_Effect_Hatch", 600.f, 0.f, 200.f, 200.f)))
+	if (FAILED(m_pTarget_Manager->Ready_Debug_Buffer(L"Target_Effect_Trail", 600.f, 0.f, 200.f, 200.f)))
+		return E_FAIL;
+
+	// For.Target_Post_Effect
+	if (FAILED(m_pTarget_Manager->Add_Target(m_pGraphic_Device, L"Target_Post_Effect", ViewPort.Width, ViewPort.Height, D3DFMT_A32B32G32R32F, D3DXCOLOR(0.f, 0.f, 0.f, 0.f))))
+		return E_FAIL;
+	if (FAILED(m_pTarget_Manager->Ready_Debug_Buffer(L"Target_Post_Effect", 800.f, 0.f, 200.f, 200.f)))
 		return E_FAIL;
 
 	// For.MRT_Deferred	
@@ -93,8 +99,11 @@ HRESULT CRenderer::Ready_Renderer()
 		return E_FAIL;
 	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Blur", L"Target_Blur")))
 		return E_FAIL;
-	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Effect", L"Target_Effect_Hatch")))
+	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Effect", L"Target_Effect_Trail")))
 		return E_FAIL;
+	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Post_Effect", L"Target_Post_Effect")))
+		return E_FAIL;
+
 
 	// For.Shader_LightAcc
 	m_pShaderCom_LightAcc = CShader::Create(m_pGraphic_Device, L"../Bin/ShaderFiles/Shader_LightAcc.fx");
@@ -182,6 +191,8 @@ HRESULT CRenderer::Render_RenderGroup()
 	m_pTarget_Manager->Render_Debug_Buffer(L"MRT_Shadow");
 	m_pTarget_Manager->Render_Debug_Buffer(L"MRT_Blur");
 	m_pTarget_Manager->Render_Debug_Buffer(L"MRT_Effect");
+	m_pTarget_Manager->Render_Debug_Buffer(L"MRT_Post_Effect");
+
 	return S_OK;
 }
 
@@ -276,6 +287,7 @@ void CRenderer::Render_LightAcc()
 	if (FAILED(m_pTarget_Manager->SetUp_OnShader(pEffect, L"Target_Shadow", "g_ShadowTex")))
 		return;
 
+
 	pEffect->Begin(nullptr, 0);
 	CLight_Mgr::GetInstance()->Render_Light(pEffect);
 	pEffect->End();
@@ -292,6 +304,8 @@ void CRenderer::Render_Blend()
 		nullptr == m_pShaderCom_Blend ||
 		nullptr == m_pTarget_Manager)
 		return;
+
+
 
 	LPD3DXEFFECT pEffect = m_pShaderCom_Blend->Get_EffectHandle();
 	if (nullptr == pEffect)
@@ -313,6 +327,9 @@ void CRenderer::Render_Blend()
 		return;
 	if (FAILED(m_pTarget_Manager->SetUp_OnShader(pEffect, L"Target_Blur", "g_BlurTexture")))
 		return;
+	if (FAILED(m_pTarget_Manager->SetUp_OnShader(pEffect, L"Target_Effect_Trail", "g_EffectTexture")))
+		return;
+
 	pEffect->Begin(nullptr, 0);
 	pEffect->BeginPass(0);
 
@@ -327,6 +344,9 @@ void CRenderer::Render_Blend()
 
 	pEffect->EndPass();
 	pEffect->End();
+
+
+
 
 
 	Safe_Release(pEffect);
@@ -378,6 +398,7 @@ void CRenderer::Render_Blur()
 
 void CRenderer::Render_Effect()
 {
+
 	m_pTarget_Manager->AddRef();
 	if (FAILED(m_pTarget_Manager->Begin_MRT(L"MRT_Effect")))
 		return;

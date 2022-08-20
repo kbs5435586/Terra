@@ -3,6 +3,7 @@
 #include "Management.h"
 #include "Shiraken.h"
 #include "Player.h"
+#include "Target_Manager.h"
 
 CTrail::CTrail(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CGameObject(pGraphic_Device)
@@ -31,7 +32,7 @@ HRESULT CTrail::Ready_GameObject(void* pArg)
 _int CTrail::Update_GameObject(const _float& fTimeDelta)
 {
 	m_fFrame += 60.f * fTimeDelta;
-
+	m_fAccTime += fTimeDelta;
 	if (60.f <= m_fFrame)
 		m_fFrame = 0.f;
 
@@ -46,12 +47,12 @@ _int CTrail::Update_GameObject(const _float& fTimeDelta)
 
 _int CTrail::LastUpdate_GameObject(const _float& fTimeDelta)
 {
-	if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_ALPHA, this)))
+	if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_EFFECT, this)))
 		return -1;
 	return _int();
 }
 
-void CTrail::Render_GameObject()
+void CTrail::Render_GameObject_Effect()
 {
 	if (nullptr == m_pBufferCom)
 		return;
@@ -62,17 +63,19 @@ void CTrail::Render_GameObject()
 
 	pEffect->AddRef();
 
-	if (FAILED(SetUp_ContantTable(pEffect)))
+	if (FAILED(SetUp_ConstantTable_Effect(pEffect)))
 		return;
 
 
 	pEffect->Begin(nullptr, 0);
 	pEffect->BeginPass(0);
 
-	if (m_pPlayer->GetIsAttack() )
+	//if (m_pPlayer->GetIsAttack())
 	{
 		m_pBufferCom->Render_VIBuffer();
 	}
+
+
 	
 
 	pEffect->EndPass();
@@ -141,7 +144,7 @@ HRESULT CTrail::Ready_Component()
 	return S_OK;
 }
 
-HRESULT CTrail::SetUp_ContantTable(LPD3DXEFFECT pEffect)
+HRESULT CTrail::SetUp_ConstantTable_Effect(LPD3DXEFFECT pEffect)
 {
 	m_pTransformCom->SetUp_OnShader(pEffect, "g_matWorld");
 
@@ -152,8 +155,11 @@ HRESULT CTrail::SetUp_ContantTable(LPD3DXEFFECT pEffect)
 
 	pEffect->SetMatrix("g_matView", &matView);
 	pEffect->SetMatrix("g_matProj", &matProj);
+	//pEffect->SetFloat("g_fAccTime", m_fAccTime);
 
 	m_pTextureCom->SetUp_OnShader(pEffect, "g_DiffuseTexture", 0);
+	if (FAILED(m_pRendererCom->Get_TargetManager()->SetUp_OnShader(pEffect, L"Target_Diffuse", "g_PostEffect")))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -164,8 +170,8 @@ void CTrail::Create_Trail(const _float& fTimeDelta)
 	_vec3 vMax = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetMax();
 	_vec3 vMin = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetMin();
 
-	vMax *= 0.15f;
-	vMin *= 0.15f;
+	vMax *= 0.25f;
+	vMin *= 0.25f;
 
 	m_matTrail = pGameObject->GetTrailMat();
 	m_pTransformCom->Set_Matrix(m_matTrail);

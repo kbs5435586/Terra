@@ -60,7 +60,9 @@ void CMainApp::Render_MainApp()
 	if (nullptr != m_pRenderer)
 		m_pRenderer->Render_RenderGroup();
 
-	m_pManagement->Render_Management();
+	
+
+	//m_pManagement->Render_Management();
 	m_pGraphic_Device->EndScene();
 	m_pGraphic_Device->Present(nullptr, nullptr, 0, nullptr);
 
