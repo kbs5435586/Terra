@@ -19,3 +19,4 @@ const DWORD KEY_ADOWN =		0x00008000;
 
 const DWORD KEY_E =			0x00010000;
 const DWORD KEY_Q =			0x00020000;
+

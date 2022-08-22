@@ -658,14 +658,14 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 	}
 
 
-	if (pManagement->KeyUp(KEY_AUP))
+	if (pManagement->KeyUp(KEY_UP))
 	{
 		m_isParticle = false;
 		m_isAttack = false;
 		m_IsOnce = false;
 		m_eCurState = STATE_PL_WAIT;
 	}
-	else if (pManagement->KeyPressing(KEY_AUP))
+	else if (pManagement->KeyPressing(KEY_UP))
 	{
 		m_IsOnce = false;
 		m_eCurState = STATE_PL_RUN;
@@ -676,6 +676,10 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 		if (m_pNaviCom->Move_OnNavigation(this->m_pTransformCom->Get_StateInfo(STATE_POSITION), 
 			&(vLook * 50.f * fTimeDelta), fTemp, m_eNavi, &vSlide))
 		{
+			if (fTemp <= 2.f)
+			{
+				int i = 0; 
+			}
 			_vec3 vPos = *m_pTransformCom->Get_StateInfo(STATE::STATE_POSITION);
 			vPos.y = fTemp;
 		
@@ -699,14 +703,14 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 		m_isParticle = false;
 		m_isAttack = false;
 	}
-	if (pManagement->KeyUp(KEY_ADOWN))
+	if (pManagement->KeyUp(KEY_DOWN))
 	{
 		m_isParticle = false;
 		m_isAttack = false;
 		m_IsOnce = false;
 		m_eCurState = STATE_PL_WAIT;
 	}
-	else if (pManagement->KeyPressing(KEY_ADOWN))
+	else if (pManagement->KeyPressing(KEY_DOWN))
 	{
 		m_IsOnce = false;
 		m_eCurState = STATE_PL_RUN;
@@ -733,13 +737,13 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 		m_isAttack = false;
 	}
 
-	if (pManagement->KeyPressing(KEY_ALEFT))
+	if (pManagement->KeyPressing(KEY_LEFT))
 	{
 		m_pTransformCom->Rotation_Y(-fTimeDelta);
 		m_isAttack = false;
 		m_isParticle = false;
 	}
-	else if (pManagement->KeyPressing(KEY_ARIGHT))
+	else if (pManagement->KeyPressing(KEY_RIGHT))
 	{
 		m_pTransformCom->Rotation_Y(fTimeDelta);
 		m_isAttack = false;

@@ -26,6 +26,10 @@ _float CCell::Compute_PositionY(const _vec3& vPosition)
 	{
 		D3DXPlaneFromPoints(&Plane, &m_vPoint[POINT_B], &m_vPoint[POINT_C], &m_vPoint[POINT_A]);
 		fY = ((Plane.a * vPosition.x * -1.f) + (Plane.c * vPosition.z * -1.f) + Plane.d * -1.f) / Plane.b;
+		if (fY <= 1.f)
+		{
+			int i = 0;
+		}
 		return fY; 
 	}
 	else
@@ -33,6 +37,10 @@ _float CCell::Compute_PositionY(const _vec3& vPosition)
 		D3DXPlaneFromPoints(&Plane, &m_vPoint[POINT_C], &m_vPoint[POINT_A], &m_vPoint[POINT_B]);
 
 		fY = ((Plane.a * vPosition.x * -1.f) + (Plane.c * vPosition.z * -1.f) + Plane.d * -1.f) / Plane.b;;
+		if (fY <= 1.f)
+		{
+			int i = 0;
+		}
 		return fY;
 	}
 }
@@ -78,6 +86,7 @@ _bool CCell::is_InCell(_vec3 vMovedPos, LINE* pOutLine)
 
 _bool CCell::is_InCell(_vec3 vMovedPos, LINE* pOutLine, _float& fY)
 {
+	fY = Compute_PositionY(vMovedPos);
 	for (size_t i = 0; i < LINE_END; i++)
 	{
 		if (false == m_pLine[i]->is_Right(vMovedPos))
@@ -87,7 +96,7 @@ _bool CCell::is_InCell(_vec3 vMovedPos, LINE* pOutLine, _float& fY)
 			return false;
 		}
 	}
-	fY = Compute_PositionY(vMovedPos);
+
 	return _bool(true);
 }
 

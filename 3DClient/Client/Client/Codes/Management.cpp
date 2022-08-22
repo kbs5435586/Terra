@@ -211,6 +211,15 @@ void CManagement::Key_Update()
 	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
 		m_dwKey |= KEY_ARIGHT;
 
+	if (GetAsyncKeyState('W') & 0x8000)
+		m_dwKey |= KEY_UP;
+	if (GetAsyncKeyState('S') & 0x8000)
+		m_dwKey |= KEY_DOWN;
+	if (GetAsyncKeyState('A') & 0x8000)
+		m_dwKey |= KEY_LEFT;
+	if (GetAsyncKeyState('D') & 0x8000)
+		m_dwKey |= KEY_RIGHT;
+
 }
 
 bool CManagement::KeyUp(DWORD dwKey)

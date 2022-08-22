@@ -70,7 +70,7 @@ void CTrail::Render_GameObject()
 	pEffect->Begin(nullptr, 0);
 	pEffect->BeginPass(0);
 
-	//if (m_pPlayer->GetIsAttack())
+	if (m_pPlayer->GetIsAttack())
 	{
 		m_pBufferCom->Render_VIBuffer();
 	}

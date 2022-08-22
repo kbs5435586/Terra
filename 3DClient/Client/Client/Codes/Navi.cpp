@@ -255,6 +255,10 @@ _bool CNavi::Move_OnNavigation(const _vec3* vPosition, const _vec3* vDirectionPe
 	CLine* pLine = nullptr;
 	_bool	isIn = m_vecCell[m_iCurrentIdx]->is_InCell(*vPosition + *vDirectionPerSec, &eOutLine, fTempY);
 	fY = fTempY;
+	if (fY <= 1.f)
+	{
+		int i = 0;
+	}
 	if (false == isIn)
 	{
 		if (pNeighbor = m_vecCell[m_iCurrentIdx]->Get_Neighbor(NEIGHBOR(eOutLine)))
