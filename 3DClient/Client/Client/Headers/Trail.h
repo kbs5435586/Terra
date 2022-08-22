@@ -19,14 +19,14 @@ public:
 	virtual HRESULT			Ready_GameObject(void* pArg);
 	virtual _int			Update_GameObject(const _float & fTimeDelta);
 	virtual _int			LastUpdate_GameObject(const _float & fTimeDelta);
-	virtual void			Render_GameObject_Effect();
+	virtual void			Render_GameObject();
 public:
 	static	CTrail*			Create(LPDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CGameObject*	Clone_GameObject(void* pArg);
 	virtual void			Free();
 private:
 	HRESULT					Ready_Component();
-	HRESULT					SetUp_ConstantTable_Effect(LPD3DXEFFECT pEffect);
+	HRESULT					SetUp_ConstantTable(LPD3DXEFFECT pEffect);
 private:
 	void					Create_Trail(const _float& fTimeDelta);
 private:

@@ -47,12 +47,12 @@ _int CTrail::Update_GameObject(const _float& fTimeDelta)
 
 _int CTrail::LastUpdate_GameObject(const _float& fTimeDelta)
 {
-	if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_EFFECT, this)))
+	if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_PRIORITY, this)))
 		return -1;
 	return _int();
 }
 
-void CTrail::Render_GameObject_Effect()
+void CTrail::Render_GameObject()
 {
 	if (nullptr == m_pBufferCom)
 		return;
@@ -63,7 +63,7 @@ void CTrail::Render_GameObject_Effect()
 
 	pEffect->AddRef();
 
-	if (FAILED(SetUp_ConstantTable_Effect(pEffect)))
+	if (FAILED(SetUp_ConstantTable(pEffect)))
 		return;
 
 
@@ -144,7 +144,7 @@ HRESULT CTrail::Ready_Component()
 	return S_OK;
 }
 
-HRESULT CTrail::SetUp_ConstantTable_Effect(LPD3DXEFFECT pEffect)
+HRESULT CTrail::SetUp_ConstantTable(LPD3DXEFFECT pEffect)
 {
 	m_pTransformCom->SetUp_OnShader(pEffect, "g_matWorld");
 
@@ -155,11 +155,11 @@ HRESULT CTrail::SetUp_ConstantTable_Effect(LPD3DXEFFECT pEffect)
 
 	pEffect->SetMatrix("g_matView", &matView);
 	pEffect->SetMatrix("g_matProj", &matProj);
-	//pEffect->SetFloat("g_fAccTime", m_fAccTime);
+	pEffect->SetFloat("g_fAccTime", m_fAccTime);
 
 	m_pTextureCom->SetUp_OnShader(pEffect, "g_DiffuseTexture", 0);
-	if (FAILED(m_pRendererCom->Get_TargetManager()->SetUp_OnShader(pEffect, L"Target_Diffuse", "g_PostEffect")))
-		return E_FAIL;
+	//if (FAILED(m_pRendererCom->Get_TargetManager()->SetUp_OnShader(pEffect, L"Target_Diffuse", "g_PostEffect")))
+	//	return E_FAIL;
 
 	return S_OK;
 }
@@ -168,7 +168,8 @@ void CTrail::Create_Trail(const _float& fTimeDelta)
 {
 	CGameObject* pGameObject = CManagement::GetInstance()->Get_ObjectList(SCENEID::SCENE_STATIC, L"Layer_Shiraken")->front();
 	_vec3 vMax = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetMax();
-	_vec3 vMin = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetMin();
+	_vec3 vMin = vMax * 1.25f;;
+	//_vec3 vMin = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetMin();
 
 	vMax *= 0.25f;
 	vMin *= 0.25f;

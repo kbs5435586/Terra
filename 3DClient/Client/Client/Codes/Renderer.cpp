@@ -72,11 +72,7 @@ HRESULT CRenderer::Ready_Renderer()
 	if (FAILED(m_pTarget_Manager->Ready_Debug_Buffer(L"Target_Effect_Trail", 600.f, 0.f, 200.f, 200.f)))
 		return E_FAIL;
 
-	// For.Target_Post_Effect
-	if (FAILED(m_pTarget_Manager->Add_Target(m_pGraphic_Device, L"Target_Post_Effect", ViewPort.Width, ViewPort.Height, D3DFMT_A32B32G32R32F, D3DXCOLOR(0.f, 0.f, 0.f, 0.f))))
-		return E_FAIL;
-	if (FAILED(m_pTarget_Manager->Ready_Debug_Buffer(L"Target_Post_Effect", 800.f, 0.f, 200.f, 200.f)))
-		return E_FAIL;
+
 
 	// For.MRT_Deferred	
 	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Deferred", L"Target_Diffuse")))
@@ -100,8 +96,6 @@ HRESULT CRenderer::Ready_Renderer()
 	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Blur", L"Target_Blur")))
 		return E_FAIL;
 	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Effect", L"Target_Effect_Trail")))
-		return E_FAIL;
-	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Post_Effect", L"Target_Post_Effect")))
 		return E_FAIL;
 
 
@@ -174,6 +168,7 @@ HRESULT CRenderer::Render_RenderGroup()
 		return E_FAIL;
 
 	Render_Priority();
+	Render_Effect();
 
 	Render_Deferred();
 	Render_Shadow();
@@ -182,7 +177,6 @@ HRESULT CRenderer::Render_RenderGroup()
 	Render_Blend();
 	
 
-	Render_Effect();
 	Render_Alpha();
 	Render_UI();
 

@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "..\Headers\Camera_Debug.h"
+#include "Management.h"
+
 
 
 CCamera_Debug::CCamera_Debug(LPDIRECT3DDEVICE9 pGraphic_Device)
@@ -46,14 +48,28 @@ _int CCamera_Debug::Update_GameObject(const _float & fTimeDelta)
 	if (nullptr == m_pInput_Device)
 		return -1;
 
-	if (m_pInput_Device->Get_DIKeyState(DIK_D) & 0x80)
-		m_pTransform->Go_Right(fTimeDelta);
-	if (m_pInput_Device->Get_DIKeyState(DIK_A) & 0x80)
-		m_pTransform->Go_Left(fTimeDelta);
-	if (m_pInput_Device->Get_DIKeyState(DIK_W) & 0x80)
-		m_pTransform->Go_Straight(fTimeDelta);
-	if (m_pInput_Device->Get_DIKeyState(DIK_S) & 0x80)
-		m_pTransform->BackWard(fTimeDelta);
+	_vec3 vlook, vRight, vLookNormal, vUp, vPos, vSize;
+	vUp = *m_pTransform->Get_StateInfo(STATE_UP);
+	vRight = *m_pTransform->Get_StateInfo(STATE_RIGHT);
+	vlook = *m_pTransform->Get_StateInfo(STATE_LOOK);
+	D3DXVec3Normalize(&vLookNormal, &vlook);
+
+
+	CTransform* pTransform = (CTransform*)CManagement::GetInstance()->Get_ComponentPointer(SCENE_STATIC, L"Layer_Player", L"Com_Transform", 0);
+
+	vPos = *pTransform->Get_StateInfo(STATE_POSITION) - *m_pTransform->Get_StateInfo(STATE_LOOK) * 20;
+
+	m_pTransform->Set_StateInfo(STATE_POSITION,&vPos);
+
+
+	//if (m_pInput_Device->Get_DIKeyState(DIK_D) & 0x80)
+	//	m_pTransform->Go_Right(fTimeDelta);
+	//if (m_pInput_Device->Get_DIKeyState(DIK_A) & 0x80)
+	//	m_pTransform->Go_Left(fTimeDelta);
+	//if (m_pInput_Device->Get_DIKeyState(DIK_W) & 0x80)
+	//	m_pTransform->Go_Straight(fTimeDelta);
+	//if (m_pInput_Device->Get_DIKeyState(DIK_S) & 0x80)
+	//	m_pTransform->BackWard(fTimeDelta);
 	if (MouseMove = m_pInput_Device->Get_DIMouseMove(DIM_X))
 		m_pTransform->Rotation_Y(D3DXToRadian(MouseMove) * fTimeDelta);
 	if (MouseMove = m_pInput_Device->Get_DIMouseMove(DIM_Y))
