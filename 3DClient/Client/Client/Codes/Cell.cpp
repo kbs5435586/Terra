@@ -92,7 +92,6 @@ _bool CCell::is_InCell(_vec3 vMovedPos, LINE* pOutLine, _float& fY)
 		if (false == m_pLine[i]->is_Right(vMovedPos))
 		{
 			*pOutLine = LINE(i);
-			//fY = Compute_PositionY(vMovedPos);
 			return false;
 		}
 	}

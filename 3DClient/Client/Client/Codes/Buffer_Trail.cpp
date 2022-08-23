@@ -183,3 +183,14 @@ void CBuffer_Trail::Free()
 {
 	CVIBuffer::Free();
 }
+
+void CBuffer_Trail::Trail_AllDetelte()
+{
+	if (m_vecTrailData.size() >= 1)
+	{
+		m_vecTrailData.clear();
+		m_vecTrailData.shrink_to_fit();
+	}
+
+
+}

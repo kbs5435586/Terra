@@ -19,13 +19,17 @@ public:
 	static CBuffer_Trail*	Create(LPDIRECT3DDEVICE9 pGraphic_Device, _uint iCnt, _uint iLerpCnt, _float fLifeTime);
 	virtual CComponent*		Clone_Component(void* pArg);
 	virtual void			Free();
+public:
+	void					Trail_AllDetelte();
 private:
 	vector<TRAIL>			m_vecTrailData = {};
 private:
-	_float					m_fLifeTime = 1.f;
+	_float					m_fLifeTime = 0.5f;
 	_float					m_fUVRate = 0.f;
+
 private:
 	_uint					m_iLerpCnt = 20;
 	_uint					m_iCurVtxCnt = 0;
 	_uint					m_iCurTriCnt = 0;
+
 };

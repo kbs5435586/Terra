@@ -456,7 +456,7 @@ HRESULT CScene_Logo::Ready_Component_Buffer(CManagement* pManagement)
 		CBuffer_Terrain::Create(m_pGraphic_Device, (_uint)300.f, (_uint)400.f, 1.f)/**/)))
 		return E_FAIL;
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Buffer_Trail",
-		CBuffer_Trail::Create(m_pGraphic_Device, 1000, 2, 1.f))))
+		CBuffer_Trail::Create(m_pGraphic_Device, 1000, 1, 0.01f))))
 		return E_FAIL;
 	return S_OK;
 }
@@ -485,7 +485,13 @@ HRESULT CScene_Logo::Ready_Component_Texture(CManagement* pManagement)
  	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Hatch",
 		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../Bin/Texture/Hatch/Hatch%d.dds",6))))
 		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Mask",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/Mask/MMask_0%d.tga", 9))))
+		return E_FAIL;
 
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Trail",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/Effect/TRAIL_0%d.tga",8))))
+		return E_FAIL;
 
 	return S_OK;
 }

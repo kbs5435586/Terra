@@ -617,6 +617,10 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 		m_isParticle = true;
 		m_isAttack = true;
 	}
+	else
+	{
+		//m_isAttack = false;
+	}
 
 
 

@@ -35,12 +35,15 @@ private:
 	CRenderer*				m_pRendererCom = nullptr;
 	CShader*				m_pShaderCom = nullptr;
 	CTexture*				m_pTextureCom = nullptr;
+	CTexture*				m_pTextureCom_Mask = nullptr;
 private:
 	CPlayer*				m_pPlayer = nullptr;
 private:
-	_float					m_fDuration = 0.03f;
+	_float					m_fDuration = 0.1f;
 	_float					m_fCreateTime = 0.f;
 	_float					m_fAccTime = 0.f;
+private:
+	_uint					m_iTextureIdx = 0;
 
 
 };
