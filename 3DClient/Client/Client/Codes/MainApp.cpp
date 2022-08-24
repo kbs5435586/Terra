@@ -60,10 +60,11 @@ void CMainApp::Render_MainApp()
 	if (nullptr != m_pRenderer)
 		m_pRenderer->Render_RenderGroup();
 
-	IDirect3DSurface9* offscreenSurface = 0;
+	
 	m_pGraphic_Device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &offscreenSurface);
 	//D3DXSaveSurfaceToFile(L"test.bmp", D3DXIFF_BMP, offscreenSurface, 0, 0);
-
+	
+	//m_pGraphic_Device->StretchRect(offscreenSurface, nullptr, )
 
 	m_pGraphic_Device->EndScene();
 	m_pGraphic_Device->Present(nullptr, nullptr, 0, nullptr);

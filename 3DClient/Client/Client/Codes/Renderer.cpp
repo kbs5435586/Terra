@@ -5,6 +5,7 @@
 #include "Shader.h"
 #include "Light_Mgr.h"
 #include "Management.h"
+#include "Target.h"
 
 CRenderer::CRenderer(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CComponent(pGraphic_Device)
@@ -66,17 +67,12 @@ HRESULT CRenderer::Ready_Renderer()
 		return E_FAIL;
 	if (FAILED(m_pTarget_Manager->Ready_Debug_Buffer(L"Target_Blur", 400.f, 200.f, 200.f, 200.f)))
 		return E_FAIL;
-	// For.Target_Effect_Hatch
-	if (FAILED(m_pTarget_Manager->Add_Target(m_pGraphic_Device, L"Target_Effect_Trail", ViewPort.Width, ViewPort.Height, D3DFMT_A32B32G32R32F, D3DXCOLOR(0.f, 0.f, 0.f, 0.f))))
+	// For.Target_PostEffect
+	if (FAILED(m_pTarget_Manager->Add_Target(m_pGraphic_Device, L"Target_PostEffect", ViewPort.Width, ViewPort.Height, D3DFMT_A32B32G32R32F, D3DXCOLOR(0.f, 0.f, 0.f, 1.f))))
 		return E_FAIL;
-	if (FAILED(m_pTarget_Manager->Ready_Debug_Buffer(L"Target_Effect_Trail", 600.f, 0.f, 200.f, 200.f)))
+	if (FAILED(m_pTarget_Manager->Ready_Debug_Buffer(L"Target_PostEffect", 600.f, 0.f, 200.f, 200.f)))
 		return E_FAIL;
 
-	// For.Target_Effect_Hatch
-	if (FAILED(m_pTarget_Manager->Add_Target(m_pGraphic_Device, L"Target_Merge", ViewPort.Width, ViewPort.Height, D3DFMT_A32B32G32R32F, D3DXCOLOR(0.f, 0.f, 0.f, 0.f))))
-		return E_FAIL;
-	if (FAILED(m_pTarget_Manager->Ready_Debug_Buffer(L"Target_Merge", 600.f, 200.f, 200.f, 200.f)))
-		return E_FAIL;
 
 	// For.MRT_Deferred	
 	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Deferred", L"Target_Diffuse")))
@@ -99,11 +95,10 @@ HRESULT CRenderer::Ready_Renderer()
 		return E_FAIL;
 	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Blur", L"Target_Blur")))
 		return E_FAIL;
-	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Effect", L"Target_Effect_Trail")))
+	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_PostEffect", L"Target_PostEffect")))
 		return E_FAIL;
 
-	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Merge", L"Target_Merge")))
-		return E_FAIL;
+
 
 	// For.Shader_LightAcc
 	m_pShaderCom_LightAcc = CShader::Create(m_pGraphic_Device, L"../Bin/ShaderFiles/Shader_LightAcc.fx");
@@ -177,24 +172,22 @@ HRESULT CRenderer::Render_RenderGroup()
 
 
 	Render_Deferred();
-	Render_Shadow();
+	
 	Render_Blur();
 	Render_LightAcc();
 	Render_Blend();
 	
 
-
-
+	Render_PostEffect();
 	Render_Alpha();
+	Render_Shadow();
 	Render_UI();
 
 	m_pTarget_Manager->Render_Debug_Buffer(L"MRT_Deferred");
 	m_pTarget_Manager->Render_Debug_Buffer(L"MRT_LightAcc");
 	m_pTarget_Manager->Render_Debug_Buffer(L"MRT_Shadow");
 	m_pTarget_Manager->Render_Debug_Buffer(L"MRT_Blur");
-	m_pTarget_Manager->Render_Debug_Buffer(L"MRT_Effect");
-	m_pTarget_Manager->Render_Debug_Buffer(L"MRT_Post_Effect");
-	//m_pTarget_Manager->Render_Debug_Buffer(L"MRT_Merge");
+	m_pTarget_Manager->Render_Debug_Buffer(L"MRT_PostEffect");
 
 	return S_OK;
 }
@@ -402,27 +395,21 @@ void CRenderer::Render_Blur()
 	Safe_Release(m_pTarget_Manager);
 }
 
-void CRenderer::Render_Effect()
+
+void CRenderer::Render_PostEffect()
 {
+	LPDIRECT3DSURFACE9 tempSurface = m_pTarget_Manager->GetTarget(L"Target_PostEffect")->Get_Target();
+	m_pGraphic_Device->StretchRect(offscreenSurface, nullptr, tempSurface, nullptr, D3DTEXF_NONE);
 
-	m_pTarget_Manager->AddRef();
-	if (FAILED(m_pTarget_Manager->Begin_MRT(L"MRT_Effect")))
-		return;
-
-	for (auto& pGameObject : m_RenderList[RENDER_EFFECT])
+	for (auto& pGameObject : m_RenderList[RENDER_POSTEFFECT])
 	{
 		if (nullptr != pGameObject)
 		{
-			pGameObject->Render_GameObject_Effect();
+			pGameObject->Render_GameObject_PostEffect();
 			Safe_Release(pGameObject);
 		}
 	}
-	m_RenderList[RENDER_EFFECT].clear();
-
-
-	if (FAILED(m_pTarget_Manager->End_MRT(L"MRT_Effect")))
-		return;
-	Safe_Release(m_pTarget_Manager);
+	m_RenderList[RENDER_POSTEFFECT].clear();
 }
 
 CRenderer * CRenderer::Create(LPDIRECT3DDEVICE9 pGraphic_Device)

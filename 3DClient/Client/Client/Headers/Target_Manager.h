@@ -17,6 +17,8 @@ public:
 public:
 	HRESULT Ready_Debug_Buffer(const _tchar * pTargetTag, const _float & fStartX, const _float & fStartY, const _float & fSizeX, const _float & fSizeY);
 	HRESULT Render_Debug_Buffer(const _tchar * pMRTTag);
+public:
+	CTarget* GetTarget(const _tchar* pTargetTag);
 private:
 	map<const _tchar*, CTarget*>				m_mapTarget;
 	typedef map<const _tchar*, CTarget*>		MAPTARGET;

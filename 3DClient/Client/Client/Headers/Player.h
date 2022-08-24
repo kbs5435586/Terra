@@ -32,7 +32,7 @@ public:
 	virtual void			Render_GameObject();
 	virtual void			Render_GameObject_Shadow();
 	virtual void			Render_GameObject_Blur();
-	virtual void			Render_GameObject_Effect();
+	virtual void			Render_GameObject_PostEffect();
 public:
 	static	CPlayer*		Create(LPDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CGameObject*	Clone_GameObject(void* pArg);
@@ -60,7 +60,7 @@ private:
 	HRESULT					SetUp_ConstantTable(LPD3DXEFFECT pEffect, const D3DXMESHCONTAINER_DERIVED* pMeshContainer, const _uint& iAttributeID);
 	HRESULT					SetUp_ConstantTable_Shadow(LPD3DXEFFECT pEffect, const D3DXMESHCONTAINER_DERIVED* pMeshContainer, const _uint& iAttributeID);
 	HRESULT					SetUp_ConstantTable_Blur(LPD3DXEFFECT pEffect, const D3DXMESHCONTAINER_DERIVED* pMeshContainer, const _uint& iAttributeID);
-	HRESULT					SetUp_ConstantTable_Effect(LPD3DXEFFECT pEffect, const D3DXMESHCONTAINER_DERIVED* pMeshContainer, const _uint& iAttributeID);
+	HRESULT					SetUp_ConstantTable_PostEffect(LPD3DXEFFECT pEffect, const D3DXMESHCONTAINER_DERIVED* pMeshContainer, const _uint& iAttributeID);
 private:
 	CTransform*				m_pTransformCom = nullptr;
 	CRenderer*				m_pRendererCom = nullptr;
@@ -68,7 +68,7 @@ private:
 	CShader*				m_pShaderCom = nullptr;
 	CShader*				m_pShaderCom_Shadow = nullptr;
 	CShader*				m_pShaderCom_Blur = nullptr;
-	CShader*				m_pShaderCom_Effect = nullptr;
+	CShader*				m_pShaderCom_PostEffect = nullptr;
 	CNavi*					m_pNaviCom = nullptr;
 	CTexture*				m_pTextureCom_Hatch = nullptr;
 	CCollider*				m_pColliderCom[2] = {nullptr, nullptr};
@@ -107,6 +107,7 @@ public:
 	
 
 
-
+private:
+	bool		test_Input = false;
 };
 

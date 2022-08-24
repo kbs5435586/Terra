@@ -57,7 +57,7 @@ _int CCamera_Debug::Update_GameObject(const _float & fTimeDelta)
 
 	CTransform* pTransform = (CTransform*)CManagement::GetInstance()->Get_ComponentPointer(SCENE_STATIC, L"Layer_Player", L"Com_Transform", 0);
 
-	vPos = *pTransform->Get_StateInfo(STATE_POSITION) - *m_pTransform->Get_StateInfo(STATE_LOOK) * 20;
+	vPos = *pTransform->Get_StateInfo(STATE_POSITION) - *m_pTransform->Get_StateInfo(STATE_LOOK) * 10;
 	vPos.y += 5.f;
 	m_pTransform->Set_StateInfo(STATE_POSITION,&vPos);
 
@@ -70,6 +70,7 @@ _int CCamera_Debug::Update_GameObject(const _float & fTimeDelta)
 	//	m_pTransform->Go_Straight(fTimeDelta);
 	//if (m_pInput_Device->Get_DIKeyState(DIK_S) & 0x80)
 	//	m_pTransform->BackWard(fTimeDelta);
+
 	if (MouseMove = m_pInput_Device->Get_DIMouseMove(DIM_X))
 		m_pTransform->Rotation_Y(D3DXToRadian(MouseMove) * fTimeDelta);
 	if (MouseMove = m_pInput_Device->Get_DIMouseMove(DIM_Y))

@@ -2,6 +2,8 @@
 #include "..\Headers\Player.h"
 #include "Management.h"
 #include "Mini_Shraken.h"
+#include "Target_Manager.h"
+#include "Target.h"
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CGameObject(pGraphic_Device)
 {
@@ -39,8 +41,7 @@ HRESULT CPlayer::Ready_GameObject(void* pArg)
 }
 
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
-{
-	
+{	
 	_vec3 vPos = *m_pTransformCom->Get_StateInfo(STATE::STATE_POSITION);
 
 	Reset_Combo(fTimeDelta);
@@ -50,6 +51,11 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	//m_pMeshCom->Set_AnimationSet(STATE_FIRE_END);
 	m_pMeshCom->Play_Animation(fTimeDelta * m_fMove);
 	Input_Key(fTimeDelta);
+	m_fAccTime += fTimeDelta;
+
+
+	if (CManagement::GetInstance()->KeyDown(KEY_G))
+		test_Input ^= true;
 
 	return _int();
 }
@@ -63,14 +69,27 @@ _int CPlayer::LastUpdate_GameObject(const _float& fTimeDelta)
 	//Obb_Collision(m_pTransformCom, 5.f);
 
 	m_fBlurTime += fTimeDelta;
-	if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_NONEALPHA, this)))
-		return -1;
+	//if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_NONEALPHA, this)))
+	//	return -1;
 	if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_SHADOW, this)))
 		return -1;
-	if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_BLUR, this)))
-		return -1;
-	//if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_EFFECT, this)))
+	//if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_BLUR, this)))
 	//	return -1;
+	//if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_POSTEFFECT, this)))
+	//	return -1;
+
+
+	if (!test_Input)
+	{
+		if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_NONEALPHA, this)))
+			return -1;
+	}
+	else
+	{
+		if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_POSTEFFECT, this)))
+			return -1;
+	}
+
 	return _int();
 }
 
@@ -215,13 +234,14 @@ void CPlayer::Render_GameObject_Blur()
 	Safe_Release(pEffect);
 }
 
-void CPlayer::Render_GameObject_Effect()
+
+void CPlayer::Render_GameObject_PostEffect()
 {
 	if (nullptr == m_pMeshCom ||
 		nullptr == m_pShaderCom_Shadow)
 		return;
 
-	LPD3DXEFFECT		pEffect = m_pShaderCom_Effect->GetEffectHandle();
+	LPD3DXEFFECT		pEffect = m_pShaderCom_PostEffect->GetEffectHandle();
 	if (nullptr == pEffect)
 		return;
 
@@ -241,12 +261,12 @@ void CPlayer::Render_GameObject_Effect()
 
 		for (size_t j = 0; j < pMeshContainer->NumMaterials; ++j)
 		{
-			if (FAILED(SetUp_ConstantTable_Effect(pEffect, pMeshContainer, j)))
+			if (FAILED(SetUp_ConstantTable_PostEffect(pEffect, pMeshContainer, j)))
 				return;
 
 			pEffect->CommitChanges();
-			m_pMeshCom->Render_Mesh(i, j);
 
+			m_pMeshCom->Render_Mesh(i, j);
 		}
 
 	}
@@ -254,6 +274,8 @@ void CPlayer::Render_GameObject_Effect()
 	pEffect->EndPass();
 	pEffect->End();
 	Safe_Release(pEffect);
+
+
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
@@ -285,10 +307,10 @@ void CPlayer::Free()
 	Safe_Release(m_pShaderCom);
 	Safe_Release(m_pShaderCom_Shadow);
 	Safe_Release(m_pShaderCom_Blur);
-	Safe_Release(m_pShaderCom_Effect);
 	Safe_Release(m_pMeshCom);
 	Safe_Release(m_pRendererCom);
 	Safe_Release(m_pTransformCom);
+	Safe_Release(m_pShaderCom_PostEffect);
 	Safe_Release(m_pNaviCom);
 	Safe_Release(m_pTextureCom_Hatch);
 	Safe_Release(m_pColliderCom[0]);
@@ -325,8 +347,9 @@ HRESULT CPlayer::Ready_Component()
 	m_pShaderCom_Blur = (CShader*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Shader_Blur");
 	if (FAILED(Add_Component(L"Com_Shader_Blur", m_pShaderCom_Blur)))
 		return E_FAIL;	
-	m_pShaderCom_Effect = (CShader*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Shader_Effect");
-	if (FAILED(Add_Component(L"Com_Shader_Effect", m_pShaderCom_Effect)))
+	//m_pShaderCom_PostEffect
+	m_pShaderCom_PostEffect = (CShader*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Shader_Effect");
+	if (FAILED(Add_Component(L"Com_Shader_PostEffect", m_pShaderCom_PostEffect)))
 		return E_FAIL;
 	// For.Com_Mesh
 	m_pMeshCom = (CDynamic_Mesh*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Mesh_Player");
@@ -413,7 +436,8 @@ HRESULT CPlayer::SetUp_ConstantTable_Blur(LPD3DXEFFECT pEffect, const D3DXMESHCO
 	return NOERROR;
 }
 
-HRESULT CPlayer::SetUp_ConstantTable_Effect(LPD3DXEFFECT pEffect, const D3DXMESHCONTAINER_DERIVED* pMeshContainer, const _uint& iAttributeID)
+
+HRESULT CPlayer::SetUp_ConstantTable_PostEffect(LPD3DXEFFECT pEffect, const D3DXMESHCONTAINER_DERIVED* pMeshContainer, const _uint& iAttributeID)
 {
 	m_pTransformCom->SetUp_OnShader(pEffect, "g_matWorld");
 
@@ -422,12 +446,6 @@ HRESULT CPlayer::SetUp_ConstantTable_Effect(LPD3DXEFFECT pEffect, const D3DXMESH
 
 	m_pGraphic_Device->GetTransform(D3DTS_VIEW, &matView);
 	m_pGraphic_Device->GetTransform(D3DTS_PROJECTION, &matProj);
-	m_pTextureCom_Hatch->SetUp_OnShader(pEffect, "g_DiffuseTexture_0",0);
-	m_pTextureCom_Hatch->SetUp_OnShader(pEffect, "g_DiffuseTexture_1",1);
-	m_pTextureCom_Hatch->SetUp_OnShader(pEffect, "g_DiffuseTexture_2",2);
-	m_pTextureCom_Hatch->SetUp_OnShader(pEffect, "g_DiffuseTexture_3",3);
-	m_pTextureCom_Hatch->SetUp_OnShader(pEffect, "g_DiffuseTexture_4",4);
-	m_pTextureCom_Hatch->SetUp_OnShader(pEffect, "g_DiffuseTexture_5",5);
 
 	pEffect->SetMatrix("g_matView", &matView);
 	pEffect->SetMatrix("g_matProj", &matProj);
@@ -435,12 +453,17 @@ HRESULT CPlayer::SetUp_ConstantTable_Effect(LPD3DXEFFECT pEffect, const D3DXMESH
 	matLightView = CManagement::GetInstance()->GetShadowViewMatrix();
 	matLightProj = CManagement::GetInstance()->GetShadowProjMatrix();
 
-	
-	const D3DLIGHT9* pLightInfo = CLight_Mgr::GetInstance()->Get_LightInfo();
-	if (nullptr == pLightInfo)
+	const SUBSETDESC* pSubSet = &pMeshContainer->pSubSetDesc[iAttributeID];
+	if (nullptr == pSubSet)
 		return E_FAIL;
-	pEffect->SetVector("g_vLightDir", &_vec4(pLightInfo->Direction, 0.f));
 
+	pEffect->SetVector("g_vMtrlSpecular", (_vec4*)&pSubSet->Material.MatD3D.Specular);
+	pEffect->SetVector("g_vMtrlAmbient", (_vec4*)&pSubSet->Material.MatD3D.Ambient);
+	pEffect->SetFloat("g_fPower", pSubSet->Material.MatD3D.Power);
+
+	
+	pEffect->SetTexture("g_DiffuseTexture", m_pRendererCom->Get_TargetManager()->GetTarget(L"Target_PostEffect")->Get_Texture());
+	pEffect->SetFloat("g_fAccTime", m_fAccTime);
 	return NOERROR;
 }
 

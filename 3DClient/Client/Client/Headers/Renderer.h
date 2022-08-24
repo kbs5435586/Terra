@@ -26,6 +26,7 @@ private:
 	void							Render_Shadow();
 	void							Render_Blur();
 	void							Render_Effect();
+	void							Render_PostEffect();
 public:
 	CTarget_Manager*				Get_TargetManager(){if(m_pTarget_Manager)return m_pTarget_Manager; }
 public:

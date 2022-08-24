@@ -15,6 +15,9 @@ public:
 public:
 	HRESULT Ready_Debug_Buffer(const _float& fStartX, const _float& fStartY, const _float& fSizeX, const _float& fSizeY);
 	HRESULT Render_Debug_Buffer();
+public:
+	LPDIRECT3DSURFACE9			Get_Target() {return m_pTarget_Surface;}
+	LPDIRECT3DTEXTURE9			Get_Texture() {return m_pTarget_Texture;}
 private:
 	LPDIRECT3DDEVICE9			m_pGraphic_Device = nullptr;
 	LPDIRECT3DTEXTURE9			m_pTarget_Texture = nullptr;

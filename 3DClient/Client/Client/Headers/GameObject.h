@@ -19,7 +19,7 @@ public:
 	virtual void							Render_GameObject();
 	virtual void							Render_GameObject_Shadow();
 	virtual void							Render_GameObject_Blur();
-	virtual void							Render_GameObject_Effect();
+	virtual void							Render_GameObject_PostEffect();
 protected:
 	void									Obb_Collision(CTransform* pTransform, const _float& fAddY = 0.f);
 	void									Hit_Object(CTransform* pTransform, _float& fCnt, _vec3 vStart, _vec3 vEnd, _vec3 vMid);
@@ -57,6 +57,7 @@ protected:
 protected:
 	_float									m_fTimeDelta = 0.f;
 	_double									m_fAnimTime = 0.f;
+	_float									m_fAccTime = 0.f;
 protected:
 	UI										m_eUI = UI::UI_END;
 protected://Animation

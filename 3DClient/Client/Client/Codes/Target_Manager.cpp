@@ -118,6 +118,11 @@ HRESULT CTarget_Manager::Render_Debug_Buffer(const _tchar* pMRTTag)
 	return NOERROR;
 }
 
+CTarget* CTarget_Manager::GetTarget(const _tchar* pTargetTag)
+{
+	return Find_Target(pTargetTag);
+}
+
 
 CTarget* CTarget_Manager::Find_Target(const _tchar* pTargetTag)
 {

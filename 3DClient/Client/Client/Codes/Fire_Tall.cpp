@@ -114,6 +114,11 @@ void CFire_Tall::Render_GameObject()
     Safe_Release(pEffect);
 }
 
+void CFire_Tall::Render_GameObject_PostEffect()
+{
+
+}
+
 CFire_Tall* CFire_Tall::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
 {
     CFire_Tall* pInstance = new CFire_Tall(pGraphic_Device);

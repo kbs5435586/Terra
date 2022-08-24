@@ -41,7 +41,6 @@ private:
 private:
 	_float					m_fDuration = 0.1f;
 	_float					m_fCreateTime = 0.f;
-	_float					m_fAccTime = 0.f;
 private:
 	_uint					m_iTextureIdx = 0;
 

@@ -16,7 +16,7 @@ HINSTANCE g_hInst;
 WCHAR szTitle[MAX_LOADSTRING];                
 WCHAR szWindowClass[MAX_LOADSTRING];           
 HWND g_hWnd;
-
+IDirect3DSurface9*  offscreenSurface = nullptr;
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);

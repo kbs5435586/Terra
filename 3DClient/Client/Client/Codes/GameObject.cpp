@@ -47,7 +47,8 @@ void CGameObject::Render_GameObject_Blur()
 {
 }
 
-void CGameObject::Render_GameObject_Effect()
+
+void CGameObject::Render_GameObject_PostEffect()
 {
 }
 
