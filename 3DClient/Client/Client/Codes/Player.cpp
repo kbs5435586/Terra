@@ -28,7 +28,7 @@ HRESULT CPlayer::Ready_GameObject(void* pArg)
 
 	m_pTransformCom->Scaling(0.1f, 0.1f, 0.1f);
 	m_pTransformCom->SetUp_Speed(10.f, D3DXToRadian(180.f));
-	m_pTransformCom->Set_StateInfo(STATE_POSITION, &_vec3(120.f, 0.f, 30.f));
+	m_pTransformCom->Set_StateInfo(STATE_POSITION, &_vec3(30.f, 0.f, 30.f));
 //	m_pTransformCom->Set_StateInfo(STATE_POSITION, &_vec3(90.f, 0.f, 90.f));
 	m_eNavi = NAVI::NAVI_PLAYER;
 	m_eCurState = CPlayer::STATE_PL_WAIT;
@@ -46,6 +46,8 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	Reset_Combo(fTimeDelta);
 	End_Loop(fTimeDelta);
 	Change_State(m_eCurState);
+	
+	//m_pMeshCom->Set_AnimationSet(STATE_FIRE_END);
 	m_pMeshCom->Play_Animation(fTimeDelta * m_fMove);
 	Input_Key(fTimeDelta);
 
@@ -582,6 +584,8 @@ void CPlayer::Change_State(STATE_ eID)
 		}*/
 		if (m_eCurState == eID)
 			m_ePreState = eID;
+
+		m_fOnIdleTime = 0.f;
 	}
 }
 
@@ -597,7 +601,7 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 	{
 		m_IsOnce = true;
 		m_isCombo = true;
-		m_isAttack = true;
+		m_isAttack = true; 
 		m_isParticle = true;
 		m_iCurComboCnt++;
 		if (m_iPreComboCnt != m_iCurComboCnt)
@@ -616,10 +620,6 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 		m_IsOnce = true;
 		m_isParticle = true;
 		m_isAttack = true;
-	}
-	else
-	{
-		//m_isAttack = false;
 	}
 
 
@@ -755,6 +755,12 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 	}
 
 
+	if (pManagement->KeyDown(KEY_F) && m_isInputWeapon)
+	{	
+		Fire();
+	}
+
+
 
 
 
@@ -851,6 +857,17 @@ void CPlayer::End_Loop(const _float& fTimeDelta)
 		}
 
 	}
+	if (m_pMeshCom->Get_CurrentState() == CPlayer::STATE_FIRE_START)
+	{
+		m_fOnIdleTime += fTimeDelta;
+		m_fAnimTime = m_pMeshCom->Get_AllTime();
+	
+		if (m_fAnimTime - m_fOnIdleTime <  0.25f)
+		{
+			m_eCurState = CPlayer::STATE_FIRE_READY;
+		}
+	}
+
 	if (m_IsOnce && m_pMeshCom->Get_EndLoop())
 	{
 		//Jump
@@ -914,10 +931,10 @@ void CPlayer::End_Loop(const _float& fTimeDelta)
 			else if (m_eCurState == CPlayer::STATE_FIRE_READY)
 			{
 				m_eCurState = CPlayer::STATE_FIRE_SHOT;
-			}
-			else if (m_eCurState == CPlayer::STATE_FIRE_START)
-			{
-				m_eCurState = CPlayer::STATE_FIRE_READY;
+				_vec3 vPos = *m_pTransformCom->Get_StateInfo(STATE::STATE_POSITION);
+				_matrix matTemp = m_pTransformCom->Get_Matrix();
+				if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_Fire_Tall", SCENE_LOGO, L"Layer_Fire_Tall", &matTemp)))
+					return ;
 			}
 		}
 

@@ -151,98 +151,11 @@
     <Filter Include="01. Scene\03. Stage_Boss">
       <UniqueIdentifier>{be16930f-66e1-4129-b454-564c08e5a0a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\00. Static_Mesh">
-      <UniqueIdentifier>{6f52cc37-2e74-4ab8-830e-3072d313757b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\03. UI">
-      <UniqueIdentifier>{ae6e9a18-8c09-4ac7-bcd5-ca5bcccefd79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh">
-      <UniqueIdentifier>{1aa44888-9196-4fe3-817c-85b3c5c182df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh\00. Player">
-      <UniqueIdentifier>{cf7800ce-143e-4ce4-b8e6-2f08909bae46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\03. UI\00. Back_Logo">
-      <UniqueIdentifier>{b7b25b06-c985-42d3-9c67-a8a3a5872049}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Scene\01. Stage_Town">
       <UniqueIdentifier>{887450a7-cef0-4d4c-bcd8-d590ba83671b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\03. UI\01. HP">
-      <UniqueIdentifier>{a0dbbe31-86f6-4c54-b4b2-f76b4231c505}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\03. UI\02. MP">
-      <UniqueIdentifier>{853baba7-fea2-47b8-8271-6c7ebaad7049}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\03. UI\03. Back_HP">
-      <UniqueIdentifier>{0f6697aa-dd14-4cb3-8c1d-b5f389379a97}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\03. UI\04. Back_MP">
-      <UniqueIdentifier>{6ca74446-3555-4199-94fb-f6695ae9b8e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\00. Static_Mesh\00. Cliff">
-      <UniqueIdentifier>{b5ff8d5f-8e04-40c7-bc9a-6cf3a984c320}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\00. Static_Mesh\01. Fence">
-      <UniqueIdentifier>{1a3c54e7-7d07-4f53-b307-85d62f685375}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\00. Static_Mesh\02. Flower">
-      <UniqueIdentifier>{845f67f2-39dc-4ad5-b369-32a4c1c5624a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\00. Static_Mesh\03. Grass">
-      <UniqueIdentifier>{cd70ac87-b2f9-499a-aa90-d704675e8ca7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\00. Static_Mesh\05. House">
-      <UniqueIdentifier>{a128d977-34ee-4735-b811-6cf270b1d5d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\00. Static_Mesh\06. Rock">
-      <UniqueIdentifier>{9ea55a16-8e83-426d-95cd-5d8bafecde8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\00. Static_Mesh\07. Tree">
-      <UniqueIdentifier>{2de89033-5b18-4b19-b15f-ec52f6efabb0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\00. Static_Mesh\08. Wall">
-      <UniqueIdentifier>{be3d1b9e-d0bb-490c-8479-b177ae6d9f80}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh\01. Beatle">
-      <UniqueIdentifier>{e36bc64c-6d78-47ce-be7d-685046d836f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh\02. Bee">
-      <UniqueIdentifier>{dedaa7c8-5cfc-4f58-88ee-c76479ae75e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh\03. Mantis">
-      <UniqueIdentifier>{4ba8f237-eb94-433c-b512-20f43e7bb2cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh\04. Monkey">
-      <UniqueIdentifier>{dcd8cf71-552b-44e1-905e-7cda737397b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh\05. NPC">
-      <UniqueIdentifier>{6d3c17ce-caee-42c4-85fe-f6305fee1912}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh\06. Tower">
-      <UniqueIdentifier>{7118b93d-0331-486f-a1e7-7247a72df005}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh\07. Vergos">
-      <UniqueIdentifier>{2ffaa700-6e49-49df-8e59-dd2a270081f2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="97. Engine\01. Utility\02. Component\00. Component\08. Collider">
       <UniqueIdentifier>{f3bf4932-bf45-4812-8742-ebe38ee06db1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh\08. Useless">
-      <UniqueIdentifier>{dfb1f774-6b05-49ff-9194-93d9cddb9de2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh\08. Useless\00. UD_Worker">
-      <UniqueIdentifier>{832a3728-87ac-473b-a128-b823e2cc621e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh\08. Useless\01. UD_LightCavarly">
-      <UniqueIdentifier>{1ef51a47-75a1-40b7-89a1-84fbdee18f81}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh\08. Useless\02. UD_HeavyInfantry">
-      <UniqueIdentifier>{a60cb23d-8931-47ef-8af5-cb42cb58690e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\03. UI\05. DamageFont">
-      <UniqueIdentifier>{d1f357ef-fecd-4567-bb19-0e08787c887f}</UniqueIdentifier>
     </Filter>
     <Filter Include="97. Engine\01. Utility\04. Target">
       <UniqueIdentifier>{5faf78f0-77d5-4ed1-bdfa-d0d63025e7ee}</UniqueIdentifier>
@@ -253,56 +166,152 @@
     <Filter Include="97. Engine\01. Utility\04. Target\01. Target_Managert">
       <UniqueIdentifier>{9f31ec54-8dff-4e7d-a1f1-0bd6214b53c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\00. Static_Mesh\04. Hill">
-      <UniqueIdentifier>{09678e09-f97b-4a6c-a21a-fc854b718624}</UniqueIdentifier>
-    </Filter>
     <Filter Include="99. Default">
       <UniqueIdentifier>{5cde4b60-235d-449d-bb73-2e9a57a9b861}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh\00. Player\00. Shiraken">
-      <UniqueIdentifier>{a9071a08-f3ff-46ff-8b30-7a7de9d82932}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Dynamic_Mesh\00. Player\01. Sword">
-      <UniqueIdentifier>{3b60d226-95a5-48ae-900f-528b88a4a65a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\05. Public">
-      <UniqueIdentifier>{b7b35f13-5a16-4a12-9197-4048bd01a0b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\05. Public\02. Terrain">
-      <UniqueIdentifier>{b5fdcca8-6f6d-4d39-8d66-0b6497f1d053}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\05. Public\03. SkyBox">
-      <UniqueIdentifier>{3390c022-5913-48d9-a34f-8ddbefd83274}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\05. Public\00. Camera">
-      <UniqueIdentifier>{cb747c35-379c-402a-a8cf-7e26aee5f8ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\05. Public\00. Camera\00. Camera_Debug">
-      <UniqueIdentifier>{193c700a-e317-4d65-8fff-3268b2b1a6ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\05. Public\00. Camera\01. Camera_Light">
-      <UniqueIdentifier>{5a9769a6-a4c0-4df5-ac16-aaa69cbee77b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\04. ParticleSystem">
-      <UniqueIdentifier>{095751b4-5226-4120-ad19-4c804c5db39a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\04. ParticleSystem\00. Snow">
-      <UniqueIdentifier>{fac7357b-e9a3-4bde-9679-6c4183d81840}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\04. ParticleSystem\01. Spark">
-      <UniqueIdentifier>{3057064c-95a5-4a60-99a3-05399d829bf8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\00. Static_Mesh\09. SkHouse">
-      <UniqueIdentifier>{8d294cd1-6eb6-4792-be16-1be874952f55}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\06. Effect">
-      <UniqueIdentifier>{16f39f88-387c-4302-8653-8fa851791cfa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\06. Effect\00. Trail">
-      <UniqueIdentifier>{a9683c20-e85b-40e0-8d6e-9bf390a709cb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="97. Engine\01. Utility\02. Component\00. Component\03. VIBuffer\04. Buffer_Trail">
       <UniqueIdentifier>{35140df2-1f62-413a-bc82-5a37091d1a7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh">
+      <UniqueIdentifier>{53f7921f-5b15-4282-97cc-64f6bee63d4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh">
+      <UniqueIdentifier>{1aa44888-9196-4fe3-817c-85b3c5c182df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh\00. Player">
+      <UniqueIdentifier>{cf7800ce-143e-4ce4-b8e6-2f08909bae46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh\00. Player\00. Shiraken">
+      <UniqueIdentifier>{a9071a08-f3ff-46ff-8b30-7a7de9d82932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh\00. Player\01. Sword">
+      <UniqueIdentifier>{3b60d226-95a5-48ae-900f-528b88a4a65a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh\01. Beatle">
+      <UniqueIdentifier>{e36bc64c-6d78-47ce-be7d-685046d836f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh\02. Bee">
+      <UniqueIdentifier>{dedaa7c8-5cfc-4f58-88ee-c76479ae75e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh\03. Mantis">
+      <UniqueIdentifier>{4ba8f237-eb94-433c-b512-20f43e7bb2cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh\04. Monkey">
+      <UniqueIdentifier>{dcd8cf71-552b-44e1-905e-7cda737397b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh\05. NPC">
+      <UniqueIdentifier>{6d3c17ce-caee-42c4-85fe-f6305fee1912}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh\06. Tower">
+      <UniqueIdentifier>{7118b93d-0331-486f-a1e7-7247a72df005}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh\07. Vergos">
+      <UniqueIdentifier>{2ffaa700-6e49-49df-8e59-dd2a270081f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh\08. Useless">
+      <UniqueIdentifier>{dfb1f774-6b05-49ff-9194-93d9cddb9de2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh\08. Useless\00. UD_Worker">
+      <UniqueIdentifier>{832a3728-87ac-473b-a128-b823e2cc621e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh\08. Useless\01. UD_LightCavarly">
+      <UniqueIdentifier>{1ef51a47-75a1-40b7-89a1-84fbdee18f81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\01. Dynamic_Mesh\08. Useless\02. UD_HeavyInfantry">
+      <UniqueIdentifier>{a60cb23d-8931-47ef-8af5-cb42cb58690e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\00. Static_Mesh">
+      <UniqueIdentifier>{6f52cc37-2e74-4ab8-830e-3072d313757b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\00. Static_Mesh\00. Cliff">
+      <UniqueIdentifier>{b5ff8d5f-8e04-40c7-bc9a-6cf3a984c320}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\00. Static_Mesh\01. Fence">
+      <UniqueIdentifier>{1a3c54e7-7d07-4f53-b307-85d62f685375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\00. Static_Mesh\02. Flower">
+      <UniqueIdentifier>{845f67f2-39dc-4ad5-b369-32a4c1c5624a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\00. Static_Mesh\03. Grass">
+      <UniqueIdentifier>{cd70ac87-b2f9-499a-aa90-d704675e8ca7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\00. Static_Mesh\05. House">
+      <UniqueIdentifier>{a128d977-34ee-4735-b811-6cf270b1d5d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\00. Static_Mesh\06. Rock">
+      <UniqueIdentifier>{9ea55a16-8e83-426d-95cd-5d8bafecde8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\00. Static_Mesh\07. Tree">
+      <UniqueIdentifier>{2de89033-5b18-4b19-b15f-ec52f6efabb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\00. Static_Mesh\08. Wall">
+      <UniqueIdentifier>{be3d1b9e-d0bb-490c-8479-b177ae6d9f80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\00. Static_Mesh\04. Hill">
+      <UniqueIdentifier>{09678e09-f97b-4a6c-a21a-fc854b718624}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\00. Static_Mesh\09. SkHouse">
+      <UniqueIdentifier>{8d294cd1-6eb6-4792-be16-1be874952f55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\02. Effect_Mesh">
+      <UniqueIdentifier>{f22d5e32-cf3b-459b-b21c-3d4519ef7b9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. UI">
+      <UniqueIdentifier>{ae6e9a18-8c09-4ac7-bcd5-ca5bcccefd79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. UI\00. Back_Logo">
+      <UniqueIdentifier>{b7b25b06-c985-42d3-9c67-a8a3a5872049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. UI\01. HP">
+      <UniqueIdentifier>{a0dbbe31-86f6-4c54-b4b2-f76b4231c505}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. UI\02. MP">
+      <UniqueIdentifier>{853baba7-fea2-47b8-8271-6c7ebaad7049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. UI\03. Back_HP">
+      <UniqueIdentifier>{0f6697aa-dd14-4cb3-8c1d-b5f389379a97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. UI\04. Back_MP">
+      <UniqueIdentifier>{6ca74446-3555-4199-94fb-f6695ae9b8e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. UI\05. DamageFont">
+      <UniqueIdentifier>{d1f357ef-fecd-4567-bb19-0e08787c887f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. ParticleSystem">
+      <UniqueIdentifier>{095751b4-5226-4120-ad19-4c804c5db39a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. ParticleSystem\00. Snow">
+      <UniqueIdentifier>{fac7357b-e9a3-4bde-9679-6c4183d81840}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. ParticleSystem\01. Spark">
+      <UniqueIdentifier>{3057064c-95a5-4a60-99a3-05399d829bf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Public">
+      <UniqueIdentifier>{b7b35f13-5a16-4a12-9197-4048bd01a0b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Public\02. Terrain">
+      <UniqueIdentifier>{b5fdcca8-6f6d-4d39-8d66-0b6497f1d053}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Public\03. SkyBox">
+      <UniqueIdentifier>{3390c022-5913-48d9-a34f-8ddbefd83274}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Public\00. Camera">
+      <UniqueIdentifier>{cb747c35-379c-402a-a8cf-7e26aee5f8ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Public\00. Camera\00. Camera_Debug">
+      <UniqueIdentifier>{193c700a-e317-4d65-8fff-3268b2b1a6ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Public\00. Camera\01. Camera_Light">
+      <UniqueIdentifier>{5a9769a6-a4c0-4df5-ac16-aaa69cbee77b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03. Effect">
+      <UniqueIdentifier>{16f39f88-387c-4302-8653-8fa851791cfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03. Effect\00. Trail">
+      <UniqueIdentifier>{a9683c20-e85b-40e0-8d6e-9bf390a709cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\02. Effect_Mesh\00. FireTall">
+      <UniqueIdentifier>{498875e8-cd24-4e3b-8be6-00d70ae64408}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -373,7 +382,7 @@
       <Filter>97. Engine\01. Utility\00. Management</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Camera.h">
-      <Filter>02. GameObject\05. Public\00. Camera</Filter>
+      <Filter>02. GameObject\99. Public\00. Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Layer.h">
       <Filter>97. Engine\01. Utility\01. GameObject\00. Layer</Filter>
@@ -406,19 +415,19 @@
       <Filter>01. Scene\00. Logo</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Back_Logo.h">
-      <Filter>02. GameObject\03. UI\00. Back_Logo</Filter>
+      <Filter>02. GameObject\01. UI\00. Back_Logo</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Camera_Debug.h">
-      <Filter>02. GameObject\05. Public\00. Camera\00. Camera_Debug</Filter>
+      <Filter>02. GameObject\99. Public\00. Camera\00. Camera_Debug</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Buffer_Terrain.h">
       <Filter>97. Engine\01. Utility\02. Component\00. Component\03. VIBuffer\01. Buffer_Terrain</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Terrain.h">
-      <Filter>02. GameObject\05. Public\02. Terrain</Filter>
+      <Filter>02. GameObject\99. Public\02. Terrain</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\SkyBox.h">
-      <Filter>02. GameObject\05. Public\03. SkyBox</Filter>
+      <Filter>02. GameObject\99. Public\03. SkyBox</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Buffer_CubeTex.h">
       <Filter>97. Engine\01. Utility\02. Component\00. Component\03. VIBuffer\03. Buffer_CubeTex</Filter>
@@ -451,7 +460,7 @@
       <Filter>97. Engine\01. Utility\02. Component\00. Component\06. Mesh\01. Dynamic_Mesh\01. Loader</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Player.h">
-      <Filter>02. GameObject\01. Dynamic_Mesh\00. Player</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\00. Player</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Navi.h">
       <Filter>97. Engine\01. Utility\02. Component\00. Component\07. Navi</Filter>
@@ -466,43 +475,43 @@
       <Filter>01. Scene\01. Stage_Town</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Back_Hp.h">
-      <Filter>02. GameObject\03. UI\03. Back_HP</Filter>
+      <Filter>02. GameObject\01. UI\03. Back_HP</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Back_Mp.h">
-      <Filter>02. GameObject\03. UI\04. Back_MP</Filter>
+      <Filter>02. GameObject\01. UI\04. Back_MP</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\HP.h">
-      <Filter>02. GameObject\03. UI\01. HP</Filter>
+      <Filter>02. GameObject\01. UI\01. HP</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\MP.h">
-      <Filter>02. GameObject\03. UI\02. MP</Filter>
+      <Filter>02. GameObject\01. UI\02. MP</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Beatle.h">
-      <Filter>02. GameObject\01. Dynamic_Mesh\01. Beatle</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\01. Beatle</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Bee.h">
-      <Filter>02. GameObject\01. Dynamic_Mesh\02. Bee</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\02. Bee</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Mantis.h">
-      <Filter>02. GameObject\01. Dynamic_Mesh\03. Mantis</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\03. Mantis</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Monkey.h">
-      <Filter>02. GameObject\01. Dynamic_Mesh\04. Monkey</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\04. Monkey</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\NPC.h">
-      <Filter>02. GameObject\01. Dynamic_Mesh\05. NPC</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\05. NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Tower.h">
-      <Filter>02. GameObject\01. Dynamic_Mesh\06. Tower</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\06. Tower</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Vergos.h">
-      <Filter>02. GameObject\01. Dynamic_Mesh\07. Vergos</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\07. Vergos</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Collider.h">
       <Filter>97. Engine\01. Utility\02. Component\00. Component\08. Collider</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\DamageFont.h">
-      <Filter>02. GameObject\03. UI\05. DamageFont</Filter>
+      <Filter>02. GameObject\01. UI\05. DamageFont</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Target.h">
       <Filter>97. Engine\01. Utility\04. Target\00. Target</Filter>
@@ -511,64 +520,67 @@
       <Filter>97. Engine\01. Utility\04. Target\01. Target_Managert</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Cliff.h">
-      <Filter>02. GameObject\00. Static_Mesh\00. Cliff</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\00. Cliff</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Flower.h">
-      <Filter>02. GameObject\00. Static_Mesh\02. Flower</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\02. Flower</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Grass.h">
-      <Filter>02. GameObject\00. Static_Mesh\03. Grass</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\03. Grass</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Hill.h">
-      <Filter>02. GameObject\00. Static_Mesh\04. Hill</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\04. Hill</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\House.h">
-      <Filter>02. GameObject\00. Static_Mesh\05. House</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\05. House</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Rock.h">
-      <Filter>02. GameObject\00. Static_Mesh\06. Rock</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\06. Rock</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\SkHouse.h">
-      <Filter>02. GameObject\00. Static_Mesh\09. SkHouse</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\09. SkHouse</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Tree.h">
-      <Filter>02. GameObject\00. Static_Mesh\07. Tree</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\07. Tree</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Wall.h">
-      <Filter>02. GameObject\00. Static_Mesh\08. Wall</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\08. Wall</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Fence.h">
-      <Filter>02. GameObject\00. Static_Mesh\01. Fence</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\01. Fence</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Camera_Light.h">
-      <Filter>02. GameObject\05. Public\00. Camera\01. Camera_Light</Filter>
+      <Filter>02. GameObject\99. Public\00. Camera\01. Camera_Light</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\GameObject.h">
       <Filter>02. GameObject</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Shiraken.h">
-      <Filter>02. GameObject\01. Dynamic_Mesh\00. Player\00. Shiraken</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\00. Player\00. Shiraken</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Sword.h">
-      <Filter>02. GameObject\01. Dynamic_Mesh\00. Player\01. Sword</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\00. Player\01. Sword</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Scene.h">
       <Filter>01. Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\ParticleSystem.h">
-      <Filter>02. GameObject\04. ParticleSystem</Filter>
+      <Filter>02. GameObject\02. ParticleSystem</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Snow.h">
-      <Filter>02. GameObject\04. ParticleSystem\00. Snow</Filter>
+      <Filter>02. GameObject\02. ParticleSystem\00. Snow</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Spark.h">
-      <Filter>02. GameObject\04. ParticleSystem\01. Spark</Filter>
+      <Filter>02. GameObject\02. ParticleSystem\01. Spark</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Trail.h">
-      <Filter>02. GameObject\06. Effect\00. Trail</Filter>
+      <Filter>02. GameObject\03. Effect\00. Trail</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Buffer_Trail.h">
       <Filter>97. Engine\01. Utility\02. Component\00. Component\03. VIBuffer\04. Buffer_Trail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Fire_Tall.h">
+      <Filter>02. GameObject\00. Mesh\02. Effect_Mesh\00. FireTall</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -609,7 +621,7 @@
       <Filter>97. Engine\01. Utility\00. Management</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Camera.cpp">
-      <Filter>02. GameObject\05. Public\00. Camera</Filter>
+      <Filter>02. GameObject\99. Public\00. Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Layer.cpp">
       <Filter>97. Engine\01. Utility\01. GameObject\00. Layer</Filter>
@@ -642,19 +654,19 @@
       <Filter>01. Scene\00. Logo</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Back_Logo.cpp">
-      <Filter>02. GameObject\03. UI\00. Back_Logo</Filter>
+      <Filter>02. GameObject\01. UI\00. Back_Logo</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Camera_Debug.cpp">
-      <Filter>02. GameObject\05. Public\00. Camera\00. Camera_Debug</Filter>
+      <Filter>02. GameObject\99. Public\00. Camera\00. Camera_Debug</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Buffer_Terrain.cpp">
       <Filter>97. Engine\01. Utility\02. Component\00. Component\03. VIBuffer\01. Buffer_Terrain</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Terrain.cpp">
-      <Filter>02. GameObject\05. Public\02. Terrain</Filter>
+      <Filter>02. GameObject\99. Public\02. Terrain</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\SkyBox.cpp">
-      <Filter>02. GameObject\05. Public\03. SkyBox</Filter>
+      <Filter>02. GameObject\99. Public\03. SkyBox</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Buffer_CubeTex.cpp">
       <Filter>97. Engine\01. Utility\02. Component\00. Component\03. VIBuffer\03. Buffer_CubeTex</Filter>
@@ -684,7 +696,7 @@
       <Filter>97. Engine\01. Utility\02. Component\00. Component\06. Mesh\01. Dynamic_Mesh\01. Loader</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Player.cpp">
-      <Filter>02. GameObject\01. Dynamic_Mesh\00. Player</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\00. Player</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Navi.cpp">
       <Filter>97. Engine\01. Utility\02. Component\00. Component\07. Navi</Filter>
@@ -699,40 +711,40 @@
       <Filter>01. Scene\01. Stage_Town</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Back_Hp.cpp">
-      <Filter>02. GameObject\03. UI\03. Back_HP</Filter>
+      <Filter>02. GameObject\01. UI\03. Back_HP</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Back_Mp.cpp">
-      <Filter>02. GameObject\03. UI\04. Back_MP</Filter>
+      <Filter>02. GameObject\01. UI\04. Back_MP</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\HP.cpp">
-      <Filter>02. GameObject\03. UI\01. HP</Filter>
+      <Filter>02. GameObject\01. UI\01. HP</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\MP.cpp">
-      <Filter>02. GameObject\03. UI\02. MP</Filter>
+      <Filter>02. GameObject\01. UI\02. MP</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Beatle.cpp">
-      <Filter>02. GameObject\01. Dynamic_Mesh\01. Beatle</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\01. Beatle</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Bee.cpp">
-      <Filter>02. GameObject\01. Dynamic_Mesh\02. Bee</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\02. Bee</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Mantis.cpp">
-      <Filter>02. GameObject\01. Dynamic_Mesh\03. Mantis</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\03. Mantis</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Monkey.cpp">
-      <Filter>02. GameObject\01. Dynamic_Mesh\04. Monkey</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\04. Monkey</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\NPC.cpp">
-      <Filter>02. GameObject\01. Dynamic_Mesh\05. NPC</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\05. NPC</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Tower.cpp">
-      <Filter>02. GameObject\01. Dynamic_Mesh\06. Tower</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\06. Tower</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Vergos.cpp">
-      <Filter>02. GameObject\01. Dynamic_Mesh\07. Vergos</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\07. Vergos</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\DamageFont.cpp">
-      <Filter>02. GameObject\03. UI\05. DamageFont</Filter>
+      <Filter>02. GameObject\01. UI\05. DamageFont</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Target.cpp">
       <Filter>97. Engine\01. Utility\04. Target\00. Target</Filter>
@@ -744,64 +756,67 @@
       <Filter>97. Engine\01. Utility\02. Component\00. Component\08. Collider</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Cliff.cpp">
-      <Filter>02. GameObject\00. Static_Mesh\00. Cliff</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\00. Cliff</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Fence.cpp">
-      <Filter>02. GameObject\00. Static_Mesh\01. Fence</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\01. Fence</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Flower.cpp">
-      <Filter>02. GameObject\00. Static_Mesh\02. Flower</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\02. Flower</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Grass.cpp">
-      <Filter>02. GameObject\00. Static_Mesh\03. Grass</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\03. Grass</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Hill.cpp">
-      <Filter>02. GameObject\00. Static_Mesh\04. Hill</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\04. Hill</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\House.cpp">
-      <Filter>02. GameObject\00. Static_Mesh\05. House</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\05. House</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Rock.cpp">
-      <Filter>02. GameObject\00. Static_Mesh\06. Rock</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\06. Rock</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\SkHouse.cpp">
-      <Filter>02. GameObject\00. Static_Mesh\09. SkHouse</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\09. SkHouse</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Tree.cpp">
-      <Filter>02. GameObject\00. Static_Mesh\07. Tree</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\07. Tree</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Wall.cpp">
-      <Filter>02. GameObject\00. Static_Mesh\08. Wall</Filter>
+      <Filter>02. GameObject\00. Mesh\00. Static_Mesh\08. Wall</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Camera_Light.cpp">
-      <Filter>02. GameObject\05. Public\00. Camera\01. Camera_Light</Filter>
+      <Filter>02. GameObject\99. Public\00. Camera\01. Camera_Light</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\GameObject.cpp">
       <Filter>02. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Shiraken.cpp">
-      <Filter>02. GameObject\01. Dynamic_Mesh\00. Player\00. Shiraken</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\00. Player\00. Shiraken</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Sword.cpp">
-      <Filter>02. GameObject\01. Dynamic_Mesh\00. Player\01. Sword</Filter>
+      <Filter>02. GameObject\00. Mesh\01. Dynamic_Mesh\00. Player\01. Sword</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Scene.cpp">
       <Filter>01. Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\ParticleSystem.cpp">
-      <Filter>02. GameObject\04. ParticleSystem</Filter>
+      <Filter>02. GameObject\02. ParticleSystem</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Snow.cpp">
-      <Filter>02. GameObject\04. ParticleSystem\00. Snow</Filter>
+      <Filter>02. GameObject\02. ParticleSystem\00. Snow</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Spark.cpp">
-      <Filter>02. GameObject\04. ParticleSystem\01. Spark</Filter>
+      <Filter>02. GameObject\02. ParticleSystem\01. Spark</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Trail.cpp">
-      <Filter>02. GameObject\06. Effect\00. Trail</Filter>
+      <Filter>02. GameObject\03. Effect\00. Trail</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Buffer_Trail.cpp">
       <Filter>97. Engine\01. Utility\02. Component\00. Component\03. VIBuffer\04. Buffer_Trail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Fire_Tall.cpp">
+      <Filter>02. GameObject\00. Mesh\02. Effect_Mesh\00. FireTall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -860,6 +875,9 @@
       <Filter>96. ShaderFiles</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\ShaderFiles\Shader_Effect.fx">
+      <Filter>96. ShaderFiles</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_FireTall.fx">
       <Filter>96. ShaderFiles</Filter>
     </FxCompile>
   </ItemGroup>

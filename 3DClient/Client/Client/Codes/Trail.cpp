@@ -50,7 +50,7 @@ _int CTrail::LastUpdate_GameObject(const _float& fTimeDelta)
 		return -1;
 
 
-		Create_Trail(fTimeDelta);
+	Create_Trail(fTimeDelta);
 
 
 	return _int();
@@ -148,11 +148,11 @@ HRESULT CTrail::Ready_Component()
 	m_pBufferCom = (CBuffer_Trail*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Buffer_Trail");
 	if (FAILED(Add_Component(L"Com_Buffer", m_pBufferCom)))
 		return E_FAIL;
+
 	m_pShaderCom = (CShader*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Shader_Trail");
-	if (nullptr == m_pShaderCom)
-		return E_FAIL;
 	if (FAILED(Add_Component(L"Com_Shader", m_pShaderCom)))
 		return E_FAIL;
+
 	Safe_Release(pManagement);
 	return S_OK;
 }
@@ -181,10 +181,13 @@ HRESULT CTrail::SetUp_ConstantTable(LPD3DXEFFECT pEffect)
 void CTrail::Create_Trail(const _float& fTimeDelta)
 {
 	CGameObject* pGameObject = CManagement::GetInstance()->Get_ObjectList(SCENEID::SCENE_STATIC, L"Layer_Shiraken")->front();
-	_vec3 vMax = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetMax();
-	_vec3 vMin = vMax * 1.5f;;
+	//_vec3 vMax = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetMax();
+	//_vec3 vMin = vMax * 1.5f;;
 	//_vec3 vMin = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetMin();
 
+
+	_vec3 vMax = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetPoint(0);
+	_vec3 vMin = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetPoint(5);
 	//vMax *= 0.25f;
 	//vMin *= 0.25f;
 

@@ -191,6 +191,7 @@
     <ClInclude Include="..\Headers\Enum.h" />
     <ClInclude Include="..\Headers\Extern.h" />
     <ClInclude Include="..\Headers\Fence.h" />
+    <ClInclude Include="..\Headers\Fire_Tall.h" />
     <ClInclude Include="..\Headers\Flower.h" />
     <ClInclude Include="..\Headers\Frame.h" />
     <ClInclude Include="..\Headers\Frame_Mgr.h" />
@@ -277,6 +278,7 @@
     <ClCompile Include="..\Codes\Device.cpp" />
     <ClCompile Include="..\Codes\Dynamic_Mesh.cpp" />
     <ClCompile Include="..\Codes\Fence.cpp" />
+    <ClCompile Include="..\Codes\Fire_Tall.cpp" />
     <ClCompile Include="..\Codes\Flower.cpp" />
     <ClCompile Include="..\Codes\Frame.cpp" />
     <ClCompile Include="..\Codes\Frame_Mgr.cpp" />
@@ -362,6 +364,10 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">2.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_FireTall.fx">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
     </FxCompile>
     <FxCompile Include="..\Bin\ShaderFiles\Shader_Particle.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>

@@ -36,6 +36,9 @@
 //Font
 #include "DamageFont.h"
 
+// Effect
+#include "Fire_Tall.h"
+
 CScene_Logo::CScene_Logo(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CScene(pGraphic_Device)
 {
@@ -130,6 +133,9 @@ HRESULT CScene_Logo::Ready_Component_Shader(CManagement* pManagement)
 		return E_FAIL;
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Shader_Effect",
 		CShader::Create(m_pGraphic_Device, L"../Bin/ShaderFiles/Shader_Effect.fx"))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Shader_FireTall",
+		CShader::Create(m_pGraphic_Device, L"../Bin/ShaderFiles/Shader_FireTall.fx"))))
 		return E_FAIL;
 	return S_OK;
 }
@@ -424,25 +430,12 @@ HRESULT CScene_Logo::Ready_Component_Mesh(CManagement* pManagement)
 	//}
 	// 
 	//UI
+
+
 	{
-		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_HP",
-			CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/UI/Bar/Hp/Hp%d.png", 1))))
-			return E_FAIL;
-		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_HP_Back",
-			CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/UI/Bar/Hp_Back/Hp_Back%d.png", 1))))
-			return E_FAIL;
-		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_MP",
-			CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/UI/Bar/Mp/Mp%d.png", 1))))
-			return E_FAIL;
-		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_MP_Back",
-			CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/UI/Bar/Mp_Back/Mp_Back%d.png", 1))))
-			return E_FAIL;
-		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Monster_HP",
-			CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/UI/Bar/Monster_Hp/Monster_Hp%d.tga", 1))))
-			return E_FAIL;
-		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Monster_HP_Back",
-			CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/UI/Bar/Monster_Hp_Back/Monster_Hp_Back%d.tga", 1))))
-			return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_FireTall",
+		CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"Mesh_FireTail.X"))))
+		return E_FAIL;
 	}
 	return S_OK;
 }
@@ -456,7 +449,7 @@ HRESULT CScene_Logo::Ready_Component_Buffer(CManagement* pManagement)
 		CBuffer_Terrain::Create(m_pGraphic_Device, (_uint)300.f, (_uint)400.f, 1.f)/**/)))
 		return E_FAIL;
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Buffer_Trail",
-		CBuffer_Trail::Create(m_pGraphic_Device, 1000, 1, 0.01f))))
+		CBuffer_Trail::Create(m_pGraphic_Device, 10000, 2, 0.01f))))
 		return E_FAIL;
 	return S_OK;
 }
@@ -492,6 +485,37 @@ HRESULT CScene_Logo::Ready_Component_Texture(CManagement* pManagement)
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Trail",
 		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/Effect/TRAIL_0%d.tga",8))))
 		return E_FAIL;
+
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_HP",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/UI/Bar/Hp/Hp%d.png", 1))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_HP_Back",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/UI/Bar/Hp_Back/Hp_Back%d.png", 1))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_MP",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/UI/Bar/Mp/Mp%d.png", 1))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_MP_Back",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/UI/Bar/Mp_Back/Mp_Back%d.png", 1))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Monster_HP",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/UI/Bar/Monster_Hp/Monster_Hp%d.tga", 1))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Monster_HP_Back",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/UI/Bar/Monster_Hp_Back/Monster_Hp_Back%d.tga", 1))))
+		return E_FAIL;
+
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_FireAlpha",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Fire/Fire_alpha%d.dds", 1))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Firefire",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Fire/Fire_fire%d.dds", 1))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Firenoise",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Fire/Fire_noise%d.dds", 1))))
+		return E_FAIL;
+
+
 
 	return S_OK;
 }
@@ -558,6 +582,10 @@ HRESULT CScene_Logo::Ready_Prototype_GameObject()
 
 	// Font
 	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Font_Number", CDamageFont::Create(m_pGraphic_Device))))
+		return E_FAIL;
+
+	// Effect
+	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Effect_Fire_Tall", CFire_Tall::Create(m_pGraphic_Device))))
 		return E_FAIL;
 
 	Safe_Release(pManagement);

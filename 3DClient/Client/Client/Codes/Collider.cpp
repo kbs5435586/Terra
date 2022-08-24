@@ -87,6 +87,18 @@ HRESULT CCollider::Ready_Clone_Collider(void * pArg)
 		m_pOBB->vPoint[5] = _vec3(m_vMax.x, m_vMax.y, m_vMax.z);
 		m_pOBB->vPoint[6] = _vec3(m_vMax.x, m_vMin.y, m_vMax.z);
 		m_pOBB->vPoint[7] = _vec3(m_vMin.x, m_vMin.y, m_vMax.z);
+
+		m_vPoint[0] = m_pOBB->vPoint[0];
+		m_vPoint[1] = m_pOBB->vPoint[1];
+		m_vPoint[2] = m_pOBB->vPoint[2];
+		m_vPoint[3] = m_pOBB->vPoint[3];
+		m_vPoint[4] = m_pOBB->vPoint[4];
+		m_vPoint[5] = m_pOBB->vPoint[5];
+		m_vPoint[6] = m_pOBB->vPoint[6];
+		m_vPoint[7] = m_pOBB->vPoint[7];
+
+		m_vPoint[8] = (m_pOBB->vPoint[4]+ m_pOBB->vPoint[1]) / 2.f;
+		m_vPoint[9] = (m_pOBB->vPoint[7] + m_pOBB->vPoint[2]) / 2.f;
 	}
 
 	return S_OK;

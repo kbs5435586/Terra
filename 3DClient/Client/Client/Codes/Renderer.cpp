@@ -72,7 +72,11 @@ HRESULT CRenderer::Ready_Renderer()
 	if (FAILED(m_pTarget_Manager->Ready_Debug_Buffer(L"Target_Effect_Trail", 600.f, 0.f, 200.f, 200.f)))
 		return E_FAIL;
 
-
+	// For.Target_Effect_Hatch
+	if (FAILED(m_pTarget_Manager->Add_Target(m_pGraphic_Device, L"Target_Merge", ViewPort.Width, ViewPort.Height, D3DFMT_A32B32G32R32F, D3DXCOLOR(0.f, 0.f, 0.f, 0.f))))
+		return E_FAIL;
+	if (FAILED(m_pTarget_Manager->Ready_Debug_Buffer(L"Target_Merge", 600.f, 200.f, 200.f, 200.f)))
+		return E_FAIL;
 
 	// For.MRT_Deferred	
 	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Deferred", L"Target_Diffuse")))
@@ -98,6 +102,8 @@ HRESULT CRenderer::Ready_Renderer()
 	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Effect", L"Target_Effect_Trail")))
 		return E_FAIL;
 
+	if (FAILED(m_pTarget_Manager->Add_MRT(L"MRT_Merge", L"Target_Merge")))
+		return E_FAIL;
 
 	// For.Shader_LightAcc
 	m_pShaderCom_LightAcc = CShader::Create(m_pGraphic_Device, L"../Bin/ShaderFiles/Shader_LightAcc.fx");
@@ -168,7 +174,7 @@ HRESULT CRenderer::Render_RenderGroup()
 		return E_FAIL;
 
 	Render_Priority();
-	Render_Effect();
+
 
 	Render_Deferred();
 	Render_Shadow();
@@ -176,6 +182,8 @@ HRESULT CRenderer::Render_RenderGroup()
 	Render_LightAcc();
 	Render_Blend();
 	
+
+
 
 	Render_Alpha();
 	Render_UI();
@@ -186,6 +194,7 @@ HRESULT CRenderer::Render_RenderGroup()
 	m_pTarget_Manager->Render_Debug_Buffer(L"MRT_Blur");
 	m_pTarget_Manager->Render_Debug_Buffer(L"MRT_Effect");
 	m_pTarget_Manager->Render_Debug_Buffer(L"MRT_Post_Effect");
+	//m_pTarget_Manager->Render_Debug_Buffer(L"MRT_Merge");
 
 	return S_OK;
 }
@@ -321,8 +330,7 @@ void CRenderer::Render_Blend()
 		return;
 	if (FAILED(m_pTarget_Manager->SetUp_OnShader(pEffect, L"Target_Blur", "g_BlurTexture")))
 		return;
-	if (FAILED(m_pTarget_Manager->SetUp_OnShader(pEffect, L"Target_Effect_Trail", "g_EffectTexture")))
-		return;
+
 
 	pEffect->Begin(nullptr, 0);
 	pEffect->BeginPass(0);
@@ -330,11 +338,15 @@ void CRenderer::Render_Blend()
 	pEffect->SetMatrix("g_matShadowView", &CManagement::GetInstance()->GetShadowViewMatrix());
 	pEffect->SetMatrix("g_matShadowProj", &CManagement::GetInstance()->GetShadowProjMatrix());
 
-	// 임의의 버퍼를 렌더링한다. == 백버퍼에 그린다.
+
+
 	m_pGraphic_Device->SetStreamSource(0, m_pVB, 0, sizeof(VTXVIEWPORT));
 	m_pGraphic_Device->SetFVF(D3DFVF_XYZRHW | D3DFVF_TEX1);
 	m_pGraphic_Device->SetIndices(m_pIB);
 	m_pGraphic_Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4, 0, 2);
+
+
+
 
 	pEffect->EndPass();
 	pEffect->End();

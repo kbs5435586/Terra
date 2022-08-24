@@ -2,8 +2,8 @@
 #include "GameObject.h"
 
 class CPlayer;
-class CTransform;
 class CBuffer_Trail;
+class CTransform;
 class CRenderer;
 class CShader;
 class CTexture;
@@ -30,8 +30,8 @@ private:
 private:
 	void					Create_Trail(const _float& fTimeDelta);
 private:
-	CTransform*				m_pTransformCom = nullptr;
 	CBuffer_Trail*			m_pBufferCom = nullptr;
+	CTransform*				m_pTransformCom = nullptr;
 	CRenderer*				m_pRendererCom = nullptr;
 	CShader*				m_pShaderCom = nullptr;
 	CTexture*				m_pTextureCom = nullptr;

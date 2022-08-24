@@ -26,7 +26,7 @@ _int CLayer::Update_Object(const _float & fTimeDelta)
 	auto iter = m_ObjectList.begin();
 	for (; iter != m_ObjectList.end();)
 	{
-		if ((*iter)->Update_GameObject(fTimeDelta))
+		if ((*iter)->Update_GameObject(fTimeDelta)) 
 		{
 			Safe_Release(*iter);
 			iter = m_ObjectList.erase(iter);

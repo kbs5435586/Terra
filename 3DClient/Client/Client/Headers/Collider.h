@@ -28,11 +28,13 @@ private:
 	_bool						m_isColl = false;
 	BOX_TYPE					m_eBoxType = BOX_TYPE(0);
 	_vec3						m_vMin, m_vMax;
+	_vec3						m_vPoint[10] = {};
 	COLLIDER_INFO				m_ColliderInfo;	
 	OBB*						m_pOBB = nullptr;
 public:
 	_vec3						GetMin() { return m_vMin; }
 	_vec3						GetMax() { return m_vMax; }
+	_vec3						GetPoint(int idx) { return m_vPoint[idx]; }
 public:
 	COLLIDER_INFO&				GetColliderInfo(){return m_ColliderInfo;}
 private:
