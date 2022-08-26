@@ -102,6 +102,9 @@ _int CBeatle::LastUpdate_GameObject(const _float& fTimeDelta)
 		return -1;
 	if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_SHADOW, this)))
 		return -1;
+
+
+
 	return _int();
 }
 

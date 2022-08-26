@@ -96,6 +96,7 @@ CGameObject * CLayer::Get_GameObject(const _uint & iIndex)
 
 CGameObject * CLayer::Get_BackObject()
 {
+	
 	return m_ObjectList.back();
 }
 void CLayer::Free()

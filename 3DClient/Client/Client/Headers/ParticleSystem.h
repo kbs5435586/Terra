@@ -49,7 +49,7 @@ protected:
 	_float					m_fLifeTime = 0.f;
 	_float					m_fTimeDelta = 0.f;
 	_bool					m_isChangeColor = false;
-
+	_int					m_iTextureIdx = 0;
 protected:
 	_vec4					m_vParticleColor = {};
 protected:

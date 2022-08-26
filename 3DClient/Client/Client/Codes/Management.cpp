@@ -275,9 +275,9 @@ bool CManagement::KeyCombine(DWORD dwFirstKey, DWORD dwSecondKey)
 }
 void CManagement::Collision_Update(const _float& fTimeDelta)
 {
-   //	Collision_AABB(fTimeDelta);
+	//Collision_AABB(fTimeDelta);
 	Collision_OBB(fTimeDelta);
-	//Collision_Part(fTimeDelta);
+	Collision_Part(fTimeDelta);
 	//Collision_RANGE(fTimeDelta);
 }
 void CManagement::Collision_AABB(const _float& fTimeDelta)
@@ -334,7 +334,7 @@ void CManagement::Collision_Part(const _float& fTimeDelta)
 	{
 		for (auto& pMonster : *CManagement::GetInstance()->Get_ObjectList((_uint)SCENEID::SCENE_STATIC, L"Layer_Monster"))
 		{
-			pMonster->GetCollisionAccTime() += fTimeDelta;
+			
 			_vec3 vIter0Pos = *dynamic_cast<CTransform*>(pShiraken->Get_ComponentPointer(L"Com_Transform"))->Get_StateInfo(STATE::STATE_POSITION);
 			_vec3 vIter1Pos = *dynamic_cast<CTransform*>(pMonster->Get_ComponentPointer(L"Com_Transform"))->Get_StateInfo(STATE::STATE_POSITION);
 
@@ -345,16 +345,30 @@ void CManagement::Collision_Part(const _float& fTimeDelta)
 			if (dynamic_cast<CCollider*>(pMonster->Get_ComponentPointer(L"Com_Collider_OBB"))
 				->Collision_OBB(dynamic_cast<CCollider*>(pShiraken->Get_ComponentPointer(L"Com_Collider_OBB")), vParticlePos))
 			{
-				if (dynamic_cast<CPlayer*>(CManagement::GetInstance()->Get_GameObject(SCENEID::SCENE_STATIC, L"Layer_Player", 0))->GetIsParticle())
+				pMonster->GetCollisionAccTime() += fTimeDelta;
+				if (dynamic_cast<CPlayer*>(CManagement::GetInstance()->Get_GameObject(SCENEID::SCENE_STATIC, L"Layer_Player", 0))->GetIsAttack())
 				{
-					if (pMonster->GetCollisionAccTime() >= 1.f)
+					//if (pMonster->GetCollisionAccTime() >= 0.f)
+					//{
+					//	if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Particle_Spark", SCENE_STATIC, L"Layer_Particle")))
+					//		return;
+					//	dynamic_cast<CParticleSystem*>(CManagement::GetInstance()->Get_BackObject(SCENE_STATIC, L"Layer_Particle"))->GetOriginPos() = vParticlePos;
+					//	pMonster->GetCollisionAccTime() = -0.5f;
+					//}
+		
+	/*				if (dynamic_cast<CParticleSystem*>(CManagement::GetInstance()->Get_BackObject(SCENE_STATIC, L"Layer_Particle")))
+					{
+						
+					}*/
+					
+
+
+					if (CManagement::GetInstance()->Get_ObjectList(SCENE_STATIC, L"Layer_Particle")->size() <= 2)
 					{
 						if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Particle_Spark", SCENE_STATIC, L"Layer_Particle")))
 							return;
-						pMonster->GetCollisionAccTime() = 0.f;
+						dynamic_cast<CParticleSystem*>(CManagement::GetInstance()->Get_BackObject(SCENE_STATIC, L"Layer_Particle"))->GetOriginPos() = vParticlePos;
 					}
-
-					dynamic_cast<CParticleSystem*>(CManagement::GetInstance()->Get_BackObject(SCENE_STATIC, L"Layer_Particle"))->GetOriginPos() = vParticlePos;
 				}
 
 

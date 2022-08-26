@@ -87,7 +87,6 @@ private:
 	_bool					m_isCombo = false;
 private:
 	_bool					m_isAttack = false;
-	_bool					m_isParticle = false;
 private:
 	_bool					m_isThrow = false;
 	_bool					m_isMiniThrow = false;
@@ -102,7 +101,6 @@ public:
 	_bool&					GetIsThrow(){return m_isThrow;}
 	_bool&					GetIsMiniThrow(){return m_isMiniThrow;}
 	_bool					GetIsAttack() { return m_isAttack; }
-	_bool					GetIsParticle() { return m_isParticle; }
 	_float&					GetThrowPower(){return m_fThrowPower;}
 	
 

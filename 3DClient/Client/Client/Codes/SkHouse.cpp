@@ -47,9 +47,9 @@ _int CSkHouse::Update_GameObject(const _float & fTimeDelta)
 
 	m_pTransformCom->Set_PositionY(0.f + m_pTransformCom->Get_Add_PosY());
 
-	m_pColliderCom->Collision_AABB((CCollider*)pManagement->Get_ComponentPointer(SCENE_STATIC, L"Layer_Player", L"Com_Collider_AABB"),
-									m_pTransformCom,
-									(CTransform*)pManagement->Get_ComponentPointer(SCENE_STATIC, L"Layer_Player", L"Com_Transform"));
+	//m_pColliderCom->Collision_AABB((CCollider*)pManagement->Get_ComponentPointer(SCENE_STATIC, L"Layer_Player", L"Com_Collider_AABB"),
+	//								m_pTransformCom,
+	//								(CTransform*)pManagement->Get_ComponentPointer(SCENE_STATIC, L"Layer_Player", L"Com_Transform"));
 
 
 	Safe_Release(pManagement);

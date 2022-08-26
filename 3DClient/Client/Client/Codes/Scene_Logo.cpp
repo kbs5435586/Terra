@@ -96,7 +96,7 @@ HRESULT CScene_Logo::Ready_Component_Funtion(CManagement* pManagement)
 		return E_FAIL;
 
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Navi",
-		CNavi::Create(m_pGraphic_Device, L"../../Data/test_new_navi.dat"))))
+		CNavi::Create(m_pGraphic_Device, L"../../Data/test_new_navi_1.dat"))))
 		return E_FAIL;
 
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Collider_Box",
@@ -473,7 +473,7 @@ HRESULT CScene_Logo::Ready_Component_Texture(CManagement* pManagement)
 		return E_FAIL;
 
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Particle_Flame",
-		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Texture/Flame_Particle/%d.png", 61))))
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Texture/Explosion/Explosion%d.png", 90))))
 		return E_FAIL;
  	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Hatch",
 		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../Bin/Texture/Hatch/Hatch%d.dds",6))))

@@ -92,6 +92,7 @@ void CParticleSystem::Render_GameObject()
 
 	auto iter = m_lstParticle.begin();
 
+	
 	for (; iter != m_lstParticle.end(); ++iter)
 	{
 		if (iter->isAlive)
@@ -101,7 +102,8 @@ void CParticleSystem::Render_GameObject()
 			_vec2	vUV;
 			vUV.x = pPS->vPos.x ;
 			vUV.y = pPS->vPos.y ;
-			pPS->vColor = iter->vColor;
+			//pPS->vColor = iter->vColor;
+			pPS->vTexUV = vUV;
 			++pPS;
 
 			++iNumParticleBatch;
@@ -131,6 +133,7 @@ void CParticleSystem::Render_GameObject()
 	}
 
 	m_vb->Unlock();
+
 
 	if (iNumParticleBatch)
 	{
@@ -272,7 +275,7 @@ HRESULT CParticleSystem::SetUp_ConstantTable(LPD3DXEFFECT pEffect)
 	pEffect->SetInt("g_iParticleSize", m_iParticleSize);
 
 	pEffect->SetVector("g_vParticleColor", &m_vParticleColor);
-
+	m_pTextureCom->SetUp_OnShader(pEffect, "g_DiffuseTexture", m_iTextureIdx);
 	
 
 	return S_OK;

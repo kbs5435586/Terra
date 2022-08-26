@@ -143,8 +143,8 @@ typedef struct tagUnitInfo
 typedef struct tagPSystem
 {
 	D3DXVECTOR3			vPos;
-	D3DXCOLOR			vColor;
-	//D3DXVECTOR2			vTexUV;
+	//D3DXCOLOR			vColor;
+	D3DXVECTOR2			vTexUV;
 }PSYSTEM;
 
 typedef struct tagPsAttribute
@@ -207,3 +207,11 @@ typedef struct tagTrailData
 		vPosition[1] = matDownWorld;
 	}
 }TRAIL;
+
+
+typedef struct tagFireBall
+{
+	tagFireBall(D3DXMATRIX mat, int i):matWorld(mat), iIdx(i) {}
+	D3DXMATRIX		matWorld;
+	int				iIdx;
+}FIRE_BALL;

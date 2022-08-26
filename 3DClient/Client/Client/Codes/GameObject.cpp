@@ -87,6 +87,35 @@ void CGameObject::Hit_Object(CTransform* pTransform, _float& fCnt, _vec3 vStart,
 	fCnt += 0.01f;
 }
 
+void CGameObject::Hit_Object(CTransform* pTransform, _float& fCnt, _vec3 vStart, _vec3 vEnd, _vec3 vMid, const float& fTimeDelta, const _vec3& vSize)
+{
+	_float fX = (pow((1.f - fCnt), 2) * vStart.x) + (2 * fCnt * (1.f - fCnt) * vMid.x) + (pow(fCnt, 2) * vEnd.x);
+	_float fY = (pow((1.f - fCnt), 2) * vStart.y) + (2 * fCnt * (1.f - fCnt) * vMid.y) + (pow(fCnt, 2) * vEnd.y);
+	_float fZ = (pow((1.f - fCnt), 2) * vStart.z) + (2 * fCnt * (1.f - fCnt) * vMid.z) + (pow(fCnt, 2) * vEnd.z);
+
+	pTransform->Set_StateInfo(STATE_POSITION, &_vec3(fX, fY, fZ));
+
+
+	_vec3 vNewLook = vEnd - *pTransform->Get_StateInfo(STATE::STATE_POSITION);
+	D3DXVec3Normalize(&vNewLook, &vNewLook);
+
+	_vec3 vAxisY = _vec3(0.f,1.f,0.f);
+	_vec3 vNewRight;
+	D3DXVec3Cross(&vNewRight, &vAxisY, &vNewLook);
+	D3DXVec3Normalize(&vNewRight, &vNewRight);
+
+	_vec3 vNewUp;;
+
+	D3DXVec3Cross(&vNewUp, &vNewLook, &vNewRight);
+	D3DXVec3Normalize(&vNewUp, &vNewUp);
+
+	pTransform->Set_StateInfo(STATE::STATE_RIGHT, &vNewRight);
+	pTransform->Set_StateInfo(STATE::STATE_UP, &vNewUp);
+	pTransform->Set_StateInfo(STATE::STATE_LOOK, &vNewLook);
+	pTransform->Scaling(vSize);
+	fCnt += fTimeDelta;
+}
+
 CComponent* CGameObject::Get_ComponentPointer(const _tchar* pComponentTag)
 {
 	CComponent* pComponent = Find_Component(pComponentTag);

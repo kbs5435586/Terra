@@ -93,8 +93,11 @@ HRESULT CScene_Stage_Town::Ready_Prototype_GameObject()
 	//if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Particle_Snow",CSnow::Create(m_pGraphic_Device, &boundingBox, 30))))
 	//	return E_FAIL;
 
-	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Particle_Spark", CSpark::Create(m_pGraphic_Device, 10))))
+	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Particle_Spark", CSpark::Create(m_pGraphic_Device, 1))))
 		return E_FAIL;
+	if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Particle_Spark", SCENE_STATIC, L"Layer_Particle")))
+		return E_FAIL;
+	dynamic_cast<CParticleSystem*>(CManagement::GetInstance()->Get_BackObject(SCENE_STATIC, L"Layer_Particle"))->GetOriginPos() = _vec3(-99999.f, 99999999.f, 0.f);
 
 	Safe_Release(pManagement);
 	return S_OK;

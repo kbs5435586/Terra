@@ -23,6 +23,7 @@ public:
 protected:
 	void									Obb_Collision(CTransform* pTransform, const _float& fAddY = 0.f);
 	void									Hit_Object(CTransform* pTransform, _float& fCnt, _vec3 vStart, _vec3 vEnd, _vec3 vMid);
+	void									Hit_Object(CTransform* pTransform, _float& fCnt, _vec3 vStart, _vec3 vEnd, _vec3 vMid, const float& fTimeDelta, const _vec3& vSizs);
 public:
 	LPDIRECT3DDEVICE9						Get_Device() { return m_pGraphic_Device; }
 public:
@@ -95,6 +96,8 @@ protected:
 	_matrix									m_matParent;
 	_matrix									m_matTrail;
 	_float									m_fFrame = 0.f;
+protected:
+	_vec3									m_vSize;
 public:
 	vector<CCollider*>&						GetColliderBone(){return m_vecCollider_Bone;}
 public:

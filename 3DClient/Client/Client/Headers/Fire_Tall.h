@@ -59,5 +59,13 @@ private:
 	DISTORTION				m_tDistortion = {};
 private:
 	_float					m_fLifeTime = 0.f;
+	_uint					m_iFirBallIdx = 0;
+private:
+	_vec3					m_vStartPos = {};
+	_vec3					m_vMidPos = {};
+	_vec3					m_vGoalPos = {};
+
+	_vec3					m_vTargetLook = { };
+	
 };
 

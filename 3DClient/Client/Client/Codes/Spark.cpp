@@ -19,10 +19,11 @@ CSpark::CSpark(CSpark& rhs)
 	, m_iNumParticle(rhs.m_iNumParticle)
 {
 	//m_iParticleSize = 7.f;
-	m_iParticleSize = 5.f;
+	m_iParticleSize = 200.f;
 	m_vParticleColor = { 1.f,1.f,0.f,1.f };
 	m_isChangeColor = true;
 	m_vOriginPos = { 0.f,0.f,0.f };
+	m_iTextureIdx = 0;
 }
 
 HRESULT CSpark::Ready_Prototype()
@@ -42,15 +43,17 @@ HRESULT CSpark::Ready_GameObject()
 
 _int CSpark::Update_GameObject(const _float& fTimeDelta)
 {
+	m_fAccTime += fTimeDelta;
 
-	
+	//m_iTextureIdx += m_fAccTime/2.f;
+
 	m_fLifeTime += fTimeDelta;
 	m_fTimeDelta += fTimeDelta;
 	auto iter = m_lstParticle.begin();
 	for (; iter != m_lstParticle.end(); ++iter)
 	{
-		iter->vPosition += iter->vVelocity * fTimeDelta  + iter->vAcceleration * fTimeDelta;
-
+		//iter->vPosition += iter->vVelocity * fTimeDelta  + iter->vAcceleration * fTimeDelta*/;
+		iter->vPosition += iter->vAcceleration * fTimeDelta + iter->vVelocity * fTimeDelta;
 		iter->fAge += fTimeDelta;
 		if (iter->fAge > iter->fLifeTime)
 			iter->isAlive = false;
@@ -60,10 +63,22 @@ _int CSpark::Update_GameObject(const _float& fTimeDelta)
 
 	Active();
 
-	if (m_fLifeTime >= 1.f)
+	//if (m_fLifeTime >= 1.f)
+	//{
+	//	return -1;
+	//}
+	if (m_fAccTime >=0.1f)
 	{
-		return -1;
+		if (m_iTextureIdx >= 89)
+		{
+			m_iTextureIdx = 0;
+			
+			return -1;
+		}
+		m_fAccTime = 0.f;
+		++m_iTextureIdx;
 	}
+
 
 	return _int();
 }
@@ -141,6 +156,9 @@ void CSpark::Reset_Particle(PSATTRIBUTE* pAttribute)
 
 void CSpark::Active()
 {
+	if (m_lstParticle.size() > m_iNumParticle)
+		return;
+
 	for (_uint i = 0; i < m_iNumParticle; i++)
 		Add_Particle();
 }
@@ -164,7 +182,9 @@ HRESULT CSpark::Ready_Component(void* pArg)
 	if (FAILED(Add_Component(L"Com_Shader", m_pShaderCom)))
 		return E_FAIL;	
 
-
+	m_pTextureCom = (CTexture*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Texture_Particle_Flame");
+	if (FAILED(Add_Component(L"Com_Texture", m_pTextureCom)))
+		return E_FAIL;
 
 	Safe_Release(pManagement);
 	return S_OK;

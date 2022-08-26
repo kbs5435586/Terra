@@ -45,6 +45,7 @@ public:
 	void				Rotation_Z(const _float& fTimeDelta);
 	void				Rotation_Axis(const _float& fTimeDelta, const _vec3* pAxis);
 	void				Scaling(const _float& fX, const _float& fY, const _float& fZ);
+	void				Scaling(const _vec3& vSize);
 	void				Go_ToTarget(const _vec3* pTargetPos, const _float& fTimeDelta);
 private:
 	_matrix				m_matWorld; // 객체의 상태.

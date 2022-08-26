@@ -26,11 +26,33 @@ HRESULT CFire_Tall::Ready_GameObject(void* pArg)
     if (FAILED(Ready_Component()))
         return E_FAIL;
 
+    FIRE_BALL tFireBall = *(FIRE_BALL*)pArg;
+    _matrix matTemp = tFireBall.matWorld;
+    m_iFirBallIdx = tFireBall.iIdx;
 
-    _matrix matTemp = *(_matrix*)pArg;
-   
+
     m_pTransformCom->Scaling(2.f, 2.f, 2.f);
     _matrix matWorld = m_pTransformCom->Get_Matrix();
+    
+    m_vStartPos = { matWorld ._41, matWorld._42 ,matWorld._43};
+    m_vTargetLook = { matWorld._31, matWorld._32 ,matWorld._33 };
+
+    m_vGoalPos = m_vStartPos + m_vTargetLook *10.f;
+
+    if (m_iFirBallIdx == 0)
+    {
+        m_vMidPos = (m_vStartPoint + m_vGoalPos)/2;
+        m_vMidPos.y += 5.f;
+    }
+    else if (m_iFirBallIdx == 1)
+    {
+
+    }
+    else
+    {
+
+    }
+
 
     matTemp._42 += 2.f;
     matWorld *= matTemp;
@@ -49,6 +71,8 @@ HRESULT CFire_Tall::Ready_GameObject(void* pArg)
         m_tDistortion.fDistortionBias = 0.5f;
     }
 
+
+    m_vSize = m_pTransformCom->Get_Scale();
     return S_OK;
 }
 
@@ -57,11 +81,62 @@ _int CFire_Tall::Update_GameObject(const _float& fTimeDelta)
     m_pPlayer = (CPlayer*)CManagement::GetInstance()->Get_BackObject(SCENE_STATIC, L"Layer_Player");
     m_fLifeTime += fTimeDelta;
 
-    m_pTransformCom->Go_Straight(fTimeDelta);
+   // m_pTransformCom->Go_Straight(fTimeDelta);
     //m_pTransformCom->Rotation_Z(fTimeDelta);
 
     if (m_fLifeTime >= 1.5f)
          return DEAD_OBJ;
+
+    {
+        if (m_fBazierCnt <= 1.f)
+        {
+            if (!m_IsBazier)
+            {
+                if (m_iFirBallIdx == 0)
+                {
+                    m_vStartPoint = *m_pTransformCom->Get_StateInfo(STATE_POSITION);
+                    _vec3 vLook = *m_pTransformCom->Get_StateInfo(STATE_LOOK);
+                    //vLook *= -1.f;
+                    m_vEndPoint = *m_pTransformCom->Get_StateInfo(STATE_POSITION) + (vLook * 150);
+                    m_vMidPoint = (m_vStartPoint + m_vEndPoint) / 2;
+                    m_vMidPoint.y += 10.f;
+                    m_IsBazier = true;
+                }
+                else if (m_iFirBallIdx == 1)
+                {
+                    m_vStartPoint = *m_pTransformCom->Get_StateInfo(STATE_POSITION);
+                    _vec3 vLook = *m_pTransformCom->Get_StateInfo(STATE_LOOK);
+                    _vec3 vRight = *m_pTransformCom->Get_StateInfo(STATE_RIGHT);
+
+                    m_vEndPoint = *m_pTransformCom->Get_StateInfo(STATE_POSITION) + (vLook * 150);
+                    m_vMidPoint = (m_vStartPoint + m_vEndPoint) / 2 + (vRight * 150);;
+                    m_vMidPoint.y += 10.f;
+                    m_IsBazier = true;
+                }
+                else
+                {
+                    m_vStartPoint = *m_pTransformCom->Get_StateInfo(STATE_POSITION);
+                    _vec3 vLook = *m_pTransformCom->Get_StateInfo(STATE_LOOK);
+                    _vec3 vRight = *m_pTransformCom->Get_StateInfo(STATE_RIGHT);
+
+                    m_vEndPoint = *m_pTransformCom->Get_StateInfo(STATE_POSITION) + (vLook * 150);
+                    m_vMidPoint = (m_vStartPoint + m_vEndPoint) / 2 + (-vRight * 150);;
+                    m_vMidPoint.y += 10.f;
+                    m_IsBazier = true;
+                }
+
+
+            }
+            Hit_Object(m_pTransformCom, m_fBazierCnt, m_vStartPoint, m_vEndPoint, m_vMidPoint, fTimeDelta*0.9f, m_vSize);
+
+        }
+        if (m_fBazierCnt >= 5.f)
+        {
+            m_fBazierCnt = 0.f;
+            m_IsBazier = false;
+        }
+    }
+
 
     return NO_EVENT;
 }

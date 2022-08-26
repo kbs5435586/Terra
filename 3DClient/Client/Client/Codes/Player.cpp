@@ -29,14 +29,13 @@ HRESULT CPlayer::Ready_GameObject(void* pArg)
 		return E_FAIL;
 
 	m_pTransformCom->Scaling(0.1f, 0.1f, 0.1f);
-	m_pTransformCom->SetUp_Speed(10.f, D3DXToRadian(180.f));
+	m_pTransformCom->SetUp_Speed(50.f, D3DXToRadian(180.f));
 	m_pTransformCom->Set_StateInfo(STATE_POSITION, &_vec3(30.f, 0.f, 30.f));
 //	m_pTransformCom->Set_StateInfo(STATE_POSITION, &_vec3(90.f, 0.f, 90.f));
 	m_eNavi = NAVI::NAVI_PLAYER;
 	m_eCurState = CPlayer::STATE_PL_WAIT;
 	m_IsOnce = false;
 	m_isAttack = false;
-	m_isParticle = false;
 	return S_OK;
 }
 
@@ -48,7 +47,6 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	End_Loop(fTimeDelta);
 	Change_State(m_eCurState);
 	
-	//m_pMeshCom->Set_AnimationSet(STATE_FIRE_END);
 	m_pMeshCom->Play_Animation(fTimeDelta * m_fMove);
 	Input_Key(fTimeDelta);
 	m_fAccTime += fTimeDelta;
@@ -66,7 +64,7 @@ _int CPlayer::LastUpdate_GameObject(const _float& fTimeDelta)
 		return -1;
 
 
-	//Obb_Collision(m_pTransformCom, 5.f);
+	Obb_Collision(m_pTransformCom, 5.f);
 
 	m_fBlurTime += fTimeDelta;
 	//if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_NONEALPHA, this)))
@@ -625,7 +623,6 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 		m_IsOnce = true;
 		m_isCombo = true;
 		m_isAttack = true; 
-		m_isParticle = true;
 		m_iCurComboCnt++;
 		if (m_iPreComboCnt != m_iCurComboCnt)
 		{
@@ -641,7 +638,6 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 	{
 		m_eCurState = (STATE_)(STATE_PL_COM1 + (-2 * m_iCurComboCnt));
 		m_IsOnce = true;
-		m_isParticle = true;
 		m_isAttack = true;
 	}
 
@@ -651,18 +647,15 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 	{
 		Attack_Shiraken();
 		m_isAttack = true;
-		m_isParticle = true;
 	}
 	if (pManagement->KeyDown(KEY_E))
 	{
 		m_isInputWeapon ? Output_Weapon() : Input_Weapon();
 		m_isAttack = false;
-		m_isParticle = false;
 	}
 	if (pManagement->KeyUp(KEY_Q))
 	{
 		m_isAttack = true;
-		m_isParticle = true;
 		if (m_isInputWeapon == false)
 		{
 			m_eCurState = STATE_CALL_ELEC;
@@ -675,19 +668,16 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 		if (m_fMaxThrowPower <= m_fThrowPower)
 			m_fThrowPower = m_fMaxThrowPower;
 		m_isAttack = false;
-		m_isParticle = false;
 	}
 	if (pManagement->KeyDown(KEY_SPACE))
 	{
 		Jump();
 		m_isAttack = false;
-		m_isParticle = false;
 	}
 
 
 	if (pManagement->KeyUp(KEY_UP))
 	{
-		m_isParticle = false;
 		m_isAttack = false;
 		m_IsOnce = false;
 		m_eCurState = STATE_PL_WAIT;
@@ -726,13 +716,10 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 		//m_pTransformCom->Set_StateInfo(STATE::STATE_POSITION, &vPos);
 		//m_pTransformCom->Go_Straight(fTimeDelta);
 
-
-		m_isParticle = false;
 		m_isAttack = false;
 	}
 	if (pManagement->KeyUp(KEY_DOWN))
 	{
-		m_isParticle = false;
 		m_isAttack = false;
 		m_IsOnce = false;
 		m_eCurState = STATE_PL_WAIT;
@@ -760,7 +747,6 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 			//vSlide.y = fTemp;
 			m_pTransformCom->Go_There(-vSlide);
 		}
-		m_isParticle = false;
 		m_isAttack = false;
 	}
 
@@ -768,13 +754,10 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 	{
 		m_pTransformCom->Rotation_Y(-fTimeDelta);
 		m_isAttack = false;
-		m_isParticle = false;
 	}
 	else if (pManagement->KeyPressing(KEY_RIGHT))
 	{
 		m_pTransformCom->Rotation_Y(fTimeDelta);
-		m_isAttack = false;
-		m_isParticle = false;
 	}
 
 
@@ -954,10 +937,14 @@ void CPlayer::End_Loop(const _float& fTimeDelta)
 			else if (m_eCurState == CPlayer::STATE_FIRE_READY)
 			{
 				m_eCurState = CPlayer::STATE_FIRE_SHOT;
-				_vec3 vPos = *m_pTransformCom->Get_StateInfo(STATE::STATE_POSITION);
-				_matrix matTemp = m_pTransformCom->Get_Matrix();
-				if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_Fire_Tall", SCENE_LOGO, L"Layer_Fire_Tall", &matTemp)))
-					return ;
+				for (int i = 0; i < 3; ++i)
+				{
+					_matrix matTemp = m_pTransformCom->Get_Matrix();
+					FIRE_BALL tFireBall(matTemp, i);
+					if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_Fire_Tall", SCENE_LOGO, L"Layer_Fire_Tall", &tFireBall)))
+						return;
+				}
+
 			}
 		}
 

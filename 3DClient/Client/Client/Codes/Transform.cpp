@@ -338,6 +338,24 @@ void CTransform::Scaling(const _float& fX, const _float& fY, const _float& fZ)
 	Set_StateInfo(STATE_UP, &vDir[STATE_UP]);
 	Set_StateInfo(STATE_LOOK, &vDir[STATE_LOOK]);
 }
+void CTransform::Scaling(const _vec3& vScale)
+{
+	_vec3		vDir[3];
+
+	for (size_t i = 0; i < 3; ++i)
+	{
+		vDir[i] = *Get_StateInfo(STATE(i));
+		D3DXVec3Normalize(&vDir[i], &vDir[i]);
+	}
+
+	vDir[STATE_RIGHT] *= vScale.x;
+	vDir[STATE_UP] *= vScale.y;
+	vDir[STATE_LOOK] *= vScale.z;
+
+	Set_StateInfo(STATE_RIGHT, &vDir[STATE_RIGHT]);
+	Set_StateInfo(STATE_UP, &vDir[STATE_UP]);
+	Set_StateInfo(STATE_LOOK, &vDir[STATE_LOOK]);
+}
 
 void CTransform::Go_ToTarget(const _vec3* pTargetPos, const _float& fTimeDelta)
 {
