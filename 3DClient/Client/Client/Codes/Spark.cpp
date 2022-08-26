@@ -69,7 +69,7 @@ _int CSpark::Update_GameObject(const _float& fTimeDelta)
 	//}
 	if (m_fAccTime >=0.1f)
 	{
-		if (m_iTextureIdx >= 89)
+		if (m_iTextureIdx >= 16)
 		{
 			m_iTextureIdx = 0;
 			
@@ -182,7 +182,7 @@ HRESULT CSpark::Ready_Component(void* pArg)
 	if (FAILED(Add_Component(L"Com_Shader", m_pShaderCom)))
 		return E_FAIL;	
 
-	m_pTextureCom = (CTexture*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Texture_Particle_Flame");
+	m_pTextureCom = (CTexture*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Texture_Hit");
 	if (FAILED(Add_Component(L"Com_Texture", m_pTextureCom)))
 		return E_FAIL;
 

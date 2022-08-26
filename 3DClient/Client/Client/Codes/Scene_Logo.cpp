@@ -38,6 +38,7 @@
 
 // Effect
 #include "Fire_Tall.h"
+#include "Meteor_Stone.h"
 
 CScene_Logo::CScene_Logo(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CScene(pGraphic_Device)
@@ -436,6 +437,9 @@ HRESULT CScene_Logo::Ready_Component_Mesh(CManagement* pManagement)
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_FireTall",
 		CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"Mesh_FireTail.X"))))
 		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_Meteor",
+		CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"Meteor_Stone.X"))))
+		return E_FAIL;
 	}
 	return S_OK;
 }
@@ -514,7 +518,9 @@ HRESULT CScene_Logo::Ready_Component_Texture(CManagement* pManagement)
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Firenoise",
 		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Fire/Fire_noise%d.dds", 1))))
 		return E_FAIL;
-
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Hit",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Texture/Hit/%d.png", 16))))
+		return E_FAIL;
 
 
 	return S_OK;
@@ -587,7 +593,8 @@ HRESULT CScene_Logo::Ready_Prototype_GameObject()
 	// Effect
 	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Effect_Fire_Tall", CFire_Tall::Create(m_pGraphic_Device))))
 		return E_FAIL;
-
+	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Effect_Meteor_Stone", CMeteor_Stone::Create(m_pGraphic_Device))))
+		return E_FAIL;
 	Safe_Release(pManagement);
 
 	return S_OK;

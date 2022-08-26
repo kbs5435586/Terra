@@ -761,7 +761,7 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 	}
 
 
-	if (pManagement->KeyDown(KEY_F) && m_isInputWeapon)
+	if (pManagement->KeyDown(KEY_F) /*&& m_isInputWeapon*/)
 	{	
 		Fire();
 	}
@@ -941,8 +941,10 @@ void CPlayer::End_Loop(const _float& fTimeDelta)
 				{
 					_matrix matTemp = m_pTransformCom->Get_Matrix();
 					FIRE_BALL tFireBall(matTemp, i);
-					if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_Fire_Tall", SCENE_LOGO, L"Layer_Fire_Tall", &tFireBall)))
+					if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_Fire_Tall",
+						SCENE_STATIC, L"Layer_Fire_Tall", &tFireBall)))
 						return;
+
 				}
 
 			}

@@ -313,6 +313,9 @@
     <Filter Include="02. GameObject\00. Mesh\02. Effect_Mesh\00. FireTall">
       <UniqueIdentifier>{498875e8-cd24-4e3b-8be6-00d70ae64408}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\00. Mesh\02. Effect_Mesh\01. Meteor_Stone">
+      <UniqueIdentifier>{16bddf10-fc44-422e-bf85-4fe8a6c6de9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -582,6 +585,9 @@
     <ClInclude Include="..\Headers\Fire_Tall.h">
       <Filter>02. GameObject\00. Mesh\02. Effect_Mesh\00. FireTall</Filter>
     </ClInclude>
+    <ClInclude Include="..\Headers\Meteor_Stone.h">
+      <Filter>02. GameObject\00. Mesh\02. Effect_Mesh\01. Meteor_Stone</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -817,6 +823,9 @@
     </ClCompile>
     <ClCompile Include="..\Codes\Fire_Tall.cpp">
       <Filter>02. GameObject\00. Mesh\02. Effect_Mesh\00. FireTall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Meteor_Stone.cpp">
+      <Filter>02. GameObject\00. Mesh\02. Effect_Mesh\01. Meteor_Stone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

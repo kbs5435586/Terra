@@ -53,10 +53,10 @@ _int CCamera_Debug::Update_GameObject(const _float & fTimeDelta)
 	vRight = *m_pTransform->Get_StateInfo(STATE_RIGHT);
 	vlook = *m_pTransform->Get_StateInfo(STATE_LOOK);
 	D3DXVec3Normalize(&vLookNormal, &vlook);
-
-
+	
+	
 	CTransform* pTransform = (CTransform*)CManagement::GetInstance()->Get_ComponentPointer(SCENE_STATIC, L"Layer_Player", L"Com_Transform", 0);
-
+	
 	vPos = *pTransform->Get_StateInfo(STATE_POSITION) - *m_pTransform->Get_StateInfo(STATE_LOOK) * 10;
 	vPos.y += 5.f;
 	m_pTransform->Set_StateInfo(STATE_POSITION,&vPos);

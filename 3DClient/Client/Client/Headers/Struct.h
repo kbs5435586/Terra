@@ -215,3 +215,20 @@ typedef struct tagFireBall
 	D3DXMATRIX		matWorld;
 	int				iIdx;
 }FIRE_BALL;
+
+
+struct TEXINFO
+{
+	float	fFrameTime;
+	D3DXVECTOR3	vScrollSpeed;
+	D3DXVECTOR3	vScale;
+};
+
+struct DISTORTION
+{
+	D3DXVECTOR4		fDistortion1;
+	D3DXVECTOR4		fDistortion2;
+	D3DXVECTOR4		fDistortion3;
+	float		fDistortionScale;
+	float		fDistortionBias;
+};

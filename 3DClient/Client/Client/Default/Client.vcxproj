@@ -213,6 +213,7 @@
     <ClInclude Include="..\Headers\MainApp.h" />
     <ClInclude Include="..\Headers\Management.h" />
     <ClInclude Include="..\Headers\Mantis.h" />
+    <ClInclude Include="..\Headers\Meteor_Stone.h" />
     <ClInclude Include="..\Headers\Monkey.h" />
     <ClInclude Include="..\Headers\MP.h" />
     <ClInclude Include="..\Headers\Navi.h" />
@@ -297,6 +298,7 @@
     <ClCompile Include="..\Codes\MainApp.cpp" />
     <ClCompile Include="..\Codes\Management.cpp" />
     <ClCompile Include="..\Codes\Mantis.cpp" />
+    <ClCompile Include="..\Codes\Meteor_Stone.cpp" />
     <ClCompile Include="..\Codes\Monkey.cpp" />
     <ClCompile Include="..\Codes\MP.cpp" />
     <ClCompile Include="..\Codes\Navi.cpp" />

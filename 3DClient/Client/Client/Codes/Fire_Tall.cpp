@@ -2,7 +2,8 @@
 #include "Fire_Tall.h"
 #include "Management.h"
 #include "Player.h"
-
+#include "Target_Manager.h"
+#include "Target.h"
 CFire_Tall::CFire_Tall(LPDIRECT3DDEVICE9 pGraphic_Device)
     : CGameObject(pGraphic_Device)
 {
@@ -31,27 +32,12 @@ HRESULT CFire_Tall::Ready_GameObject(void* pArg)
     m_iFirBallIdx = tFireBall.iIdx;
 
 
-    m_pTransformCom->Scaling(2.f, 2.f, 2.f);
+    m_pTransformCom->Scaling(10.f, 10.f, 10.f);
     _matrix matWorld = m_pTransformCom->Get_Matrix();
     
-    m_vStartPos = { matWorld ._41, matWorld._42 ,matWorld._43};
-    m_vTargetLook = { matWorld._31, matWorld._32 ,matWorld._33 };
-
-    m_vGoalPos = m_vStartPos + m_vTargetLook *10.f;
-
-    if (m_iFirBallIdx == 0)
-    {
-        m_vMidPos = (m_vStartPoint + m_vGoalPos)/2;
-        m_vMidPos.y += 5.f;
-    }
-    else if (m_iFirBallIdx == 1)
-    {
-
-    }
-    else
-    {
-
-    }
+    if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_Meteor_Stone",
+        SCENE_STATIC, L"Layer_Meteor_Stone", m_pTransformCom)))
+        return E_FAIL;
 
 
     matTemp._42 += 2.f;
@@ -82,9 +68,9 @@ _int CFire_Tall::Update_GameObject(const _float& fTimeDelta)
     m_fLifeTime += fTimeDelta;
 
    // m_pTransformCom->Go_Straight(fTimeDelta);
-    //m_pTransformCom->Rotation_Z(fTimeDelta);
+    m_pTransformCom->Rotation_Z(fTimeDelta);
 
-    if (m_fLifeTime >= 1.5f)
+    if (m_fLifeTime >= 2.5f)
          return DEAD_OBJ;
 
     {
@@ -109,7 +95,7 @@ _int CFire_Tall::Update_GameObject(const _float& fTimeDelta)
                     _vec3 vRight = *m_pTransformCom->Get_StateInfo(STATE_RIGHT);
 
                     m_vEndPoint = *m_pTransformCom->Get_StateInfo(STATE_POSITION) + (vLook * 150);
-                    m_vMidPoint = (m_vStartPoint + m_vEndPoint) / 2 + (vRight * 150);;
+                    m_vMidPoint = (m_vStartPoint + m_vEndPoint) / 2 + (vRight * 50);;
                     m_vMidPoint.y += 10.f;
                     m_IsBazier = true;
                 }
@@ -120,14 +106,14 @@ _int CFire_Tall::Update_GameObject(const _float& fTimeDelta)
                     _vec3 vRight = *m_pTransformCom->Get_StateInfo(STATE_RIGHT);
 
                     m_vEndPoint = *m_pTransformCom->Get_StateInfo(STATE_POSITION) + (vLook * 150);
-                    m_vMidPoint = (m_vStartPoint + m_vEndPoint) / 2 + (-vRight * 150);;
+                    m_vMidPoint = (m_vStartPoint + m_vEndPoint) / 2 + (-vRight * 50);;
                     m_vMidPoint.y += 10.f;
                     m_IsBazier = true;
                 }
 
 
             }
-            Hit_Object(m_pTransformCom, m_fBazierCnt, m_vStartPoint, m_vEndPoint, m_vMidPoint, fTimeDelta*0.9f, m_vSize);
+            Hit_Object(m_pTransformCom, m_fBazierCnt, m_vStartPoint, m_vEndPoint, m_vMidPoint, fTimeDelta, m_vSize);
 
         }
         if (m_fBazierCnt >= 5.f)
@@ -143,7 +129,9 @@ _int CFire_Tall::Update_GameObject(const _float& fTimeDelta)
 
 _int CFire_Tall::LastUpdate_GameObject(const _float& fTimeDelta)
 {
-    if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_ALPHA, this)))
+    //if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_ALPHA, this)))
+    //    return -1;
+    if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_POSTEFFECT, this)))
         return -1;
 
     m_tTexInfo.fFrameTime += fTimeDelta;
@@ -183,15 +171,41 @@ void CFire_Tall::Render_GameObject()
     pEffect->EndPass();
     pEffect->End();
 
-    if (nullptr != m_pColliderCom)
-        m_pColliderCom->Render_Collider();
+
 
     Safe_Release(pEffect);
 }
 
 void CFire_Tall::Render_GameObject_PostEffect()
 {
+    if (m_pShaderCom_PostEffect == nullptr || m_pMeshCom == nullptr)
+        return;
 
+    LPD3DXEFFECT	pEffect = m_pShaderCom_PostEffect->GetEffectHandle();
+    if (pEffect == nullptr)
+        return;
+
+    pEffect->AddRef();
+
+    _ulong dwNumMaterials = m_pMeshCom->Get_NumMaterials();
+    pEffect->Begin(nullptr, 0);
+    pEffect->BeginPass(0);
+
+    for (size_t i = 0; i < dwNumMaterials; i++)
+    {
+        if (FAILED(SetUp_ConstantTable_PostEffect(pEffect, i)))
+            return;
+
+        pEffect->CommitChanges();
+
+        m_pMeshCom->Render_Mesh(i);
+    }
+    pEffect->EndPass();
+    pEffect->End();
+
+
+
+    Safe_Release(pEffect);
 }
 
 CFire_Tall* CFire_Tall::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
@@ -219,7 +233,8 @@ void CFire_Tall::Free()
     Safe_Release(m_pRendererCom);
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pTextureCom);
-    Safe_Release(m_pColliderCom);
+    Safe_Release(m_pShaderCom_PostEffect);
+
     for (int i = 0; i < 3; ++i)
     {
         Safe_Release(m_pTextureCom_Fire[i]);     
@@ -266,14 +281,10 @@ HRESULT CFire_Tall::Ready_Component()
     m_pTextureCom_Fire[2] = (CTexture*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Texture_Firenoise");
     if (FAILED(Add_Component(L"Com_Texture_2", m_pTextureCom_Fire[2])))
         return E_FAIL;
-
-    _matrix			matLocalTransform;
-    D3DXMatrixScaling(&matLocalTransform, 15.f, 10.f, 15.f);
-    matLocalTransform._42 = 4.f;
-    m_pColliderCom = (CCollider*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Collider_Box",
-        &COLLIDER_INFO(BOX_TYPE_OBB, matLocalTransform, nullptr, m_pTransformCom->Get_Matrix_Pointer()));
-    if (FAILED(Add_Component(L"Com_Collider_OBB", m_pColliderCom)))
+    m_pShaderCom_PostEffect = (CShader*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Shader_Effect");
+    if (FAILED(Add_Component(L"Com_Shader_PostEffect", m_pShaderCom_PostEffect)))
         return E_FAIL;
+
 
     Safe_Release(pManagement);
     return S_OK;
@@ -299,10 +310,6 @@ HRESULT CFire_Tall::SetUp_ConstantTable(LPD3DXEFFECT pEffect, const _uint& iAttr
     if (nullptr == pSubSet)
         return E_FAIL;
 
-    pEffect->SetVector("g_vMtrlSpecular", (_vec4*)&pSubSet->Material.MatD3D.Specular);
-    pEffect->SetVector("g_vMtrlAmbient", (_vec4*)&pSubSet->Material.MatD3D.Ambient);
-    pEffect->SetFloat("g_fPower", pSubSet->Material.MatD3D.Power);
-
     m_pTextureCom->SetUp_OnShader(pEffect, "g_DiffuseTexture", 6);
     m_pTextureCom_Fire[0]->SetUp_OnShader(pEffect, "g_texture1");
     m_pTextureCom_Fire[1]->SetUp_OnShader(pEffect, "g_texture2");
@@ -322,4 +329,34 @@ HRESULT CFire_Tall::SetUp_ConstantTable(LPD3DXEFFECT pEffect, const _uint& iAttr
     }
 
     return S_OK;
+}
+
+HRESULT CFire_Tall::SetUp_ConstantTable_PostEffect(LPD3DXEFFECT pEffect, const _uint& iAttributeID)
+{
+    m_pTransformCom->SetUp_OnShader(pEffect, "g_matWorld");
+
+    _matrix		matView, matProj;
+    _matrix		matLightView, matLightProj;
+
+    m_pGraphic_Device->GetTransform(D3DTS_VIEW, &matView);
+    m_pGraphic_Device->GetTransform(D3DTS_PROJECTION, &matProj);
+
+    pEffect->SetMatrix("g_matView", &matView);
+    pEffect->SetMatrix("g_matProj", &matProj);
+
+    matLightView = CManagement::GetInstance()->GetShadowViewMatrix();
+    matLightProj = CManagement::GetInstance()->GetShadowProjMatrix();
+
+    const SUBSETDESC* pSubSet = m_pMeshCom->Get_SubSetDesc(iAttributeID);
+    if (nullptr == pSubSet)
+        return E_FAIL;
+
+    pEffect->SetVector("g_vMtrlSpecular", (_vec4*)&pSubSet->Material.MatD3D.Specular);
+    pEffect->SetVector("g_vMtrlAmbient", (_vec4*)&pSubSet->Material.MatD3D.Ambient);
+    pEffect->SetFloat("g_fPower", pSubSet->Material.MatD3D.Power);
+
+
+    pEffect->SetTexture("g_DiffuseTexture", m_pRendererCom->Get_TargetManager()->GetTarget(L"Target_PostEffect")->Get_Texture());
+    pEffect->SetFloat("g_fAccTime", m_fAccTime);
+    return NOERROR;
 }
