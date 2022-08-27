@@ -32,6 +32,7 @@ HRESULT CShiraken::Ready_GameObject(void* pArg)
 
 
 	D3DXMatrixIdentity(&m_matIden);
+	D3DXMatrixIdentity(&m_matParent);
 
 	m_pTransformCom->Set_Parent(&m_matParent);
 
@@ -77,8 +78,8 @@ _int CShiraken::LastUpdate_GameObject(const _float& fTimeDelta)
 		}
 		
 		m_pTransformCom->Scaling(0.05f, 0.05f, 0.05f);
-
-		*m_pHandMatrix = m_matIden;
+		//m_pTransformCom->Scaling(0.5f, 0.5f, 0.5f);
+		//*m_pHandMatrix = m_matIden;
 		m_pTransformCom->Set_Parent(nullptr);
 		m_pColliderCom_OBB->GetColliderInfo().pParentMatrix = nullptr;		
 		m_pTransformCom->Rotation_Y(fTimeDelta);
@@ -135,7 +136,8 @@ _int CShiraken::LastUpdate_GameObject(const _float& fTimeDelta)
 	{
 		m_isFirst = false;
 		m_pTransformCom->SetUp_RotationX(D3DXToRadian(0.f));
-		_vec3 vPos = {0.f,0.f,0.f};
+		_vec3 vPos = {0.f,0.f,0.f };
+		 // = { m_pHandMatrix->_41, m_pHandMatrix->_42, m_pHandMatrix->_43 };
 		m_pTransformCom->Set_StateInfo(STATE::STATE_POSITION, &vPos);
 		m_pTransformCom->Scaling(0.5f, 0.5f, 0.5f);
 		m_pTransformCom->Set_Parent(&m_matParent);

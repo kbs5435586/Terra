@@ -42,7 +42,7 @@ _int CMainApp::Update_MainApp(const _float & fTimeDelta)
 	m_fTimeAcc += fTimeDelta;
 
 	CInput::GetInstance()->SetUp_InputState();
-	m_pManagement->Collision_Update(fTimeDelta);
+	
 	m_pManagement->Key_Update();
 
 	return m_pManagement->Update_Management(fTimeDelta);

@@ -68,5 +68,7 @@ private:
 	_matrix							m_matShadowWorld = {};
 	_matrix							m_matShadowView = {};
 	_matrix							m_matShadowProj = {};
+private:
+	_bool							m_IsPartCollision_Check = false;
 };	
 

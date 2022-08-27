@@ -4,6 +4,7 @@
 #include "Mini_Shraken.h"
 #include "Target_Manager.h"
 #include "Target.h"
+#include "ParticleSystem.h"
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CGameObject(pGraphic_Device)
 {
@@ -631,6 +632,8 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 			m_isThrow = false;
 		}
 
+		//Create_Particle();
+
 	}
 	else if (m_isCombo ||(m_eCurState <= STATE_PL_COM1 &&
 						  m_eCurState >= STATE_PL_COM7 &&
@@ -639,12 +642,20 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 		m_eCurState = (STATE_)(STATE_PL_COM1 + (-2 * m_iCurComboCnt));
 		m_IsOnce = true;
 		m_isAttack = true;
+
+		//if (m_eCurState == STATE_PL_COM7)
+		{
+			Create_Particle(fTimeDelta, 1.f);
+		}
+
 	}
+	
 
 
 
 	if (pManagement->KeyDown(KEY_RBUTTON))
 	{
+	
 		Attack_Shiraken();
 		m_isAttack = true;
 	}
@@ -661,6 +672,7 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 			m_eCurState = STATE_CALL_ELEC;
 			m_IsOnce = true;
 		}
+		Create_Particle(fTimeDelta, 1.f);
 	}
 	else if (pManagement->KeyPressing(KEY_Q))
 	{
@@ -668,6 +680,7 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 		if (m_fMaxThrowPower <= m_fThrowPower)
 			m_fThrowPower = m_fMaxThrowPower;
 		m_isAttack = false;
+	
 	}
 	if (pManagement->KeyDown(KEY_SPACE))
 	{
@@ -817,6 +830,7 @@ void CPlayer::End_Loop(const _float& fTimeDelta)
 			m_fOnIdleTime = 0.f;
 			return;
 		}
+		Create_Particle(fTimeDelta, 1.f);
 	}
 	if (m_pMeshCom->Get_CurrentState() == CPlayer::STATE_FIRE_END)
 	{
@@ -846,7 +860,6 @@ void CPlayer::End_Loop(const _float& fTimeDelta)
 	}
 	if (m_pMeshCom->Get_CurrentState() == CPlayer::STATE_PL_COM7)
 	{
-
 		m_fOnIdleTime += fTimeDelta;
 		m_fInputTime += fTimeDelta;
 		m_fAnimTime = m_pMeshCom->Get_AllTime();

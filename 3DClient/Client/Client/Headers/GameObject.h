@@ -20,6 +20,9 @@ public:
 	virtual void							Render_GameObject_Shadow();
 	virtual void							Render_GameObject_Blur();
 	virtual void							Render_GameObject_PostEffect();
+public:
+	void									Create_Particle();
+	void									Create_Particle(const _float& fTimeDelta, const _float& fperiod=0.05f);
 protected:
 	void									Obb_Collision(CTransform* pTransform, const _float& fAddY = 0.f);
 	void									Hit_Object(CTransform* pTransform, _float& fCnt, _vec3 vStart, _vec3 vEnd, _vec3 vMid);
@@ -76,6 +79,8 @@ protected://OBB Collision
 	_vec3									m_vEndPoint = {};
 	_vec3									m_vMidPoint = {};
 	_float									m_fCollisionAccTime = 0.f;
+	_vec3									m_vCollisionPos = {};
+	_bool									m_IsPlayer_Particle = false;
 protected://Rotate
 	ROTATE_DIR								m_eRotate;
 	_bool									m_isRotateEnd = false;
@@ -93,7 +98,7 @@ protected://Blur
 	_matrix									m_matOldView;
 	_float									m_fBlurTime = 0.f;
 protected:
-	_matrix									m_matParent;
+	_matrix									m_matParent = {};;
 	_matrix									m_matTrail;
 	_float									m_fFrame = 0.f;
 protected:
@@ -117,6 +122,8 @@ public:
 	_matrix									GetParentMat() { return m_matParent; }
 	_matrix									GetTrailMat() { return m_matTrail; }
 	_float&									GetCollisionAccTime() {return m_fCollisionAccTime;	}
+	_vec3&									GetCollisionPos(){return m_vCollisionPos;}
+	_bool&									GetIsPlayerCollision(){return m_IsPlayer_Particle;}
 protected:
 	virtual void							Free();
 };

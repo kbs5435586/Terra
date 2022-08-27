@@ -2,6 +2,8 @@
 #include "..\Headers\GameObject.h"
 #include "Component.h"
 #include "Transform.h"
+#include "Management.h"
+#include "ParticleSystem.h"
 
 
 
@@ -52,6 +54,35 @@ void CGameObject::Render_GameObject_PostEffect()
 {
 }
 
+void CGameObject::Create_Particle()
+{
+	if (m_IsPlayer_Particle)
+	{
+		if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Particle_Spark", SCENE_STATIC, L"Layer_Particle")))
+			return;
+		dynamic_cast<CParticleSystem*>(CManagement::GetInstance()->Get_BackObject(SCENE_STATIC, L"Layer_Particle"))->GetOriginPos() = m_vCollisionPos;
+		m_IsPlayer_Particle = false;
+	}
+}
+
+void CGameObject::Create_Particle(const _float& fTimeDelta, const _float& fperiod)
+{
+	m_fAccTime += fTimeDelta;
+
+	if (m_fAccTime >= fperiod)
+	{
+		if (m_IsPlayer_Particle)
+		{
+			if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Particle_Spark", SCENE_STATIC, L"Layer_Particle")))
+				return;
+			dynamic_cast<CParticleSystem*>(CManagement::GetInstance()->Get_BackObject(SCENE_STATIC, L"Layer_Particle"))->GetOriginPos() = m_vCollisionPos;
+			m_IsPlayer_Particle = false;
+		}
+		m_fAccTime = 0.f;
+	}
+
+}
+
 void CGameObject::Obb_Collision(CTransform* pTransform, const _float& fAddY)
 {
 	if (m_IsOBB_Collision && m_fBazierCnt <= 1.f)
@@ -99,7 +130,7 @@ void CGameObject::Hit_Object(CTransform* pTransform, _float& fCnt, _vec3 vStart,
 	_vec3 vNewLook = vEnd - *pTransform->Get_StateInfo(STATE::STATE_POSITION);
 	D3DXVec3Normalize(&vNewLook, &vNewLook);
 
-	_vec3 vAxisY = _vec3(0.f,1.f,0.f);
+	_vec3 vAxisY = _vec3(0.f, 1.f, 0.f);
 	_vec3 vNewRight;
 	D3DXVec3Cross(&vNewRight, &vAxisY, &vNewLook);
 	D3DXVec3Normalize(&vNewRight, &vNewRight);

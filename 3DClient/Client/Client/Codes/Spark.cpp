@@ -19,7 +19,7 @@ CSpark::CSpark(CSpark& rhs)
 	, m_iNumParticle(rhs.m_iNumParticle)
 {
 	//m_iParticleSize = 7.f;
-	m_iParticleSize = 200.f;
+	m_iParticleSize = 1500.f;
 	m_vParticleColor = { 1.f,1.f,0.f,1.f };
 	m_isChangeColor = true;
 	m_vOriginPos = { 0.f,0.f,0.f };
@@ -67,7 +67,7 @@ _int CSpark::Update_GameObject(const _float& fTimeDelta)
 	//{
 	//	return -1;
 	//}
-	if (m_fAccTime >=0.1f)
+	if (m_fAccTime >=0.05f)
 	{
 		if (m_iTextureIdx >= 16)
 		{
