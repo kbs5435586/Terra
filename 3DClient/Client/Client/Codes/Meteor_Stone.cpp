@@ -31,7 +31,7 @@ HRESULT CMeteor_Stone::Ready_GameObject(void* pArg)
    //m_iFirBallIdx = tFireBall.iIdx;
 
 
-    //m_pTransformCom->Scaling(10.f, 10.f, 10.f);
+    m_pTransformCom->Scaling(2.f, 2.f, 2.f);
     _matrix matWorld = m_pTransformCom->Get_Matrix();
 
 
@@ -45,6 +45,8 @@ HRESULT CMeteor_Stone::Ready_GameObject(void* pArg)
 
     m_vSize = m_pTransformCom->Get_Scale();
 
+    m_pTransformCom->SetUp_RotationY(D3DXToRadian(90.f));
+
 
     {
         m_tTexInfo.vScrollSpeed = _vec3(1.3f, 2.1f, 2.3f);
@@ -54,7 +56,7 @@ HRESULT CMeteor_Stone::Ready_GameObject(void* pArg)
         m_tDistortion.fDistortion1 = _vec4(0.1f, 0.2f, 0.f, 0.f);
         m_tDistortion.fDistortion2 = _vec4(0.1f, 0.3f, 0.f, 0.f);
         m_tDistortion.fDistortion3 = _vec4(0.1f, 0.1f, 0.f, 0.f);
-        m_tDistortion.fDistortionScale = 0.8f;
+        m_tDistortion.fDistortionScale = 2.f;
         m_tDistortion.fDistortionBias = 0.5f;
     }
 
@@ -67,7 +69,7 @@ _int CMeteor_Stone::Update_GameObject(const _float& fTimeDelta)
     m_fLifeTime += fTimeDelta;
 
     // m_pTransformCom->Go_Straight(fTimeDelta);
-     //m_pTransformCom->Rotation_Z(fTimeDelta);
+     m_pTransformCom->Rotation_Z(fTimeDelta);
 
     _vec3 vPos = *m_pParentTransform->Get_StateInfo(STATE::STATE_POSITION);
     m_pTransformCom->Go_ToTarget(&vPos, fTimeDelta);
