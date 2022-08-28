@@ -4,7 +4,8 @@
 #include "Transform.h"
 #include "Management.h"
 #include "ParticleSystem.h"
-
+#include "Target_Manager.h"
+#include "Target.h"
 
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphic_Device)

@@ -34,9 +34,15 @@ HRESULT CPlayer::Ready_GameObject(void* pArg)
 	m_pTransformCom->Set_StateInfo(STATE_POSITION, &_vec3(30.f, 0.f, 30.f));
 //	m_pTransformCom->Set_StateInfo(STATE_POSITION, &_vec3(90.f, 0.f, 90.f));
 	m_eNavi = NAVI::NAVI_PLAYER;
-	m_eCurState = CPlayer::STATE_PL_WAIT;
+	m_eCurState = CPlayer::STATE_TWIN_SHOT;
 	m_IsOnce = false;
 	m_isAttack = false;
+
+
+	if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_RangeFloor",
+		SCENE_STATIC, L"Layer_Range_Floor", m_pTransformCom->Get_Matrix())))
+		return E_FAIL; 
+
 	return S_OK;
 }
 
@@ -47,9 +53,9 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	Reset_Combo(fTimeDelta);
 	End_Loop(fTimeDelta);
 	Change_State(m_eCurState);
-	
-	m_pMeshCom->Play_Animation(fTimeDelta * m_fMove);
 	Input_Key(fTimeDelta);
+	//m_eCurState = CPlayer::STATE_TWIN_R;
+	m_pMeshCom->Play_Animation(fTimeDelta * m_fMove);
 	m_fAccTime += fTimeDelta;
 
 
@@ -219,7 +225,7 @@ void CPlayer::Render_GameObject_Blur()
 
 	}
 
-	if (m_fBlurTime >= 0.1f)
+	if (m_fBlurTime >= 0.9f)
 	{
 		_matrix		matView;
 		m_pGraphic_Device->GetTransform(D3DTS_VIEW, &matView);
@@ -645,7 +651,7 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 
 		//if (m_eCurState == STATE_PL_COM7)
 		{
-			Create_Particle(fTimeDelta, 1.f);
+			Create_Particle(fTimeDelta, 1.5f);
 		}
 
 	}
@@ -669,16 +675,14 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 		m_isAttack = true;
 		if (m_isInputWeapon == false)
 		{
-			m_eCurState = STATE_CALL_ELEC;
+			m_eCurState = STATE_TWIN_START;
 			m_IsOnce = true;
 		}
-		Create_Particle(fTimeDelta, 1.f);
+		Create_Particle(fTimeDelta, 0.1f);
 	}
 	else if (pManagement->KeyPressing(KEY_Q))
 	{
-		m_fThrowPower += fTimeDelta * 10.f;
-		if (m_fMaxThrowPower <= m_fThrowPower)
-			m_fThrowPower = m_fMaxThrowPower;
+		m_fThrowPower = m_fMaxThrowPower;
 		m_isAttack = false;
 	
 	}
@@ -699,6 +703,8 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 	{
 		m_IsOnce = false;
 		m_eCurState = STATE_PL_RUN;
+
+
 
 		_vec3 vLook = *m_pTransformCom->Get_StateInfo(STATE_LOOK);
 		_float fTemp = 0.f;
@@ -774,8 +780,9 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 	}
 
 
-	if (pManagement->KeyDown(KEY_F) /*&& m_isInputWeapon*/)
+	if (pManagement->KeyDown(KEY_F) && m_isInputWeapon)
 	{	
+		m_isAttack = false;
 		Fire();
 	}
 
@@ -845,7 +852,7 @@ void CPlayer::End_Loop(const _float& fTimeDelta)
 			return;
 		}
 	}
-	if (m_pMeshCom->Get_CurrentState() == CPlayer::STATE_ELEC_END)
+	if (m_pMeshCom->Get_CurrentState() == CPlayer::STATE_TWIN_R)
 	{
 		m_fOnIdleTime += fTimeDelta;
 		m_fAnimTime = m_pMeshCom->Get_AllTime();
@@ -954,8 +961,16 @@ void CPlayer::End_Loop(const _float& fTimeDelta)
 				{
 					_matrix matTemp = m_pTransformCom->Get_Matrix();
 					FIRE_BALL tFireBall(matTemp, i);
-					if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_Fire_Tall",
-						SCENE_STATIC, L"Layer_Fire_Tall", &tFireBall)))
+					//if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_Fire_Tall",
+					//	SCENE_STATIC, L"Layer_Fire_Tall", &tFireBall)))
+					//	return;
+
+					if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_Meteor_Stone",
+						SCENE_STATIC, L"Layer_Meteor_Stone", &tFireBall)))
+						return;
+
+					if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_BoomWave",
+						SCENE_STATIC, L"Layer_BoomWave", &tFireBall)))
 						return;
 
 				}
@@ -966,15 +981,15 @@ void CPlayer::End_Loop(const _float& fTimeDelta)
 		//Elec
 		{
 
-			if (m_eCurState == CPlayer::STATE_CALL_ELEC_LOOP)
+			if (m_eCurState == CPlayer::STATE_TWIN_SHOT)
 			{
 
-				m_eCurState = CPlayer::STATE_ELEC_END;
+				m_eCurState = CPlayer::STATE_TWIN_R;
 			}
-			else if (m_eCurState == CPlayer::STATE_CALL_ELEC)
+			else if (m_eCurState == CPlayer::STATE_TWIN_START)
 			{
 				m_isThrow ^= true;
-				m_eCurState = CPlayer::STATE_CALL_ELEC_LOOP;
+				m_eCurState = CPlayer::STATE_TWIN_SHOT;
 			}
 		}
 

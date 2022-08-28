@@ -28,7 +28,12 @@ private:
 	void							Render_Effect();
 	void							Render_PostEffect();
 public:
-	CTarget_Manager*				Get_TargetManager(){if(m_pTarget_Manager)return m_pTarget_Manager; }
+	CTarget_Manager*				Get_TargetManager()
+	{
+		if (m_pTarget_Manager)
+			return m_pTarget_Manager;
+		else return nullptr;
+	}
 public:
 	static CRenderer*				Create(LPDIRECT3DDEVICE9 pGraphic_Device); 
 	virtual CComponent*				Clone_Component(void* pArg);

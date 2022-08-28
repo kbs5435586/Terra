@@ -94,7 +94,7 @@ private:
 	_bool					m_isInput = true;
 	_float					m_fInputTime = 0.f;
 private://	ThrowPower
-	const	float			m_fMaxThrowPower = 50.f;
+	const	float			m_fMaxThrowPower = 15.f;
 	float					m_fThrowPower = 50.f;
 public:
 	_bool&					GetIsInputWeapon(){return m_isInputWeapon;}

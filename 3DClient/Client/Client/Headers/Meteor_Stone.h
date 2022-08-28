@@ -29,9 +29,11 @@ public:
 private:
 	HRESULT					Ready_Component();
 	HRESULT					SetUp_ConstantTable(LPD3DXEFFECT pEffect, const _uint& iAttributeID);
+	HRESULT					SetUp_ConstantTable_PostEffect(LPD3DXEFFECT pEffect, const _uint& iAttributeID);
 	CTransform* m_pTransformCom = nullptr;
 	CRenderer* m_pRendererCom = nullptr;
 	CShader* m_pShaderCom = nullptr;
+	CShader* m_pShaderCom_PostEffect = nullptr;
 	CTexture* m_pTextureCom = nullptr;
 	CTexture* m_pTextureCom_Fire[3] = { nullptr, };
 	CStatic_Mesh* m_pMeshCom = nullptr;

@@ -14,6 +14,8 @@
 #include "Snow.h"
 #include "Spark.h"
 #include "Trail.h"
+#include "FireSpark.h"
+#include "Explosion.h"
 
 
 CScene_Stage_Town::CScene_Stage_Town(LPDIRECT3DDEVICE9 pGraphic_Device)
@@ -96,6 +98,11 @@ HRESULT CScene_Stage_Town::Ready_Prototype_GameObject()
 
 	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Particle_Spark", CSpark::Create(m_pGraphic_Device, 3))))
 		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Particle_FireSparck", CFireSpark::Create(m_pGraphic_Device, 1))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Particle_Explosion", CExplosion::Create(m_pGraphic_Device, 1))))
+		return E_FAIL;
+
 	/*if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Particle_Spark", SCENE_STATIC, L"Layer_Particle")))
 		return E_FAIL;
 	dynamic_cast<CParticleSystem*>(CManagement::GetInstance()->Get_BackObject(SCENE_STATIC, L"Layer_Particle"))->GetOriginPos() = _vec3(-99999.f, 99999999.f, 0.f);*/

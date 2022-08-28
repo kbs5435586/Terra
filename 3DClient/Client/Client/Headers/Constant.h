@@ -21,4 +21,5 @@ const DWORD KEY_E =			0x00010000;
 const DWORD KEY_Q =			0x00020000;
 const DWORD KEY_F =			0x00040000;
 const DWORD KEY_G =			0x00080000;
+const DWORD KEY_R =			0x00100000;
 

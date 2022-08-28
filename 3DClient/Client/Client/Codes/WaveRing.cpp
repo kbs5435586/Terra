@@ -1,67 +1,28 @@
 #include "stdafx.h"
-#include "Fire_Tall.h"
+#include "WaveRing.h"
 #include "Management.h"
 #include "Player.h"
 #include "Target_Manager.h"
 #include "Target.h"
-CFire_Tall::CFire_Tall(LPDIRECT3DDEVICE9 pGraphic_Device)
+
+
+CWaveRing::CWaveRing(LPDIRECT3DDEVICE9 pGraphic_Device)
     : CGameObject(pGraphic_Device)
 {
 }
 
-CFire_Tall::CFire_Tall(const CFire_Tall& rhs)
+CWaveRing::CWaveRing(const CWaveRing& rhs)
     : CGameObject(rhs)
 {
 }
 
-HRESULT CFire_Tall::Ready_Prototype()
+HRESULT CWaveRing::Ready_Prototype()
 {
     return S_OK;
 }
 
-HRESULT CFire_Tall::Ready_GameObject(void* pArg)
+HRESULT CWaveRing::Ready_GameObject(void* pArg)
 {
-    {
-        //if (nullptr == pArg)
-        //    return E_FAIL;
-
-        //if (FAILED(Ready_Component()))
-        //    return E_FAIL;
-
-        //FIRE_BALL tFireBall = *(FIRE_BALL*)pArg;
-        //_matrix matTemp = tFireBall.matWorld;
-        //m_iFirBallIdx = tFireBall.iIdx;
-
-
-        //m_pTransformCom->Scaling(10.f, 10.f, 10.f);
-        //_matrix matWorld = m_pTransformCom->Get_Matrix();
-
-        ////if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_Meteor_Stone",
-        ////    SCENE_STATIC, L"Layer_Meteor_Stone", m_pTransformCom)))
-        ////    return E_FAIL;
-
-
-        //matTemp._42 += 2.f;
-        //matWorld *= matTemp;
-        //m_pTransformCom->Set_Matrix(matWorld);
-        //m_pTransformCom->SetUp_Speed(100.f, D3DXToRadian(360.f));
-
-        //{
-        //    m_tTexInfo.vScrollSpeed = _vec3(1.3f, 2.1f, 2.3f);
-        //    m_tTexInfo.vScale = _vec3(1.f, 2.f, 3.f);
-
-
-        //    m_tDistortion.fDistortion1 = _vec4(0.1f, 0.2f, 0.f, 0.f);
-        //    m_tDistortion.fDistortion2 = _vec4(0.1f, 0.3f, 0.f, 0.f);
-        //    m_tDistortion.fDistortion3 = _vec4(0.1f, 0.1f, 0.f, 0.f);
-        //    m_tDistortion.fDistortionScale = 0.8f;
-        //    m_tDistortion.fDistortionBias = 0.5f;
-        //}
-
-
-        //m_vSize = m_pTransformCom->Get_Scale();
-        //return S_OK;
-    }
     if (nullptr == pArg)
         return E_FAIL;
 
@@ -77,14 +38,9 @@ HRESULT CFire_Tall::Ready_GameObject(void* pArg)
     _matrix matWorld = m_pTransformCom->Get_Matrix();
 
 
-    /* matTemp._42 += 2.f;
-     matWorld *= matTemp;
-     m_pTransformCom->Set_Matrix(matWorld);*/
-    _vec3 vPos = *((CTransform*)CManagement::GetInstance()->Get_ComponentPointer(SCENE_STATIC,
-        L"Layer_Player", L"Com_Transform"))->Get_StateInfo(STATE::STATE_POSITION);
-    m_pTransformCom->Set_StateInfo(STATE::STATE_POSITION, &vPos);
-    m_pTransformCom->SetUp_Speed(100.f, D3DXToRadian(1360.f));
-    m_pParentTransform = (CTransform*)pArg;
+    m_pTransformCom->SetUp_Speed(100.f, D3DXToRadian(60.f));
+    _vec3 vPos = *(_vec3*)(pArg);
+    m_pTransformCom->Set_StateInfo(STATE_POSITION, &vPos);
 
     m_vSize = m_pTransformCom->Get_Scale();
 
@@ -106,80 +62,24 @@ HRESULT CFire_Tall::Ready_GameObject(void* pArg)
     return S_OK;
 }
 
-_int CFire_Tall::Update_GameObject(const _float& fTimeDelta)
+_int CWaveRing::Update_GameObject(const _float& fTimeDelta)
 {
     m_pPlayer = (CPlayer*)CManagement::GetInstance()->Get_BackObject(SCENE_STATIC, L"Layer_Player");
+    m_fAccTime += fTimeDelta*0.5f;
     m_fLifeTime += fTimeDelta;
+    //m_pTransformCom->Rotation_Y(fTimeDelta);
 
-   // m_pTransformCom->Go_Straight(fTimeDelta);
-    if (m_iRandidx == 0)
-    {
-        m_pTransformCom->Rotation_Z(fTimeDelta);
-
-    }
-    else   m_pTransformCom->Rotation_Z(-fTimeDelta);
-
-    _vec3 vPos = *m_pParentTransform->Get_StateInfo(STATE::STATE_POSITION);
-    m_pTransformCom->Go_ToTarget(&vPos, fTimeDelta);
-
-    if (m_fLifeTime >= 1.4f)
-         return DEAD_OBJ;
-
-    {
-        /*if (m_fBazierCnt <= 1.f)
-        {
-            if (!m_IsBazier)
-            {
-                if (m_iFirBallIdx == 0)
-                {
-                    m_vStartPoint = *m_pTransformCom->Get_StateInfo(STATE_POSITION);
-                    _vec3 vLook = *m_pTransformCom->Get_StateInfo(STATE_LOOK);
-                    vLook *= -1.f;
-                    m_vEndPoint = *m_pTransformCom->Get_StateInfo(STATE_POSITION) + (vLook * 150);
-                    m_vMidPoint = (m_vStartPoint + m_vEndPoint) / 2;
-                    m_vMidPoint.y += 10.f;
-                    m_IsBazier = true;
-                }
-                else if (m_iFirBallIdx == 1)
-                {
-                    m_vStartPoint = *m_pTransformCom->Get_StateInfo(STATE_POSITION);
-                    _vec3 vLook = *m_pTransformCom->Get_StateInfo(STATE_LOOK);
-                    _vec3 vRight = *m_pTransformCom->Get_StateInfo(STATE_RIGHT);
-
-                    m_vEndPoint = *m_pTransformCom->Get_StateInfo(STATE_POSITION) + (vLook * 150);
-                    m_vMidPoint = (m_vStartPoint + m_vEndPoint) / 2 + (vRight * 50);;
-                    m_vMidPoint.y += 10.f;
-                    m_IsBazier = true;
-                }
-                else
-                {
-                    m_vStartPoint = *m_pTransformCom->Get_StateInfo(STATE_POSITION);
-                    _vec3 vLook = *m_pTransformCom->Get_StateInfo(STATE_LOOK);
-                    _vec3 vRight = *m_pTransformCom->Get_StateInfo(STATE_RIGHT);
-
-                    m_vEndPoint = *m_pTransformCom->Get_StateInfo(STATE_POSITION) + (vLook * 150);
-                    m_vMidPoint = (m_vStartPoint + m_vEndPoint) / 2 + (-vRight * 50);;
-                    m_vMidPoint.y += 10.f;
-                    m_IsBazier = true;
-                }
+    m_pTransformCom->Scaling(m_fAccTime, m_fAccTime, m_fAccTime);
 
 
-            }
-            Hit_Object(m_pTransformCom, m_fBazierCnt, m_vStartPoint, m_vEndPoint, m_vMidPoint, fTimeDelta, m_vSize);
-
-        }
-        if (m_fBazierCnt >= 5.f)
-        {
-            m_fBazierCnt = 0.f;
-            m_IsBazier = false;
-        }*/
-    }
+    if (m_fLifeTime >= 1.5f)
+        return DEAD_OBJ;
 
 
     return NO_EVENT;
 }
 
-_int CFire_Tall::LastUpdate_GameObject(const _float& fTimeDelta)
+_int CWaveRing::LastUpdate_GameObject(const _float& fTimeDelta)
 {
     //if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_ALPHA, this)))
     //    return -1;
@@ -196,7 +96,7 @@ _int CFire_Tall::LastUpdate_GameObject(const _float& fTimeDelta)
     return _int();
 }
 
-void CFire_Tall::Render_GameObject()
+void CWaveRing::Render_GameObject()
 {
     if (m_pShaderCom == nullptr || m_pMeshCom == nullptr)
         return;
@@ -228,7 +128,7 @@ void CFire_Tall::Render_GameObject()
     Safe_Release(pEffect);
 }
 
-void CFire_Tall::Render_GameObject_PostEffect()
+void CWaveRing::Render_GameObject_PostEffect()
 {
     if (m_pShaderCom_PostEffect == nullptr || m_pMeshCom == nullptr)
         return;
@@ -260,25 +160,25 @@ void CFire_Tall::Render_GameObject_PostEffect()
     Safe_Release(pEffect);
 }
 
-CFire_Tall* CFire_Tall::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
+CWaveRing* CWaveRing::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
 {
-    CFire_Tall* pInstance = new CFire_Tall(pGraphic_Device);
+    CWaveRing* pInstance = new CWaveRing(pGraphic_Device);
     if (FAILED(pInstance->Ready_Prototype()))
         Safe_Release(pInstance);
 
     return pInstance;
 }
 
-CGameObject* CFire_Tall::Clone_GameObject(void* pArg)
+CGameObject* CWaveRing::Clone_GameObject(void* pArg)
 {
-    CFire_Tall* pInstance = new CFire_Tall(*this);
+    CWaveRing* pInstance = new CWaveRing(*this);
     if (FAILED(pInstance->Ready_GameObject(pArg)))
         Safe_Release(pInstance);
 
     return pInstance;
 }
 
-void CFire_Tall::Free()
+void CWaveRing::Free()
 {
     Safe_Release(m_pTransformCom);
     Safe_Release(m_pMeshCom);
@@ -287,15 +187,11 @@ void CFire_Tall::Free()
     Safe_Release(m_pTextureCom);
     Safe_Release(m_pShaderCom_PostEffect);
 
-    for (int i = 0; i < 3; ++i)
-    {
-        Safe_Release(m_pTextureCom_Fire[i]);     
-    }
 
     CGameObject::Free();
 }
 
-HRESULT CFire_Tall::Ready_Component()
+HRESULT CWaveRing::Ready_Component()
 {
     CManagement* pManagement = CManagement::GetInstance();
     if (nullptr == pManagement)
@@ -318,21 +214,10 @@ HRESULT CFire_Tall::Ready_Component()
     if (FAILED(Add_Component(L"Com_Shader", m_pShaderCom)))
         return E_FAIL;
 
-    m_pMeshCom = (CStatic_Mesh*)pManagement->Clone_Component(SCENE_STATIC, L"Component_EffectMesh_FireTall");
+    m_pMeshCom = (CStatic_Mesh*)pManagement->Clone_Component(SCENE_STATIC, L"Component_EffectMesh_WaveRing");
     if (FAILED(Add_Component(L"Com_Mesh", m_pMeshCom)))
         return E_FAIL;
 
-    m_pTextureCom_Fire[0] = (CTexture*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Texture_FireAlpha");
-    if (FAILED(Add_Component(L"Com_Texture_0", m_pTextureCom_Fire[0])))
-        return E_FAIL;
-
-    m_pTextureCom_Fire[1] = (CTexture*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Texture_Firefire");
-    if (FAILED(Add_Component(L"Com_Texture_1", m_pTextureCom_Fire[1])))
-        return E_FAIL;
-
-    m_pTextureCom_Fire[2] = (CTexture*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Texture_Firenoise");
-    if (FAILED(Add_Component(L"Com_Texture_2", m_pTextureCom_Fire[2])))
-        return E_FAIL;
     m_pShaderCom_PostEffect = (CShader*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Shader_Effect");
     if (FAILED(Add_Component(L"Com_Shader_PostEffect", m_pShaderCom_PostEffect)))
         return E_FAIL;
@@ -342,7 +227,7 @@ HRESULT CFire_Tall::Ready_Component()
     return S_OK;
 }
 
-HRESULT CFire_Tall::SetUp_ConstantTable(LPD3DXEFFECT pEffect, const _uint& iAttributeID)
+HRESULT CWaveRing::SetUp_ConstantTable(LPD3DXEFFECT pEffect, const _uint& iAttributeID)
 {
     m_pTransformCom->SetUp_OnShader(pEffect, "g_matWorld");
 
@@ -383,7 +268,7 @@ HRESULT CFire_Tall::SetUp_ConstantTable(LPD3DXEFFECT pEffect, const _uint& iAttr
     return S_OK;
 }
 
-HRESULT CFire_Tall::SetUp_ConstantTable_PostEffect(LPD3DXEFFECT pEffect, const _uint& iAttributeID)
+HRESULT CWaveRing::SetUp_ConstantTable_PostEffect(LPD3DXEFFECT pEffect, const _uint& iAttributeID)
 {
     m_pTransformCom->SetUp_OnShader(pEffect, "g_matWorld");
 

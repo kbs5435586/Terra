@@ -39,6 +39,9 @@
 // Effect
 #include "Fire_Tall.h"
 #include "Meteor_Stone.h"
+#include "BoomWave.h"
+#include "Range_Floor.h"
+#include "WaveRing.h"
 
 CScene_Logo::CScene_Logo(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CScene(pGraphic_Device)
@@ -137,6 +140,9 @@ HRESULT CScene_Logo::Ready_Component_Shader(CManagement* pManagement)
 		return E_FAIL;
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Shader_FireTall",
 		CShader::Create(m_pGraphic_Device, L"../Bin/ShaderFiles/Shader_FireTall.fx"))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Shader_Range",
+		CShader::Create(m_pGraphic_Device, L"../Bin/ShaderFiles/Shader_Range.fx"))))
 		return E_FAIL;
 	return S_OK;
 }
@@ -440,6 +446,15 @@ HRESULT CScene_Logo::Ready_Component_Mesh(CManagement* pManagement)
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_Meteor",
 		CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"Meteor_Stone.X"))))
 		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_BoomWave",
+		CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"BoomWave1.X"))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_RangeFloor",
+		CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"45big.X"))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_WaveRing",
+		CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"Plat_WaveRing.X"))))
+		return E_FAIL;
 	}
 	return S_OK;
 }
@@ -477,7 +492,7 @@ HRESULT CScene_Logo::Ready_Component_Texture(CManagement* pManagement)
 		return E_FAIL;
 
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Particle_Flame",
-		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Texture/Explosion/Explosion%d.png", 90))))
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Texture/Flame_Particle/%d.png", 61))))
 		return E_FAIL;
  	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Hatch",
 		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../Bin/Texture/Hatch/Hatch%d.dds",6))))
@@ -521,7 +536,12 @@ HRESULT CScene_Logo::Ready_Component_Texture(CManagement* pManagement)
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Hit",
 		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Texture/Hit/%d.png", 16))))
 		return E_FAIL;
-
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_FireSpark",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Texture/Hit/%d.png", 16))))
+		return E_FAIL;
+  	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Explosion",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Texture/Explosion/Explosion%d.png", 90))))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -594,6 +614,12 @@ HRESULT CScene_Logo::Ready_Prototype_GameObject()
 	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Effect_Fire_Tall", CFire_Tall::Create(m_pGraphic_Device))))
 		return E_FAIL;
 	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Effect_Meteor_Stone", CMeteor_Stone::Create(m_pGraphic_Device))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Effect_BoomWave", CBoomWave::Create(m_pGraphic_Device))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Effect_RangeFloor", CRange_Floor::Create(m_pGraphic_Device))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Effect_WaveRing", CWaveRing::Create(m_pGraphic_Device))))
 		return E_FAIL;
 	Safe_Release(pManagement);
 

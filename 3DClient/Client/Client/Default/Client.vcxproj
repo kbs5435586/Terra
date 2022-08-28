@@ -171,6 +171,7 @@
     <ClInclude Include="..\Headers\Base.h" />
     <ClInclude Include="..\Headers\Beatle.h" />
     <ClInclude Include="..\Headers\Bee.h" />
+    <ClInclude Include="..\Headers\BoomWave.h" />
     <ClInclude Include="..\Headers\Buffer_CubeTex.h" />
     <ClInclude Include="..\Headers\Buffer_RcTex.h" />
     <ClInclude Include="..\Headers\Buffer_Terrain.h" />
@@ -189,8 +190,10 @@
     <ClInclude Include="..\Headers\Device.h" />
     <ClInclude Include="..\Headers\Dynamic_Mesh.h" />
     <ClInclude Include="..\Headers\Enum.h" />
+    <ClInclude Include="..\Headers\Explosion.h" />
     <ClInclude Include="..\Headers\Extern.h" />
     <ClInclude Include="..\Headers\Fence.h" />
+    <ClInclude Include="..\Headers\FireSpark.h" />
     <ClInclude Include="..\Headers\Fire_Tall.h" />
     <ClInclude Include="..\Headers\Flower.h" />
     <ClInclude Include="..\Headers\Frame.h" />
@@ -221,6 +224,7 @@
     <ClInclude Include="..\Headers\ParticleSystem.h" />
     <ClInclude Include="..\Headers\Picking.h" />
     <ClInclude Include="..\Headers\Player.h" />
+    <ClInclude Include="..\Headers\Range_Floor.h" />
     <ClInclude Include="..\Headers\Renderer.h" />
     <ClInclude Include="..\Headers\Rock.h" />
     <ClInclude Include="..\Headers\Scene.h" />
@@ -250,6 +254,7 @@
     <ClInclude Include="..\Headers\Vergos.h" />
     <ClInclude Include="..\Headers\VIBuffer.h" />
     <ClInclude Include="..\Headers\Wall.h" />
+    <ClInclude Include="..\Headers\WaveRing.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -263,6 +268,7 @@
     <ClCompile Include="..\Codes\Base.cpp" />
     <ClCompile Include="..\Codes\Beatle.cpp" />
     <ClCompile Include="..\Codes\Bee.cpp" />
+    <ClCompile Include="..\Codes\BoomWave.cpp" />
     <ClCompile Include="..\Codes\Buffer_CubeTex.cpp" />
     <ClCompile Include="..\Codes\Buffer_RcTex.cpp" />
     <ClCompile Include="..\Codes\Buffer_Terrain.cpp" />
@@ -278,7 +284,9 @@
     <ClCompile Include="..\Codes\DamageFont.cpp" />
     <ClCompile Include="..\Codes\Device.cpp" />
     <ClCompile Include="..\Codes\Dynamic_Mesh.cpp" />
+    <ClCompile Include="..\Codes\Explosion.cpp" />
     <ClCompile Include="..\Codes\Fence.cpp" />
+    <ClCompile Include="..\Codes\FireSpark.cpp" />
     <ClCompile Include="..\Codes\Fire_Tall.cpp" />
     <ClCompile Include="..\Codes\Flower.cpp" />
     <ClCompile Include="..\Codes\Frame.cpp" />
@@ -306,6 +314,7 @@
     <ClCompile Include="..\Codes\ParticleSystem.cpp" />
     <ClCompile Include="..\Codes\Picking.cpp" />
     <ClCompile Include="..\Codes\Player.cpp" />
+    <ClCompile Include="..\Codes\Range_Floor.cpp" />
     <ClCompile Include="..\Codes\Renderer.cpp" />
     <ClCompile Include="..\Codes\Rock.cpp" />
     <ClCompile Include="..\Codes\Scene.cpp" />
@@ -333,6 +342,7 @@
     <ClCompile Include="..\Codes\Vergos.cpp" />
     <ClCompile Include="..\Codes\VIBuffer.cpp" />
     <ClCompile Include="..\Codes\Wall.cpp" />
+    <ClCompile Include="..\Codes\WaveRing.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -376,6 +386,10 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">2.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_Range.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="..\Bin\ShaderFiles\Shader_Shadow.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>

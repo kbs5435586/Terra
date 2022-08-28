@@ -316,6 +316,21 @@
     <Filter Include="02. GameObject\00. Mesh\02. Effect_Mesh\01. Meteor_Stone">
       <UniqueIdentifier>{16bddf10-fc44-422e-bf85-4fe8a6c6de9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\02. ParticleSystem\02. FireSpark">
+      <UniqueIdentifier>{d6ea1e00-c0f7-470a-b6f4-1b9a8b607532}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. ParticleSystem\03. Explosion">
+      <UniqueIdentifier>{fc192104-a22d-43fd-b77a-a6eade02b8ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\02. Effect_Mesh\02. BoomWave">
+      <UniqueIdentifier>{e8f823c8-aa0f-42a5-892d-fd612b5646be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\02. Effect_Mesh\03. Range_Floor">
+      <UniqueIdentifier>{2a6761fd-5a02-4126-823a-9e7df059d880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Mesh\02. Effect_Mesh\04. WaveRing">
+      <UniqueIdentifier>{e29d4b1e-c60f-45d9-980e-7aa23f528cdd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -588,6 +603,21 @@
     <ClInclude Include="..\Headers\Meteor_Stone.h">
       <Filter>02. GameObject\00. Mesh\02. Effect_Mesh\01. Meteor_Stone</Filter>
     </ClInclude>
+    <ClInclude Include="..\Headers\FireSpark.h">
+      <Filter>02. GameObject\02. ParticleSystem\02. FireSpark</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Explosion.h">
+      <Filter>02. GameObject\02. ParticleSystem\03. Explosion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\BoomWave.h">
+      <Filter>02. GameObject\00. Mesh\02. Effect_Mesh\02. BoomWave</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Range_Floor.h">
+      <Filter>02. GameObject\00. Mesh\02. Effect_Mesh\03. Range_Floor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\WaveRing.h">
+      <Filter>02. GameObject\00. Mesh\02. Effect_Mesh\04. WaveRing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -827,6 +857,21 @@
     <ClCompile Include="..\Codes\Meteor_Stone.cpp">
       <Filter>02. GameObject\00. Mesh\02. Effect_Mesh\01. Meteor_Stone</Filter>
     </ClCompile>
+    <ClCompile Include="..\Codes\FireSpark.cpp">
+      <Filter>02. GameObject\02. ParticleSystem\02. FireSpark</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Explosion.cpp">
+      <Filter>02. GameObject\02. ParticleSystem\03. Explosion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\BoomWave.cpp">
+      <Filter>02. GameObject\00. Mesh\02. Effect_Mesh\02. BoomWave</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Range_Floor.cpp">
+      <Filter>02. GameObject\00. Mesh\02. Effect_Mesh\03. Range_Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\WaveRing.cpp">
+      <Filter>02. GameObject\00. Mesh\02. Effect_Mesh\04. WaveRing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -887,6 +932,9 @@
       <Filter>96. ShaderFiles</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\ShaderFiles\Shader_FireTall.fx">
+      <Filter>96. ShaderFiles</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_Range.fx">
       <Filter>96. ShaderFiles</Filter>
     </FxCompile>
   </ItemGroup>

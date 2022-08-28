@@ -223,6 +223,8 @@ void CManagement::Key_Update()
 		m_dwKey |= KEY_F;
 	if (GetAsyncKeyState('G') & 0x8000)
 		m_dwKey |= KEY_G;
+	if (GetAsyncKeyState('R') & 0x8000)
+		m_dwKey |= KEY_R;
 
 }
 
