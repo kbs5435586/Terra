@@ -40,7 +40,7 @@ HRESULT CPlayer::Ready_GameObject(void* pArg)
 
 
 	if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_RangeFloor",
-		SCENE_STATIC, L"Layer_Range_Floor", m_pTransformCom->Get_Matrix())))
+		SCENE_STATIC, L"Layer_Range_Floor", m_pTransformCom)))
 		return E_FAIL; 
 
 	return S_OK;

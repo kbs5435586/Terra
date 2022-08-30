@@ -43,6 +43,6 @@ private:
 private:
 	_float					m_fLifeTime = 0.f;
 	_uint					m_iFirBallIdx = 0;
-	_matrix					m_matPlayer = {};
+	CTransform* m_pParentTransform = nullptr;
 };
 

@@ -28,16 +28,13 @@ HRESULT CRange_Floor::Ready_GameObject(void* pArg)
     if (FAILED(Ready_Component()))
         return E_FAIL;
 
-    _matrix matWorld = m_pTransformCom->Get_Matrix();
-
-
-    m_matPlayer = *(_matrix*)(pArg);
+    m_pParentTransform = (CTransform*)(pArg);
     m_pTransformCom->SetUp_Speed(100.f, D3DXToRadian(1360.f));
-    m_pTransformCom->Set_Matrix(m_matPlayer);
+    m_pTransformCom->Set_Matrix(m_pParentTransform->Get_Matrix());
     m_pTransformCom->Scaling(2.f,2.f,2.f);
     
     _vec3 vPos = *m_pTransformCom->Get_StateInfo(STATE_POSITION);
-    vPos.y += 4.f;
+    vPos.y += 1.f;
 
     m_pTransformCom->Set_StateInfo(STATE_POSITION, &vPos);
     return S_OK;
@@ -45,10 +42,15 @@ HRESULT CRange_Floor::Ready_GameObject(void* pArg)
 
 _int CRange_Floor::Update_GameObject(const _float& fTimeDelta)
 {
+    m_fAccTime += fTimeDelta;
     m_pPlayer = (CPlayer*)CManagement::GetInstance()->Get_BackObject(SCENE_STATIC, L"Layer_Player");
    
+    m_pTransformCom->Set_Matrix(m_pParentTransform->Get_Matrix());
+    m_pTransformCom->Scaling(2.f, 2.f, 2.f);
+    _vec3 vPos = *m_pTransformCom->Get_StateInfo(STATE_POSITION);
+    vPos.y += 1.f;
 
-
+    m_pTransformCom->Set_StateInfo(STATE_POSITION, &vPos);
     {
         /*if (m_fBazierCnt <= 1.f)
         {
@@ -227,6 +229,8 @@ HRESULT CRange_Floor::SetUp_ConstantTable(LPD3DXEFFECT pEffect, const _uint& iAt
     const SUBSETDESC* pSubSet = m_pMeshCom->Get_SubSetDesc(iAttributeID);
     if (nullptr == pSubSet)
         return E_FAIL;
+
+    pEffect->SetFloat("g_fAccTime", m_fAccTime);
 
     return S_OK;
 }

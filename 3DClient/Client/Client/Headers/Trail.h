@@ -20,6 +20,7 @@ public:
 	virtual _int			Update_GameObject(const _float & fTimeDelta);
 	virtual _int			LastUpdate_GameObject(const _float & fTimeDelta);
 	virtual void			Render_GameObject();
+	virtual void			Render_GameObject_PostEffect();
 public:
 	static	CTrail*			Create(LPDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CGameObject*	Clone_GameObject(void* pArg);
@@ -27,13 +28,17 @@ public:
 private:
 	HRESULT					Ready_Component();
 	HRESULT					SetUp_ConstantTable(LPD3DXEFFECT pEffect);
+	HRESULT					SetUp_ConstantTable_PostEffect(LPD3DXEFFECT pEffect);
 private:
 	void					Create_Trail(const _float& fTimeDelta);
+	void					Create_Trail_OutLine(const _float& fTimeDelta);
 private:
 	CBuffer_Trail*			m_pBufferCom = nullptr;
+	CBuffer_Trail*			m_pBufferCom_Out = nullptr;
 	CTransform*				m_pTransformCom = nullptr;
 	CRenderer*				m_pRendererCom = nullptr;
 	CShader*				m_pShaderCom = nullptr;
+	CShader*				m_pShaderCom_PostEffect = nullptr;
 	CTexture*				m_pTextureCom = nullptr;
 	CTexture*				m_pTextureCom_Mask = nullptr;
 private:
