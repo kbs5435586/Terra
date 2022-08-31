@@ -107,8 +107,8 @@ _int CRange_Floor::Update_GameObject(const _float& fTimeDelta)
 
 _int CRange_Floor::LastUpdate_GameObject(const _float& fTimeDelta)
 {
-    if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_ALPHA, this)))
-        return -1;
+  // if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_ALPHA, this)))
+  //     return -1;
 
 
     return _int();

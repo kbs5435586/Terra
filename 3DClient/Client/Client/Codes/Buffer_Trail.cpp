@@ -39,6 +39,10 @@ void CBuffer_Trail::Add_NewTrail(const _vec3& matUpPosition, const _vec3& matDow
 
 void CBuffer_Trail::Update_TrailBuffer(const _float& fTimeDelta, const _matrix& matWorld)
 {
+	//if (m_vecTrailData.size() <= 1)
+	//	return;
+
+
 	auto iter = m_vecTrailData.begin();
 	for (; iter != m_vecTrailData.end();)
 	{
@@ -73,8 +77,11 @@ void CBuffer_Trail::Update_TrailBuffer(const _float& fTimeDelta, const _matrix& 
 	m_fUVRate = 1.f / float(iIdx - 2);
 	for (UINT i = 0; i < iIdx; i += 2)
 	{
-		pVertex[i].vTexUV = _vec2(0.f, 1.f - (m_fUVRate * i));
-		pVertex[i + 1].vTexUV = _vec2(1.f, 1.f - (m_fUVRate * i));
+		//pVertex[i].vTexUV = _vec2(0.f, 1.f - (m_fUVRate * i));
+		//pVertex[i + 1].vTexUV = _vec2(1.f, 1.f - (m_fUVRate * i));
+
+		pVertex[i].vTexUV = _vec2(1.f - (m_fUVRate * i),0.f );
+		pVertex[i + 1].vTexUV = _vec2(1.f - (m_fUVRate * i), 1.f );
 	}
 
 	m_iCurVtxCnt = iIdx;

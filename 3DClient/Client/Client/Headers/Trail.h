@@ -44,7 +44,7 @@ private:
 private:
 	CPlayer*				m_pPlayer = nullptr;
 private:
-	_float					m_fDuration = 0.1f;
+	_float					m_fDuration = 0.01f;
 	_float					m_fCreateTime = 0.f;
 private:
 	_uint					m_iTextureIdx = 0;

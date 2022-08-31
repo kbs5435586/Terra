@@ -100,6 +100,7 @@ protected://Blur
 protected:
 	_matrix									m_matParent = {};;
 	_matrix									m_matTrail;
+	_matrix									m_matTrail_Out;
 	_float									m_fFrame = 0.f;
 protected:
 	_vec3									m_vSize;

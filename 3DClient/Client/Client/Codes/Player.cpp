@@ -34,7 +34,7 @@ HRESULT CPlayer::Ready_GameObject(void* pArg)
 	m_pTransformCom->Set_StateInfo(STATE_POSITION, &_vec3(30.f, 0.f, 30.f));
 //	m_pTransformCom->Set_StateInfo(STATE_POSITION, &_vec3(90.f, 0.f, 90.f));
 	m_eNavi = NAVI::NAVI_PLAYER;
-	m_eCurState = CPlayer::STATE_TWIN_SHOT;
+	m_eCurState = CPlayer::STATE_PL_WAIT;
 	m_IsOnce = false;
 	m_isAttack = false;
 
@@ -625,7 +625,11 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 
 	pManagement->AddRef();
 
-	if (pManagement->KeyDown(KEY_LBUTTON))
+	if (pManagement->KeyUp(KEY_LBUTTON))
+	{
+		m_isAttack = false;
+	}
+	else if (pManagement->KeyDown(KEY_LBUTTON))
 	{
 		m_IsOnce = true;
 		m_isCombo = true;
@@ -856,8 +860,8 @@ void CPlayer::End_Loop(const _float& fTimeDelta)
 	{
 		m_fOnIdleTime += fTimeDelta;
 		m_fAnimTime = m_pMeshCom->Get_AllTime();
-
-		if (m_fAnimTime - m_fOnIdleTime < 0.65f)
+		
+		if (m_fAnimTime - m_fOnIdleTime < 0.25f)
 		{
 			m_eCurState = CPlayer::STATE_PL_WAIT;
 			m_IsOnce = false;
@@ -978,7 +982,7 @@ void CPlayer::End_Loop(const _float& fTimeDelta)
 			}
 		}
 
-		//Elec
+		//TWIN
 		{
 
 			if (m_eCurState == CPlayer::STATE_TWIN_SHOT)

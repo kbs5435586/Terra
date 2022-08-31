@@ -48,10 +48,11 @@ _int CTrail::LastUpdate_GameObject(const _float& fTimeDelta)
 {
 	if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_ALPHA, this)))
 		return -1;
+	Create_Trail(fTimeDelta);
+
+
 	if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_POSTEFFECT, this)))
 		return -1;
-
-	Create_Trail(fTimeDelta);
 	Create_Trail_OutLine(fTimeDelta);
 
 	return _int();
@@ -213,10 +214,9 @@ HRESULT CTrail::SetUp_ConstantTable(LPD3DXEFFECT pEffect)
 	pEffect->SetMatrix("g_matProj", &matProj);
 	pEffect->SetFloat("g_fAccTime", m_fAccTime);
 
-	//m_pTextureCom->SetUp_OnShader(pEffect, "g_DiffuseTexture", 0);
-	m_pTextureCom_Mask->SetUp_OnShader(pEffect, "g_DiffuseTexture", 6);
-	//if (FAILED(m_pRendererCom->Get_TargetManager()->SetUp_OnShader(pEffect, L"Target_Diffuse", "g_PostEffect")))
-	//	return E_FAIL;
+	m_pTextureCom_Mask->SetUp_OnShader(pEffect, "g_DiffuseTexture", 5);
+	//m_pTextureCom_Mask->SetUp_OnShader(pEffect, "g_DiffuseTexture",4);
+
 
 	return S_OK;
 }
@@ -246,76 +246,44 @@ HRESULT CTrail::SetUp_ConstantTable_PostEffect(LPD3DXEFFECT pEffect)
 void CTrail::Create_Trail(const _float& fTimeDelta)
 {
 	CGameObject* pGameObject = CManagement::GetInstance()->Get_ObjectList(SCENEID::SCENE_STATIC, L"Layer_Shiraken")->front();
-	//_vec3 vMax = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetMax();
-	//_vec3 vMin = vMax * 1.5f;;
-	//_vec3 vMin = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetMin();
+
+	_vec3 vMax = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetMax();
+	_vec3 vMin = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetMin();
 
 
-	_vec3 vMax = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetPoint(0);
-	_vec3 vMin = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetPoint(5);
-	//vMax *= 0.25f;
-	//vMin *= 0.25f;
+
 
 	m_matTrail = pGameObject->GetTrailMat();
+	
 	m_pTransformCom->Set_Matrix(m_matTrail);
-
-	//_vec3 vUp = *dynamic_cast<CTransform*>(pGameObject->Get_ComponentPointer(L"Com_Transform"))->Get_StateInfo(STATE::STATE_UP);
-	//
-	//_vec3 vMax = *dynamic_cast<CTransform*>(pGameObject->Get_ComponentPointer(L"Com_Transform"))->Get_StateInfo(STATE::STATE_POSITION) +vUp*2 ;
-	//_vec3 vMin=  *dynamic_cast<CTransform*>(pGameObject->Get_ComponentPointer(L"Com_Transform"))->Get_StateInfo(STATE::STATE_POSITION) +vUp *-2;
 
 	D3DXVec3TransformCoord(&vMax, &vMax, &m_matTrail);
 	D3DXVec3TransformCoord(&vMin, &vMin, &m_matTrail);
 
-	if (m_pPlayer->GetIsAttack())
-	{
-		m_fCreateTime += fTimeDelta;
+	
 
-		if (m_fDuration <= m_fCreateTime)
-		{
-			dynamic_cast<CBuffer_Trail*>(m_pBufferCom)->Add_NewTrail(vMax, vMin);
-			m_fCreateTime = 0.f;
-		}
-
-	}
-	else
-	{
-		dynamic_cast<CBuffer_Trail*>(m_pBufferCom)->Trail_AllDetelte();
-	}
-
-
-
+	dynamic_cast<CBuffer_Trail*>(m_pBufferCom)->Add_NewTrail(vMax, vMin);
 	dynamic_cast<CBuffer_Trail*>(m_pBufferCom)->Update_TrailBuffer(fTimeDelta, m_matTrail);
 }
 
 void CTrail::Create_Trail_OutLine(const _float& fTimeDelta)
 {
 	CGameObject* pGameObject = CManagement::GetInstance()->Get_ObjectList(SCENEID::SCENE_STATIC, L"Layer_Shiraken")->front();
-	//_vec3 vMax = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetMax();
-	//_vec3 vMin = vMax * 1.5f;;
-	//_vec3 vMin = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetMin();
 
 
 	_vec3 vMax = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetPoint(0);
 	_vec3 vMin = dynamic_cast<CCollider*>(pGameObject->Get_ComponentPointer(L"Com_Collider_OBB"))->GetPoint(8);
 	
-	//vMax *= 0.25f;
-	//vMin *= 0.25f;
+	m_matTrail_Out = pGameObject->GetTrailMat();
+	m_pTransformCom->Set_Matrix(m_matTrail_Out);
 
-	m_matTrail = pGameObject->GetTrailMat();
-	m_pTransformCom->Set_Matrix(m_matTrail);
 
-	//_vec3 vUp = *dynamic_cast<CTransform*>(pGameObject->Get_ComponentPointer(L"Com_Transform"))->Get_StateInfo(STATE::STATE_UP);
-	//
-	//_vec3 vMax = *dynamic_cast<CTransform*>(pGameObject->Get_ComponentPointer(L"Com_Transform"))->Get_StateInfo(STATE::STATE_POSITION) +vUp*2 ;
-	//_vec3 vMin=  *dynamic_cast<CTransform*>(pGameObject->Get_ComponentPointer(L"Com_Transform"))->Get_StateInfo(STATE::STATE_POSITION) +vUp *-2;
-
-	D3DXVec3TransformCoord(&vMax, &vMax, &m_matTrail);
-	D3DXVec3TransformCoord(&vMin, &vMin, &m_matTrail);
+	D3DXVec3TransformCoord(&vMax, &vMax, &m_matTrail_Out);
+	D3DXVec3TransformCoord(&vMin, &vMin, &m_matTrail_Out);
 
 	if (m_pPlayer->GetIsAttack())
 	{
-		m_fCreateTime += fTimeDelta;
+ 		m_fCreateTime += fTimeDelta;
 
 		if (m_fDuration <= m_fCreateTime)
 		{
@@ -330,6 +298,5 @@ void CTrail::Create_Trail_OutLine(const _float& fTimeDelta)
 	}
 
 
-
-	dynamic_cast<CBuffer_Trail*>(m_pBufferCom_Out)->Update_TrailBuffer(fTimeDelta, m_matTrail);
+	dynamic_cast<CBuffer_Trail*>(m_pBufferCom_Out)->Update_TrailBuffer(fTimeDelta, m_matTrail_Out);
 }
