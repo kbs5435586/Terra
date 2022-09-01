@@ -42,7 +42,9 @@ private:
 	DISTORTION				m_tDistortion = {};
 private:
 	_float					m_fLifeTime = 0.f;
+	const _float			m_fMaxGageTime = 3.f;
 	_uint					m_iFirBallIdx = 0;
-	CTransform* m_pParentTransform = nullptr;
+
+	CTransform*				m_pParentTransform = nullptr;
 };
 

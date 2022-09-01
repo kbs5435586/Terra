@@ -51,9 +51,9 @@ _int CTrail::LastUpdate_GameObject(const _float& fTimeDelta)
 	Create_Trail(fTimeDelta);
 
 
-	if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_POSTEFFECT, this)))
-		return -1;
-	Create_Trail_OutLine(fTimeDelta);
+	//if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_POSTEFFECT, this)))
+	//	return -1;
+	//Create_Trail_OutLine(fTimeDelta);
 
 	return _int();
 }

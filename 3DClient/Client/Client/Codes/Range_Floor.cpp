@@ -42,7 +42,9 @@ HRESULT CRange_Floor::Ready_GameObject(void* pArg)
 
 _int CRange_Floor::Update_GameObject(const _float& fTimeDelta)
 {
-    m_fAccTime += fTimeDelta;
+    if(m_fAccTime<= m_fMaxGageTime)
+        m_fAccTime += fTimeDelta;
+
     m_pPlayer = (CPlayer*)CManagement::GetInstance()->Get_BackObject(SCENE_STATIC, L"Layer_Player");
    
     m_pTransformCom->Set_Matrix(m_pParentTransform->Get_Matrix());
@@ -107,8 +109,8 @@ _int CRange_Floor::Update_GameObject(const _float& fTimeDelta)
 
 _int CRange_Floor::LastUpdate_GameObject(const _float& fTimeDelta)
 {
-  // if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_ALPHA, this)))
-  //     return -1;
+    if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_ALPHA, this)))
+        return -1;
 
 
     return _int();
@@ -192,7 +194,7 @@ HRESULT CRange_Floor::Ready_Component()
     if (FAILED(Add_Component(L"Com_Renderer", m_pRendererCom)))
         return E_FAIL;
 
-    m_pTextureCom = (CTexture*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Texture_Trail");
+    m_pTextureCom = (CTexture*)pManagement->Clone_Component(SCENE_STATIC, L"Component_Texture_Test");
     if (FAILED(Add_Component(L"Com_Texture", m_pTextureCom)))
         return E_FAIL;
 
@@ -230,8 +232,11 @@ HRESULT CRange_Floor::SetUp_ConstantTable(LPD3DXEFFECT pEffect, const _uint& iAt
     if (nullptr == pSubSet)
         return E_FAIL;
 
+    pEffect->SetFloat("g_fMaxGageTime", (m_fMaxGageTime-1.f)*-1.f);
     pEffect->SetFloat("g_fAccTime", m_fAccTime);
 
+
+    m_pTextureCom->SetUp_OnShader(pEffect,"g_DiffuseTexture", 0);
     return S_OK;
 }
 

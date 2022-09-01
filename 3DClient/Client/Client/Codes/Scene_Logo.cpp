@@ -542,7 +542,9 @@ HRESULT CScene_Logo::Ready_Component_Texture(CManagement* pManagement)
   	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Explosion",
 		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Texture/Explosion/Explosion%d.png", 90))))
 		return E_FAIL;
-
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Test",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/Test/Test%d.png", 1))))
+		return E_FAIL;
 	return S_OK;
 }
 
