@@ -7,6 +7,8 @@ class CShader;
 class CNavi;
 class CCollider;
 class CTexture;
+class CRange_Floor;
+
 
 class CPlayer :
 	public CGameObject
@@ -73,10 +75,12 @@ private:
 	CTexture*				m_pTextureCom_Hatch = nullptr;
 	CCollider*				m_pColliderCom[2] = {nullptr, nullptr};
 private:
+	CRange_Floor*			m_pRange = nullptr;
+private:
 	STATE_					m_eCurState = STATE_END;
 	STATE_					m_ePreState = STATE_END;
 	SCENEID					m_eCurScene = SCENE_END;
-	NAVI					m_eNavi = NAVI::NAVI_END;
+
 private:
 	_float					m_fComboMaxTime = 1.;
 	_float					m_fComboTime = 0.f;
@@ -102,8 +106,6 @@ public:
 	_bool&					GetIsMiniThrow(){return m_isMiniThrow;}
 	_bool					GetIsAttack() { return m_isAttack; }
 	_float&					GetThrowPower(){return m_fThrowPower;}
-	
-
 
 private:
 	bool		test_Input = false;

@@ -33,6 +33,7 @@ private:
 	SUBSETDESC*					m_pSubSetDesc = nullptr;
 private:
 	_vec3						m_vMin, m_vMax;
+	_matrix						m_matPivot;
 
 };
 

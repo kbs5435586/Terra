@@ -224,6 +224,7 @@
     <ClInclude Include="..\Headers\ParticleSystem.h" />
     <ClInclude Include="..\Headers\Picking.h" />
     <ClInclude Include="..\Headers\Player.h" />
+    <ClInclude Include="..\Headers\PostEffectBuffer.h" />
     <ClInclude Include="..\Headers\Range_Floor.h" />
     <ClInclude Include="..\Headers\Renderer.h" />
     <ClInclude Include="..\Headers\Rock.h" />
@@ -237,6 +238,7 @@
     <ClInclude Include="..\Headers\Snow.h" />
     <ClInclude Include="..\Headers\Spark.h" />
     <ClInclude Include="..\Headers\Static_Mesh.h" />
+    <ClInclude Include="..\Headers\Arrow.h" />
     <ClInclude Include="..\Headers\Struct.h" />
     <ClInclude Include="..\Headers\Sword.h" />
     <ClInclude Include="..\Headers\System.h" />
@@ -314,6 +316,7 @@
     <ClCompile Include="..\Codes\ParticleSystem.cpp" />
     <ClCompile Include="..\Codes\Picking.cpp" />
     <ClCompile Include="..\Codes\Player.cpp" />
+    <ClCompile Include="..\Codes\PostEffectBuffer.cpp" />
     <ClCompile Include="..\Codes\Range_Floor.cpp" />
     <ClCompile Include="..\Codes\Renderer.cpp" />
     <ClCompile Include="..\Codes\Rock.cpp" />
@@ -327,6 +330,7 @@
     <ClCompile Include="..\Codes\Snow.cpp" />
     <ClCompile Include="..\Codes\Spark.cpp" />
     <ClCompile Include="..\Codes\Static_Mesh.cpp" />
+    <ClCompile Include="..\Codes\Arrow.cpp" />
     <ClCompile Include="..\Codes\Sword.cpp" />
     <ClCompile Include="..\Codes\System.cpp" />
     <ClCompile Include="..\Codes\Target.cpp" />

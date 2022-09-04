@@ -148,6 +148,37 @@ void CGameObject::Hit_Object(CTransform* pTransform, _float& fCnt, _vec3 vStart,
 	fCnt += fTimeDelta;
 }
 
+void CGameObject::Hit_Arrow(CTransform* pTransform, _float& fCnt, _vec3 vStart, _vec3 vEnd, _vec3 vMid, const float& fTimeDelta, const _vec3& vSizs)
+{
+	_float fX = (pow((1.f - fCnt), 2) * vStart.x) + (2 * fCnt * (1.f - fCnt) * vMid.x) + (pow(fCnt, 2) * vEnd.x);
+	_float fY = (pow((1.f - fCnt), 2) * vStart.y) + (2 * fCnt * (1.f - fCnt) * vMid.y) + (pow(fCnt, 2) * vEnd.y);
+	_float fZ = (pow((1.f - fCnt), 2) * vStart.z) + (2 * fCnt * (1.f - fCnt) * vMid.z) + (pow(fCnt, 2) * vEnd.z);
+
+
+	pTransform->Set_StateInfo(STATE_POSITION, &_vec3(fX, fY, fZ));
+
+
+	_vec3 vNewLook = vEnd - *pTransform->Get_StateInfo(STATE::STATE_POSITION);
+	D3DXVec3Normalize(&vNewLook, &vNewLook);
+
+	_vec3 vAxisY = _vec3(0.f, 1.f, 0.f);
+	_vec3 vNewRight;
+	D3DXVec3Cross(&vNewRight, &vAxisY, &vNewLook);
+	D3DXVec3Normalize(&vNewRight, &vNewRight);
+
+	_vec3 vNewUp;;
+
+	D3DXVec3Cross(&vNewUp, &vNewLook, &vNewRight);
+	D3DXVec3Normalize(&vNewUp, &vNewUp);
+
+	pTransform->Set_StateInfo(STATE::STATE_RIGHT, &vNewRight);
+	pTransform->Set_StateInfo(STATE::STATE_UP, &vNewUp);
+	pTransform->Set_StateInfo(STATE::STATE_LOOK, &vNewLook);
+	pTransform->Scaling(vSizs);
+	//pTransform->SetUp_RotationY(D3DXToRadian(-90.f));
+	fCnt += fTimeDelta;
+}
+
 CComponent* CGameObject::Get_ComponentPointer(const _tchar* pComponentTag)
 {
 	CComponent* pComponent = Find_Component(pComponentTag);
@@ -181,6 +212,23 @@ CComponent* CGameObject::Find_Component(const _tchar* pComponentTag)
 		return nullptr;
 
 	return iter->second;
+}
+
+_float CGameObject::GetRandom_Float(_float fLowBound, _float fHighBound)
+{
+	if (fLowBound >= fHighBound)
+		return fLowBound;
+
+	float f = (rand() % 10000) * 0.0001f;
+
+	return (f * (fHighBound - fLowBound)) + fLowBound;
+}
+
+void CGameObject::GetRandom_Vector(_vec3& vOut, _vec3& vMin, _vec3& vMax)
+{
+	vOut.x = GetRandom_Float(vMin.x, vMax.x);
+	//vOut.y = GetRandom_Float(vMin.y, vMax.y);
+	vOut.z = GetRandom_Float(vMin.z, vMax.z);
 }
 
 void CGameObject::Free()

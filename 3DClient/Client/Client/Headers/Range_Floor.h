@@ -28,6 +28,9 @@ public:
 private:
 	HRESULT					Ready_Component();
 	HRESULT					SetUp_ConstantTable(LPD3DXEFFECT pEffect, const _uint& iAttributeID);
+public:
+	_bool&					GetIsFire(){return m_isFire;}
+	_bool&					GetIsRender(){return m_IsRender;}
 private:
 	CTransform*				m_pTransformCom = nullptr;
 	CRenderer*				m_pRendererCom = nullptr;
@@ -36,15 +39,19 @@ private:
 	CTexture*				m_pTextureCom = nullptr;
 	CTexture*				m_pTextureCom_Fire[3] = { nullptr, };
 	CStatic_Mesh*			m_pMeshCom = nullptr;
+	CTransform*				m_pParentTransform = nullptr;
 private:
 	CPlayer*				m_pPlayer = nullptr;
 	TEXINFO					m_tTexInfo = {};
 	DISTORTION				m_tDistortion = {};
 private:
 	_float					m_fLifeTime = 0.f;
-	const _float			m_fMaxGageTime = 3.f;
+	const _float			m_fMaxGageTime = 2.f;
 	_uint					m_iFirBallIdx = 0;
+private:
+	_bool					m_isFire = false;
+	_bool					m_IsRender = false;
 
-	CTransform*				m_pParentTransform = nullptr;
+
 };
 

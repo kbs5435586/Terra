@@ -42,6 +42,8 @@
 #include "BoomWave.h"
 #include "Range_Floor.h"
 #include "WaveRing.h"
+#include "Arrow.h"
+#include "PostEffectBuffer.h"
 
 CScene_Logo::CScene_Logo(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CScene(pGraphic_Device)
@@ -150,7 +152,7 @@ HRESULT CScene_Logo::Ready_Component_Shader(CManagement* pManagement)
 HRESULT CScene_Logo::Ready_Component_Mesh(CManagement* pManagement)
 {
 	{
- 		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Mesh_Player",
+		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Mesh_Player",
 			CDynamic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Mesh/DynamicMesh/PoPori/", L"PoPori.X"))))
 			return E_FAIL;
 		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_StaticMesh_Shiraken1",
@@ -165,7 +167,7 @@ HRESULT CScene_Logo::Ready_Component_Mesh(CManagement* pManagement)
 		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_StaticMesh_Shiraken4",
 			CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Mesh/StaticMesh/Shiraken/Shiraken4/", L"Shiraken4.X"))))
 			return E_FAIL;
-  		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_StaticMesh_Sword",
+		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_StaticMesh_Sword",
 			CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Mesh/StaticMesh/Sword/", L"Sword.X"))))
 			return E_FAIL;
 	}
@@ -440,21 +442,24 @@ HRESULT CScene_Logo::Ready_Component_Mesh(CManagement* pManagement)
 
 
 	{
-	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_FireTall",
-		CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"Mesh_FireTail.X"))))
-		return E_FAIL;
-	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_Meteor",
-		CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"Meteor_Stone.X"))))
-		return E_FAIL;
-	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_BoomWave",
-		CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"BoomWave1.X"))))
-		return E_FAIL;
-	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_RangeFloor",
-		CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"45big.X"))))
-		return E_FAIL;
-	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_WaveRing",
-		CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"Plat_WaveRing.X"))))
-		return E_FAIL;
+		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_FireTall",
+			CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"Mesh_FireTail.X"))))
+			return E_FAIL;
+		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_Meteor",
+			CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"Meteor_Stone.X"))))
+			return E_FAIL;
+		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_BoomWave",
+			CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"BoomWave1.X"))))
+			return E_FAIL;
+		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_RangeFloor",
+			CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"45big.X"))))
+			return E_FAIL;
+		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_WaveRing",
+			CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Effect/EffectMesh/", L"Plat_WaveRing.X"))))
+			return E_FAIL;
+		if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_EffectMesh_Arrow",
+			CStatic_Mesh::Create(m_pGraphic_Device, L"../../Resource/Mesh/StaticMesh/Arrow/", L"Arrow.X"))))
+			return E_FAIL;
 	}
 	return S_OK;
 }
@@ -463,6 +468,9 @@ HRESULT CScene_Logo::Ready_Component_Buffer(CManagement* pManagement)
 {
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Buffer_CubeTex",
 		CBuffer_CubeTex::Create(m_pGraphic_Device))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Buffer_RectTex",
+		CBuffer_RcTex::Create(m_pGraphic_Device))))
 		return E_FAIL;
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Buffer_Terrain_TF",
 		CBuffer_Terrain::Create(m_pGraphic_Device, (_uint)300.f, (_uint)400.f, 1.f)/**/)))
@@ -494,15 +502,15 @@ HRESULT CScene_Logo::Ready_Component_Texture(CManagement* pManagement)
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Particle_Flame",
 		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Texture/Flame_Particle/%d.png", 61))))
 		return E_FAIL;
- 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Hatch",
-		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../Bin/Texture/Hatch/Hatch%d.dds",6))))
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Hatch",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../Bin/Texture/Hatch/Hatch%d.dds", 6))))
 		return E_FAIL;
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Mask",
 		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/Mask/MMask_0%d.tga", 9))))
 		return E_FAIL;
 
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Trail",
-		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/Effect/TRAIL_0%d.tga",8))))
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/Effect/TRAIL_0%d.tga", 8))))
 		return E_FAIL;
 
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_HP",
@@ -539,11 +547,14 @@ HRESULT CScene_Logo::Ready_Component_Texture(CManagement* pManagement)
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_FireSpark",
 		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Texture/Hit/%d.png", 16))))
 		return E_FAIL;
-  	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Explosion",
+	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Explosion",
 		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Effect/Texture/Explosion/Explosion%d.png", 90))))
 		return E_FAIL;
 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Test",
 		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Texture/Test/Test%d.png", 1))))
+		return E_FAIL;
+ 	if (FAILED(pManagement->Add_Prototype_Component(SCENE_STATIC, L"Component_Texture_Arrow",
+		CTexture::Create(m_pGraphic_Device, TEXTURE_TYPE_GENERAL, L"../../Resource/Mesh/StaticMesh/Arrow/UD_Standard_Units%d.png", 1))))
 		return E_FAIL;
 	return S_OK;
 }
@@ -622,6 +633,10 @@ HRESULT CScene_Logo::Ready_Prototype_GameObject()
 	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Effect_RangeFloor", CRange_Floor::Create(m_pGraphic_Device))))
 		return E_FAIL;
 	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Effect_WaveRing", CWaveRing::Create(m_pGraphic_Device))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_Effect_Arrow", CArrow::Create(m_pGraphic_Device))))
+		return E_FAIL;
+	if (FAILED(pManagement->Add_Prototype_GameObject(L"GameObject_PostEffectBuffer", CPostEffectBuffer::Create(m_pGraphic_Device))))
 		return E_FAIL;
 	Safe_Release(pManagement);
 

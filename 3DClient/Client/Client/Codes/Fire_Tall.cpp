@@ -83,13 +83,13 @@ HRESULT CFire_Tall::Ready_GameObject(void* pArg)
     _vec3 vPos = *((CTransform*)CManagement::GetInstance()->Get_ComponentPointer(SCENE_STATIC,
         L"Layer_Player", L"Com_Transform"))->Get_StateInfo(STATE::STATE_POSITION);
     m_pTransformCom->Set_StateInfo(STATE::STATE_POSITION, &vPos);
-    m_pTransformCom->SetUp_Speed(100.f, D3DXToRadian(1360.f));
+    m_pTransformCom->SetUp_Speed(100.f, D3DXToRadian(120.f));
     m_pParentTransform = (CTransform*)pArg;
 
     m_vSize = m_pTransformCom->Get_Scale();
 
     m_pTransformCom->SetUp_RotationY(D3DXToRadian(90.f));
-
+    m_pTransformCom->Scaling(0.02f, 0.02f, 0.02f);
 
     {
         m_tTexInfo.vScrollSpeed = _vec3(1.3f, 2.1f, 2.3f);
@@ -122,7 +122,7 @@ _int CFire_Tall::Update_GameObject(const _float& fTimeDelta)
     _vec3 vPos = *m_pParentTransform->Get_StateInfo(STATE::STATE_POSITION);
     m_pTransformCom->Go_ToTarget(&vPos, fTimeDelta);
 
-    if (m_fLifeTime >= 1.4f)
+    if (m_fLifeTime >= 5.f)
          return DEAD_OBJ;
 
     {

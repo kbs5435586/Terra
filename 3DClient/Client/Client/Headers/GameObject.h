@@ -27,6 +27,7 @@ protected:
 	void									Obb_Collision(CTransform* pTransform, const _float& fAddY = 0.f);
 	void									Hit_Object(CTransform* pTransform, _float& fCnt, _vec3 vStart, _vec3 vEnd, _vec3 vMid);
 	void									Hit_Object(CTransform* pTransform, _float& fCnt, _vec3 vStart, _vec3 vEnd, _vec3 vMid, const float& fTimeDelta, const _vec3& vSizs);
+	void									Hit_Arrow(CTransform* pTransform, _float& fCnt, _vec3 vStart, _vec3 vEnd, _vec3 vMid, const float& fTimeDelta, const _vec3& vSizs);
 public:
 	LPDIRECT3DDEVICE9						Get_Device() { return m_pGraphic_Device; }
 public:
@@ -104,6 +105,8 @@ protected:
 	_float									m_fFrame = 0.f;
 protected:
 	_vec3									m_vSize;
+protected:
+	NAVI									m_eNavi = NAVI::NAVI_END;
 public:
 	vector<CCollider*>&						GetColliderBone(){return m_vecCollider_Bone;}
 public:
@@ -125,6 +128,10 @@ public:
 	_float&									GetCollisionAccTime() {return m_fCollisionAccTime;	}
 	_vec3&									GetCollisionPos(){return m_vCollisionPos;}
 	_bool&									GetIsPlayerCollision(){return m_IsPlayer_Particle;}
+	_float&									GetAccTime() {return m_fAccTime;}
+public:
+	_float									GetRandom_Float(_float fLowBound, _float fHighBound);
+	void									GetRandom_Vector(_vec3& vOut, _vec3& vMin, _vec3& vMax);
 protected:
 	virtual void							Free();
 };

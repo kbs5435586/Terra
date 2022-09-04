@@ -5,6 +5,8 @@
 #include "Target_Manager.h"
 #include "Target.h"
 #include "ParticleSystem.h"
+#include "Range_Floor.h"
+#include "Arrow.h"
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CGameObject(pGraphic_Device)
 {
@@ -42,6 +44,11 @@ HRESULT CPlayer::Ready_GameObject(void* pArg)
 	if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_RangeFloor",
 		SCENE_STATIC, L"Layer_Range_Floor", m_pTransformCom)))
 		return E_FAIL; 
+	m_pRange = (CRange_Floor*)CManagement::GetInstance()->Get_BackObject(SCENE_STATIC,L"Layer_Range_Floor");
+	if (nullptr == m_pRange)
+		return E_FAIL;
+
+
 
 	return S_OK;
 }
@@ -790,6 +797,28 @@ void CPlayer::Input_Key(const _float& fTimeDelta)
 		Fire();
 	}
 
+	if (pManagement->KeyUp(KEY_R))
+	{
+		m_pRange->GetAccTime()=0.f;
+		m_pRange->GetIsRender() = false;
+	}
+	else if (pManagement->KeyPressing(KEY_R))
+	{
+		m_pRange->GetAccTime() += fTimeDelta;
+		
+		m_pRange->GetIsRender() = true;
+
+		if (m_pRange->GetIsFire())
+		{
+			m_IsOnce = true;
+			m_eCurState = STATE_CALL_ELEC;
+
+			
+			m_pRange->GetIsFire() = false;
+			m_pRange->GetAccTime() = 0.f;
+		}
+	}
+
 
 
 
@@ -897,6 +926,18 @@ void CPlayer::End_Loop(const _float& fTimeDelta)
 			m_eCurState = CPlayer::STATE_FIRE_READY;
 		}
 	}
+	if (m_pMeshCom->Get_CurrentState() == CPlayer::STATE_ELEC_END)
+	{
+		m_fOnIdleTime += fTimeDelta;
+		m_fAnimTime = m_pMeshCom->Get_AllTime();
+
+		if (m_fAnimTime - m_fOnIdleTime < 0.25f)
+		{
+			m_pRange->GetAccTime() = 0.f;
+			m_eCurState = CPlayer::STATE_PL_WAIT;
+			m_IsOnce = false;
+		}
+	}
 
 	if (m_IsOnce && m_pMeshCom->Get_EndLoop())
 	{
@@ -987,14 +1028,52 @@ void CPlayer::End_Loop(const _float& fTimeDelta)
 
 			if (m_eCurState == CPlayer::STATE_TWIN_SHOT)
 			{
+				m_IsOnce = true;
 
 				m_eCurState = CPlayer::STATE_TWIN_R;
 			}
 			else if (m_eCurState == CPlayer::STATE_TWIN_START)
 			{
+				m_IsOnce = true;
 				m_isThrow ^= true;
 				m_eCurState = CPlayer::STATE_TWIN_SHOT;
 			}
+		}
+
+		//Elec
+		{
+			if (m_eCurState == CPlayer::STATE_CALL_ELEC_LOOP)
+			{
+				m_IsOnce = true;
+				m_eCurState = CPlayer::STATE_ELEC_END;
+
+				for (auto& iter : *CManagement::GetInstance()->Get_ObjectList(SCENE_STATIC, L"Layer_Arrow"))
+				{
+					dynamic_cast<CArrow*>(iter)->GetIsFire() = true;
+				}
+
+			}
+			else if (m_eCurState == CPlayer::STATE_CALL_ELEC)
+			{
+				for (int i = 0; i < 50; ++i)
+				{
+					_matrix matWorld = m_pTransformCom->Get_Matrix();
+					_vec3 vPos = _vec3(matWorld._41, matWorld._42 + 6.f, matWorld._43);
+					_vec3 vMin = _vec3(vPos.x - 9.f, vPos.y + 2.f, vPos.z - 9.f);
+					_vec3 vMax = _vec3(vPos.x + 9.f, vPos.y + 5.f, vPos.z + 9.f);
+					GetRandom_Vector(vPos, vMin, vMax);
+
+
+					memcpy(&matWorld.m[3][0], vPos, sizeof(_vec3));
+					if (FAILED(CManagement::GetInstance()->Add_GameObjectToLayer(L"GameObject_Effect_Arrow",
+						SCENE_STATIC, L"Layer_Arrow", matWorld)))
+						return;
+
+				}
+				m_IsOnce = true;
+				m_eCurState = CPlayer::STATE_CALL_ELEC_LOOP;
+			}
+
 		}
 
 		//Combo7

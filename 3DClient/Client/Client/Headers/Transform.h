@@ -40,6 +40,7 @@ public:
 	void				SetUp_RotationY(const _float& fRadian);
 	void				SetUp_RotationZ(const _float& fRadian);
 	void				SetUp_RotationX(_matrix matWorld, const _float& fTimeDelta);
+
 	void				Rotation_X(const _float& fTimeDelta);
 	void				Rotation_Y(const _float& fTimeDelta);
 	void				Rotation_Z(const _float& fTimeDelta);

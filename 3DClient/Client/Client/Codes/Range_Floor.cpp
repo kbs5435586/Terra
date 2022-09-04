@@ -42,8 +42,11 @@ HRESULT CRange_Floor::Ready_GameObject(void* pArg)
 
 _int CRange_Floor::Update_GameObject(const _float& fTimeDelta)
 {
-    if(m_fAccTime<= m_fMaxGageTime)
-        m_fAccTime += fTimeDelta;
+    if (m_fAccTime >= m_fMaxGageTime)
+    {
+        m_isFire = true;
+        m_IsRender = false;
+    }
 
     m_pPlayer = (CPlayer*)CManagement::GetInstance()->Get_BackObject(SCENE_STATIC, L"Layer_Player");
    
@@ -109,8 +112,12 @@ _int CRange_Floor::Update_GameObject(const _float& fTimeDelta)
 
 _int CRange_Floor::LastUpdate_GameObject(const _float& fTimeDelta)
 {
-    if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_ALPHA, this)))
-        return -1;
+    if (m_IsRender)
+    {
+        if (FAILED(m_pRendererCom->Add_RenderGroup(RENDER_ALPHA, this)))
+            return -1;
+    }
+
 
 
     return _int();
@@ -232,8 +239,8 @@ HRESULT CRange_Floor::SetUp_ConstantTable(LPD3DXEFFECT pEffect, const _uint& iAt
     if (nullptr == pSubSet)
         return E_FAIL;
 
-    pEffect->SetFloat("g_fMaxGageTime", (m_fMaxGageTime-1.f)*-1.f);
     pEffect->SetFloat("g_fAccTime", m_fAccTime);
+    pEffect->SetFloat("g_fMaxTime", m_fMaxGageTime);
 
 
     m_pTextureCom->SetUp_OnShader(pEffect,"g_DiffuseTexture", 0);

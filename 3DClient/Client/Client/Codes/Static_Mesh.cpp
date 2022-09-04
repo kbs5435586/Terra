@@ -40,6 +40,7 @@ HRESULT CStatic_Mesh::Ready_Mesh_Static(const _tchar * pFilePath, const _tchar *
 	if (FAILED(D3DXLoadMeshFromX(szFullPath, 0, m_pGraphic_Device, &m_pAdjacency, &m_pMaterials, nullptr, &m_dwNumMaterials, &pMesh)))
 		return E_FAIL;
 
+	D3DXMatrixRotationY(&m_matPivot, D3DXToRadian(270.f));
 	m_pSubSetDesc = new SUBSETDESC[m_dwNumMaterials];
 	ZeroMemory(m_pSubSetDesc, sizeof(SUBSETDESC) * m_dwNumMaterials);
 
@@ -111,6 +112,7 @@ HRESULT CStatic_Mesh::Ready_Mesh_Static(const _tchar * pFilePath, const _tchar *
 
 	m_pMesh->GetDeclaration(Element);
 
+	
 	for (size_t i = 0; i < MAX_FVF_DECL_SIZE; ++i)
 	{
 		if (D3DDECLUSAGE_POSITION == Element[i].Usage)
@@ -119,6 +121,7 @@ HRESULT CStatic_Mesh::Ready_Mesh_Static(const _tchar * pFilePath, const _tchar *
 			break;
 		}
 	}
+
 
 
 	void*			pVertices = nullptr;
